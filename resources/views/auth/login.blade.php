@@ -16,6 +16,17 @@
                 </div>
                 <!--end::Login Header-->
 
+                
+
+                @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                        <div class="alert alert-custom alert-danger" role="alert">
+                            <div class="alert-icon"><i class="flaticon-questions-circular-button"></i></div>
+                            <div class="alert-text">{{ $error }}</div>
+                        </div>
+                        @endforeach
+                @endif
+
                 <!--begin::Login Sign in form-->
                 <div class="login-signin">
                     <div class="mb-20">
@@ -29,12 +40,13 @@
                         <div class="form-group">
                             <input
                                 class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
-                                type="text" placeholder="پست الکترونیک" name="email" autocomplete="off" value="{{ old('email') }}"/>
+                                type="text" placeholder="پست الکترونیک" name="email" autocomplete="off"
+                                value="{{ old('email') }}" />
                         </div>
                         <div class="form-group">
                             <input
                                 class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8 mb-5"
-                                type="password" placeholder="کلمه عبور" name="password" value="{{ old('password') }}"/>
+                                type="password" placeholder="کلمه عبور" name="password" value="{{ old('password') }}" />
                         </div>
                         <div class="form-group d-flex flex-wrap justify-content-between align-items-center px-8">
                             <div class="checkbox-inline">
@@ -56,7 +68,8 @@
                         <span class="opacity-70 mr-4">
                             حساب کاربری ندارید؟
                         </span>
-                        <a href="{{ route('register') }}" id="kt_login_signup" class="text-white font-weight-bold">ثبت نام</a>
+                        <a href="{{ route('register') }}" id="kt_login_signup" class="text-white font-weight-bold">ثبت
+                            نام</a>
                     </div>
                 </div>
                 <!--end::Login Sign in form-->

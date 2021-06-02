@@ -16,7 +16,7 @@ use Spatie\Permission\Models\Permission;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.index');
 });
 
 
@@ -40,8 +40,8 @@ Route::group([
 
     Route::view('/', 'dashboard.index');
 
-    Route::resource('service', \App\Http\Controllers\Dashboard\ServiceController::class);
-    Route::resource('category', \App\Http\Controllers\Dashboard\CategoryController::class);
+    Route::resource('services', \App\Http\Controllers\Dashboard\ServiceController::class);
+    Route::resource('categories', \App\Http\Controllers\Dashboard\CategoryController::class);
 
 
 

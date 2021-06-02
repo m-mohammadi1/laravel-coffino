@@ -39,7 +39,7 @@
 
     <!--begin::Main-->
     <!--begin::Header Mobile-->
-        @include('dashboard.partials.mobile.header-mobile')
+        <x-dashboard.partials.mobile.header />
     <!--end::Header Mobile-->
 
 
@@ -50,7 +50,7 @@
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
                 <!--begin::Header-->
-                    @include('dashboard.partials.main.header')
+                    <x-dashboard.partials.main.header></x-dashboard.partials.main.header>
                 <!--end::Header-->
 
                 <!--begin::Content-->
@@ -62,8 +62,9 @@
                 <!--end::Content-->
 
                 <!--begin::Footer-->
-                    @include('dashboard.partials.main.footer')
+                    <x-dashboard.partials.main.footer />
                 <!--end::Footer-->
+                
             </div>
             <!--end::Wrapper-->
         </div>

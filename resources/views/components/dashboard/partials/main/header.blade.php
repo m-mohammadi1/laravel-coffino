@@ -7,7 +7,7 @@
             <div class="d-none d-lg-flex align-items-center mr-3">
                 <!--begin::Logo-->
                 <a href="index.html" class="mr-20">
-                    <img alt="Logo" src="assets/media/logos/logo-letter-9.png" class="max-h-35px" />
+                    <img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-9.png') }}" class="max-h-35px" />
                 </a>
                 <!--end::Logo-->
 
@@ -996,7 +996,7 @@
                         <form>
                             <!--begin::Header-->
                             <div class="d-flex align-items-center py-10 px-8 bgi-size-cover bgi-no-repeat rounded-top"
-                                style="background-image: url(assets/media/misc/bg-1.jpg)">
+                                style="background-image: url({{ asset('assets/media/misc/bg-1.jpg') }})">
                                 <span class="btn btn-md btn-icon bg-white-o-15 mr-4">
                                     <i class="flaticon2-shopping-cart-1 text-success"></i>
                                 </span>
@@ -1033,7 +1033,7 @@
                                         </div>
                                     </div>
                                     <a href="#" class="symbol symbol-70 flex-shrink-0">
-                                        <img src="assets/media/stock-600x400/img-1.jpg" title=""
+                                        <img src="{{ asset('assets/media/stock-600x400/img-1.jpg') }}" title=""
                                             alt="" />
                                     </a>
                                 </div>
@@ -1067,7 +1067,7 @@
                                         </div>
                                     </div>
                                     <a href="#" class="symbol symbol-70 flex-shrink-0">
-                                        <img src="assets/media/stock-600x400/img-2.jpg" title=""
+                                        <img src="{{ asset('assets/media/stock-600x400/img-2.jpg') }}" title=""
                                             alt="" />
                                     </a>
                                 </div>
@@ -1102,7 +1102,7 @@
                                         </div>
                                     </div>
                                     <a href="#" class="symbol symbol-70 flex-shrink-0">
-                                        <img src="assets/media/stock-600x400/img-3.jpg" title=""
+                                        <img src="{{ asset('assets/media/stock-600x400/img-3.jpg') }}" title=""
                                             alt="" />
                                     </a>
                                 </div>
@@ -1137,7 +1137,7 @@
                                         </div>
                                     </div>
                                     <a href="#" class="symbol symbol-70 flex-shrink-0">
-                                        <img src="assets/media/stock-600x400/img-4.jpg" title=""
+                                        <img src="{{ asset('assets/media/stock-600x400/img-4.jpg') }}" title=""
                                             alt="" />
                                     </a>
                                 </div>

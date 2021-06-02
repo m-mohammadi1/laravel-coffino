@@ -14,21 +14,21 @@
     <!--end::Fonts-->
 
     <!--begin::Page Vendors Styles(used by this page)-->
-    <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.rtl.css?v=7.0.6" rel="stylesheet"
+    <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.rtl.css?v=7.0.6') }}" rel="stylesheet"
         type="text/css" />
     <!--end::Page Vendors Styles-->
 
 
     <!--begin::Global تم Styles(used by all pages)-->
-    <link href="assets/plugins/global/plugins.bundle.rtl.css?v=7.0.6" rel="stylesheet" type="text/css" />
-    <link href="assets/plugins/custom/prismjs/prismjs.bundle.rtl.css?v=7.0.6" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.bundle.rtl.css?v=7.0.6" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.rtl.css?v=7.0.6') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.rtl.css?v=7.0.6') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style.bundle.rtl.css?v=7.0.6') }}" rel="stylesheet" type="text/css" />
     <!--end::Global تم Styles-->
 
     <!--begin::چیدمان تم ها(used by all pages)-->
     <!--end::چیدمان تم ها-->
 
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 
 </head>
 <!--end::Head-->
@@ -96,7 +96,7 @@
             <!--begin::Header-->
             <div class="d-flex align-items-center mt-5">
                 <div class="symbol symbol-100 mr-5">
-                    <div class="symbol-label" style="background-image:url('assets/media/users/300_21.jpg')"></div>
+                    <div class="symbol-label" style="background-image:url('{{ asset('assets/media/users/300_21.jpg') }}')"></div>
                     <i class="symbol-badge bg-success"></i>
                 </div>
                 <div class="d-flex flex-column">
@@ -476,7 +476,7 @@
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/006-plurk.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/006-plurk.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -495,7 +495,7 @@
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/015-telegram.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/015-telegram.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -514,7 +514,7 @@
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/003-puzzle.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/003-puzzle.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -533,7 +533,7 @@
                         <div class="d-flex align-items-center flex-wrap mb-5">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/005-bebo.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/005-bebo.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -552,7 +552,7 @@
                         <div class="d-flex align-items-center flex-wrap">
                             <div class="symbol symbol-50 symbol-light mr-5">
                                 <span class="symbol-label">
-                                    <img src="assets/media/svg/misc/014-kickstarter.svg" class="h-50 align-self-center"
+                                    <img src="{{ asset('assets/media/svg/misc/014-kickstarter.svg') }}" class="h-50 align-self-center"
                                         alt="" />
                                 </span>
                             </div>
@@ -1199,7 +1199,7 @@
                                 <div class="d-flex flex-column mb-5 align-items-start">
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-circle symbol-40 mr-3">
-                                            <img alt="Pic" src="assets/media/users/300_12.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_12.jpg') }}" />
                                         </div>
                                         <div>
                                             <a href="#"
@@ -1225,7 +1225,7 @@
                                                 class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">شما</a>
                                         </div>
                                         <div class="symbol symbol-circle symbol-40 ml-3">
-                                            <img alt="Pic" src="assets/media/users/300_21.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_21.jpg') }}" />
                                         </div>
                                     </div>
                                     <div
@@ -1240,7 +1240,7 @@
                                 <div class="d-flex flex-column mb-5 align-items-start">
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-circle symbol-40 mr-3">
-                                            <img alt="Pic" src="assets/media/users/300_21.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_21.jpg') }}" />
                                         </div>
                                         <div>
                                             <a href="#"
@@ -1265,7 +1265,7 @@
                                                 class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">شما</a>
                                         </div>
                                         <div class="symbol symbol-circle symbol-40 ml-3">
-                                            <img alt="Pic" src="assets/media/users/300_21.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_21.jpg') }}" />
                                         </div>
                                     </div>
                                     <div
@@ -1279,7 +1279,7 @@
                                 <div class="d-flex flex-column mb-5 align-items-start">
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-circle symbol-40 mr-3">
-                                            <img alt="Pic" src="assets/media/users/300_12.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_12.jpg') }}" />
                                         </div>
                                         <div>
                                             <a href="#"
@@ -1305,7 +1305,7 @@
                                                 class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">شما</a>
                                         </div>
                                         <div class="symbol symbol-circle symbol-40 ml-3">
-                                            <img alt="Pic" src="assets/media/users/300_21.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_21.jpg') }}" />
                                         </div>
                                     </div>
                                     <div
@@ -1319,7 +1319,7 @@
                                 <div class="d-flex flex-column mb-5 align-items-start">
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-circle symbol-40 mr-3">
-                                            <img alt="Pic" src="assets/media/users/300_12.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_12.jpg') }}" />
                                         </div>
                                         <div>
                                             <a href="#"
@@ -1344,7 +1344,7 @@
                                                 class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">شما</a>
                                         </div>
                                         <div class="symbol symbol-circle symbol-40 ml-3">
-                                            <img alt="Pic" src="assets/media/users/300_21.jpg" />
+                                            <img alt="Pic" src="{{ asset('assets/media/users/300_21.jpg') }}" />
                                         </div>
                                     </div>
                                     <div
@@ -1471,17 +1471,17 @@
     <!--end::Global Config-->
 
     <!--begin::Global تم Bundle(used by all pages)-->
-    <script src="assets/plugins/global/plugins.bundle.js?v=7.0.6"></script>
-    <script src="assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.6"></script>
-    <script src="assets/js/scripts.bundle.js?v=7.0.6"></script>
+    <script src="{{ asset('assets/plugins/global/plugins.bundle.js?v=7.0.6') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.6') }}"></script>
+    <script src="{{ asset('assets/js/scripts.bundle.js?v=7.0.6') }}"></script>
     <!--end::Global تم Bundle-->
 
     <!--begin::Page Vendors(used by this page)-->
-    <script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.6"></script>
+    <script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.6') }}"></script>
     <!--end::Page Vendors-->
 
     <!--begin::Page Scripts(used by this page)-->
-    <script src="assets/js/pages/widgets.js?v=7.0.6"></script>
+    <script src="{{ asset('assets/js/pages/widgets.js?v=7.0.6') }}"></script>
     <!--end::Page Scripts-->
 </body>
 <!--end::Body-->

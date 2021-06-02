@@ -15,19 +15,19 @@
 
 
     <!--begin::Page Custom Styles(used by this page)-->
-    <link href="assets/css/pages/login/classic/login-3.rtl.css?v=7.0.6" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/pages/login/classic/login-3.rtl.css?v=7.0.6') }}" rel="stylesheet" type="text/css" />
     <!--end::Page Custom Styles-->
 
     <!--begin::Global تم Styles(used by all pages)-->
-    <link href="assets/plugins/global/plugins.bundle.rtl.css?v=7.0.6" rel="stylesheet" type="text/css" />
-    <link href="assets/plugins/custom/prismjs/prismjs.bundle.rtl.css?v=7.0.6" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.bundle.rtl.css?v=7.0.6" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/global/plugins.bundle.rtl.css?v=7.0.6') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.rtl.css?v=7.0.6') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/style.bundle.rtl.css?v=7.0.6') }}" rel="stylesheet" type="text/css" />
     <!--end::Global تم Styles-->
 
     <!--begin::Layout تمs(used by all pages)-->
     <!--end::Layout تمs-->
 
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 
 </head>
 <!--end::Head-->
@@ -112,9 +112,9 @@
     <!--end::Global Config-->
 
     <!--begin::Global تم Bundle(used by all pages)-->
-    <script src="assets/plugins/global/plugins.bundle.js?v=7.0.6"></script>
-    <script src="assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.6"></script>
-    <script src="assets/js/scripts.bundle.js?v=7.0.6"></script>
+    <script src="{{ asset('assets/plugins/global/plugins.bundle.js?v=7.0.6') }}"></script>
+    <script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.6') }}"></script>
+    <script src="{{ asset('assets/js/scripts.bundle.js?v=7.0.6') }}"></script>
     <!--end::Global تم Bundle-->
 
 

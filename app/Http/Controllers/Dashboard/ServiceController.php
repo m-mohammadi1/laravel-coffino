@@ -14,7 +14,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.services.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        // return view('dashboard.services.create');
     }
 
     /**

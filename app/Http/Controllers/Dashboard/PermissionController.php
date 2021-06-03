@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategoryRequest;
+use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('dashboard.categories.index');
+        //
     }
 
     /**
@@ -26,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('dashboard.categories.create');
+        //
     }
 
     /**
@@ -35,11 +33,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
-        Category::create($request->validated());
-
-        return redirect()->route('dashboard.categories.index')->with('successMessage', 'دسته بندی با موفقیت ایجاد شد');
+        //
     }
 
     /**

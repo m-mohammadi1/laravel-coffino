@@ -1,0 +1,92 @@
+    header {
+        direction: rtl;
+    }
+    
+    @font-face {
+        font-family: "iransansdn";
+        src: url("../fonts/iransansdn/eot/iransansdnweb.eot");
+        src: url("../fonts/iransansdn/eot/iransansdnweb.eot?#iefix") format("embedded-opentype"), url("../fonts/iransansdn/woff2/iransansdnweb.woff2") format("woff2"), url("../fonts/iransansdn/woff/iransansdnweb.woff") format("woff"), url("../fonts/iransansdn/ttf/iransansdnweb.ttf") format("truetype");
+    }
+    
+    body,
+    h1,
+    a,
+    h4,
+    h2,
+    h3,
+    h5,
+    blockquote,
+    span {
+        font-family: iransansdn;
+    }
+    
+    p,
+    h5,
+    div.h1,
+    .de_testi_by span {
+        font-family: iransansdn !important;
+    }
+    
+    div.h1 {
+        font-size: 43px !important;
+    }
+    
+    .btn-custom {
+        font-family: iransansdn !important;
+    }
+    
+    h1 {
+        font-size: 41px;
+        line-height: 60px;
+    }
+    
+    .icon_heart_alt {
+        color: red;
+    }
+    
+    .icon_mug {
+        color: #453d3f;
+    }
+    /* ================================================== */
+    /* R E S P O N S I V E */
+    /* ================================================== */
+    
+    @media (min-width: 992px) {
+        .padd-customize {
+            margin-right: 16.666667%;
+            margin-left: 0px;
+        }
+        .padd-customize1 {
+            margin-right: 16.666667%;
+        }
+    }
+    
+    .btn-mobile-b {
+        padding: 3px;
+        border-radius: 5px;
+    }
+    
+    .img-fluid-custom {
+        margin-top: 20px !important;
+    }
+    
+    .accordion-style-1 a {
+        text-align: center;
+    }
+    
+    input,
+    textarea {
+        text-align: right;
+    }
+    
+    input.switch {
+        text-align: left;
+    }
+    
+    .accordion-style-1 a {
+        text-align: right;
+    }
+    
+    .post-date {
+        font-family: iransansdn !important;
+    }

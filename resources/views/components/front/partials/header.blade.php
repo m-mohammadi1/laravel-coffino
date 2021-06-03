@@ -7,7 +7,7 @@
                         <!-- logo begin -->
                         <div id="logo">
                             <a href="index.html">
-                                <img alt="" src="images/logo-2.png" />
+                                <img alt="" src="{{ asset('front/images/logo-2.png') }}" />
                             </a>
                         </div>
                         <!-- logo close -->

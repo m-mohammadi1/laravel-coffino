@@ -402,6 +402,7 @@
             </section>
         </div>
 
+
     @endsection
 
 </x-front.layouts.main>

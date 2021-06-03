@@ -1,1 +1,14 @@
-require('./bootstrap');
+// require('./front/js/jquery.min.js');
+// require('./front/js/bootstrap.min');
+// require('./front/js/wow.min');
+// require('./front/js/jquery.isotope.min');
+// require('./front/js/easing');
+// require('./front/js/owl.carousel');
+// require('./front/js/validation');
+// require('./front/js/jquery.magnific-popup.min');
+// require('./front/js/enquire.min');
+// require('./front/js/jquery.stellar.min');
+// require('./front/js/jquery.plugin');
+// require('./front/js/typed');
+// require('./front/js/jquery.countTo');
+// require('./front/js/jquery.countdown');

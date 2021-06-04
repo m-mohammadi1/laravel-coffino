@@ -27,7 +27,7 @@ class StoreServiceRequest extends FormRequest
             'title' => ['required', 'min:10', 'max:255'],
             'description' => ['required', 'min:10', 'max:1000'],
             'price' => ['required', 'min:0', 'max:3000000'],
-            'category_id' => ['required', 'min:1'],
+            'category_id' => ['required', 'min:1', 'max:3000000'],
         ];
     }
 }

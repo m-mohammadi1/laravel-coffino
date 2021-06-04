@@ -46,10 +46,9 @@ class ServiceController extends Controller
         if (!$category)
             return redirect()->route('dashboard.services.create')->with('errorMessage', 'دسته بندی انتخابی یافت نشد');
         
-        $category->service->create($request->validated());
+        $category->services()->create($request->validated());
 
-        return redirect()->route('dashboard.services.index')->with('successMEssage', 'سرویس با موفقیت ایجاد شد');
-    
+        return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با موفقیت ایجاد شد');
     }
 
     /**
@@ -69,9 +68,12 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Service $service)
     {
-        //
+        $categories = Category::all();
+
+        return view('dashboard.services.edit', compact('categories', 'service'));
+
     }
 
     /**
@@ -81,9 +83,18 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreServiceRequest $request, Service $service)
     {
-        //
+        $category = Category::find($request->category_id);
+
+        if (!$category)
+            return redirect()->route('dashboard.services.edit')->with('errorMessage', 'دسته بندی انتخابی یافت نشد');
+        
+        $service->update($request->validated());
+        $category->services()->save($service);
+
+        
+        return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با موفقیت بروزرسانی شد');
     }
 
     /**

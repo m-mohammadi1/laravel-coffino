@@ -90,7 +90,7 @@
                                 <!--end::دراپ دان-->
 
                                 <!--begin::دکمه-->
-                                <a href="#" class="btn btn-primary font-weight-bolder">
+                                <a href="{{ route('dashboard.categories.create') }}" class="btn btn-primary font-weight-bolder">
                                     <span class="svg-icon svg-icon-md">
                                         <!--begin::Svg Icon | path:assets/media/svg/icons/طرح/Flatten.svg--><svg
                                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -104,7 +104,7 @@
                                             </g>
                                         </svg>
                                         <!--end::Svg Icon-->
-                                    </span> جدید رکورد
+                                    </span> دسته بندي جديد 
                                 </a>
                                 <!--end::دکمه-->
                             </div>
@@ -228,7 +228,7 @@
                                                     <td data-field="Actions" data-autohide-disabled="false" aria-label="null"
                                                         class="datatable-cell">
                                                         <span style="overflow: visible; position: relative; width: 125px;">
-                                                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon mr-2"
+                                                            <a href="{{ route('dashboard.categories.edit', $category) }}" class="btn btn-sm btn-clean btn-icon mr-2"
                                                                 title="ويرايش">
                                                                 <span class="svg-icon svg-icon-md">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -249,7 +249,7 @@
                                                                 </span>
                                                             </a>
 
-                                                            <a href="#" class="btn btn-sm btn-clean btn-icon catDeleteButton"
+                                                            <a href="javascript:;" class="btn btn-sm btn-clean btn-icon catDeleteButton"
                                                                 title="حذف" data-id="{{ $category->id }}">
                                                                 <span class="svg-icon svg-icon-md">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
@@ -404,19 +404,17 @@
                             const categoryId = button.attr('data-id');
 
 
-                            // show modal
+                            // show category id in modal
                             $("#deletingCatId").html(categoryId);
+                            // show modal
                             $('#deleteCatModal').modal('show');
 
+                            // delete category when modal confrimed
                             $("#confirmDeleteCategory").click(function() {
                                 const form = $("#catId-" + categoryId);
                                 form.submit();
-                                // catId-
-
-
                             });
 
-                            // {{ route('dashboard.categories.destroy', $category) }}
                         });
 
                     });

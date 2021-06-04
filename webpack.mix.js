@@ -32,7 +32,7 @@ mix.scripts([
     'resources/js/front/js/jquery.countTo.js',
     'resources/js/front/js/jquery.countdown.js',
     'resources/js/front/js/designesia.js'
-], 'public/front/all.js');
+], 'public/front/js/all.js');
 
 mix.styles([
     'resources/css/front/css/bootstrap.min.css',
@@ -48,4 +48,4 @@ mix.styles([
     'resources/css/front/css/rtl.css',
     'resources/css/front/css/colors/scheme-02.css',
     'resources/css/front/css/coloring.css'
-], 'public/front/all.css');
+], 'public/front/css/all.css');

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
+use App\Models\Service;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -14,7 +18,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('dashboard.services.index');
+        $services = Service::with('category')->get();
+        return view('dashboard.services.index', compact('services'));
     }
 
     /**
@@ -24,7 +29,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        // return view('dashboard.services.create');
+        $categories = Category::all();
+        return view('dashboard.services.create', compact('categories'));
     }
 
     /**
@@ -33,9 +39,17 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreServiceRequest $request)
     {
-        //
+        $category = Category::find($request->category_id);
+
+        if (!$category)
+            return redirect()->route('dashboard.services.create')->with('errorMessage', 'دسته بندی انتخابی یافت نشد');
+        
+        $category->service->create($request->validated());
+
+        return redirect()->route('dashboard.services.index')->with('successMEssage', 'سرویس با موفقیت ایجاد شد');
+    
     }
 
     /**
@@ -75,11 +89,14 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Service $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Service $service)
     {
-        //
+        $serviceTitle = $service->title;
+        $service->delete();
+
+        return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با عنوان (' . Str::substr($serviceTitle, 0, 60) . '...) با موفقيت حذف شد.');
     }
 }

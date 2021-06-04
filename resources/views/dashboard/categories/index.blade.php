@@ -11,7 +11,9 @@
 
                 <div class="col-md-12">
 
-                    <x-dashboard.partials.success />
+                    <x-dashboard.partials.messages.success />
+                    <x-dashboard.partials.messages.error />
+
 
 
                     <div class="card card-custom">

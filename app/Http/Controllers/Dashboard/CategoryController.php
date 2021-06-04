@@ -16,7 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('dashboard.categories.index');
+        $categories = Category::all();
+
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**
@@ -82,8 +84,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $catId = $category->id;
+        $category->delete();
+
+        return back()->with('successMessage', 'دسته بندي با آيدي ' . $catId . ' با موفقيت حذف شد');
     }
 }

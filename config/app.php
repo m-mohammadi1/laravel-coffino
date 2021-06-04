@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Coffino'),
+    // 'name' => env('APP_NAME', 'Coffino'),
+    'name' => 'Coffino App',
 
     /*
     |--------------------------------------------------------------------------

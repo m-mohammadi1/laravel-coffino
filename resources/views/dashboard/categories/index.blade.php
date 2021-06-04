@@ -1,5 +1,8 @@
 <x-dashboard.layouts.main>
 
+    @section('title', 'كافينو  | مديريت دسته بندي ها')
+
+
     @section('content')
 
         <div class="container">

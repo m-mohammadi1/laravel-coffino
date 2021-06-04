@@ -1,5 +1,7 @@
 <x-dashboard.layouts.main>
 
+    @section('title', 'كافينو  | ساخت دسته بندي')
+
     @section('content')
 
         <div class="container">
@@ -46,7 +48,7 @@
                             </div>
                             <div class="card-footer d-flex justify-content-between">
                                 <button type="submit" class="btn btn-big btn-primary mr-2">ایجاد</button>
-                                <button type="button" class="btn btn-secondary">لغو</button>
+                                <a href="{{ route('dashboard.categories.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>
                         <!--end::Form-->

@@ -1,5 +1,8 @@
 <x-dashboard.layouts.main>
 
+    @section('title', 'كافينو  | ويرايش دسته بندي')
+
+
     @section('content')
 
         <div class="container">
@@ -11,7 +14,7 @@
                     <div class="card card-custom">
                         <div class="card-header">
                             <h3 class="card-title">
-                                ایجاد دسته بندی جدید
+                                ويرايش دسته بندی
                             </h3>
                         </div>
                         <!--begin::Form-->

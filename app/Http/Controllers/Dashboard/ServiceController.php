@@ -18,7 +18,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::with('category')->get();
+        $services = Service::with('category')->paginate(10);
         return view('dashboard.services.index', compact('services'));
     }
 

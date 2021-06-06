@@ -135,5 +135,7 @@ return [
         'price' => 'قیمت',
         'category_id' => 'دسته بندی',
         'category' => 'دسته بندی',
+        'gift_count' => 'تعداد هديه',
+        'service_count' => 'تعداد سرويس',
     ],
 ];

@@ -45,6 +45,7 @@ Route::group([
 
     Route::resource('services', \App\Http\Controllers\Dashboard\ServiceController::class);
     Route::resource('categories', \App\Http\Controllers\Dashboard\CategoryController::class);
+    Route::resource('counts', \App\Http\Controllers\Dashboard\CountController::class);
 
 
 

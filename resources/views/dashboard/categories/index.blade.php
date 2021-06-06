@@ -299,32 +299,22 @@
                                             {{ $categories->links() }}
 
                                             <div class="datatable-pager-info">
+
+
                                                 <div class="dropdown bootstrap-select datatable-pager-size" style="width: 60px;">
-                                                    <select class="selectpicker datatable-pager-size" title="انتخاب اندازه صفحه"
-                                                        data-width="60px" data-container="body" data-selected="20">
-                                                        <option class="bs-title-option" value=""></option>
+                                                
+                                                    <select class="selectpicker form-control" title="انتخاب اندازه صفحه"
+                                                        data-width="120px" data-selected="20">
+                                                        <option class="bs-title-option" value="">انتخاب</option>
                                                         <option value="5">5</option>
                                                         <option value="10">10</option>
                                                         <option value="20">20</option>
                                                         <option value="30">30</option>
                                                         <option value="50">50</option>
                                                         <option value="100">100</option>
-                                                    </select><button type="button" tabindex="-1"
-                                                        class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox"
-                                                        aria-owns="bs-select-7" aria-haspopup="listbox" aria-expanded="false"
-                                                        title="انتخاب اندازه صفحه">
-                                                        <div class="filter-option">
-                                                            <div class="filter-option-inner">
-                                                                <div class="filter-option-inner-inner">20</div>
-                                                            </div>
-                                                        </div>
-                                                    </button>
-                                                    <div class="dropdown-menu ">
-                                                        <div class="inner show" role="listbox" id="bs-select-7" tabindex="-1">
-                                                            <ul class="dropdown-menu inner show" role="presentation"></ul>
-                                                        </div>
-                                                    </div>
-                                                </div><span class="datatable-pager-detail">نمایش 61 - 80 از 100</span>
+                                                    </select>
+                                                </div>
+                                                <span class="datatable-pager-detail">نمایش 61 - 80 از 100</span>
                                             </div>
                                         </div>
                                     </div>

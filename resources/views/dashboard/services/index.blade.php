@@ -233,34 +233,7 @@
 
                                         <div class="datatable-pager datatable-paging-loaded">
                                             {{ $services->links() }}
-                                            {{--  <ul class="datatable-pager-nav mb-5 mb-sm-0">
-                                                <li><a title="اول" class="datatable-pager-link datatable-pager-link-first"
-                                                        data-page="1"><i class="flaticon2-fast-next"></i></a></li>
-                                                <li><a title="قبلی" class="datatable-pager-link datatable-pager-link-prev"
-                                                        data-page="3"><i class="flaticon2-next"></i></a></li>
-                                                <li style=""></li>
-                                                <li style="display: none;"><input type="text"
-                                                        class="datatable-pager-input form-control" title="شماره صفحه"></li>
-                                                <li><a class="datatable-pager-link datatable-pager-link-number" data-page="1"
-                                                        title="1">1</a>
-                                                </li>
-                                                <li><a class="datatable-pager-link datatable-pager-link-number" data-page="2"
-                                                        title="2">2</a>
-                                                </li>
-                                                <li><a class="datatable-pager-link datatable-pager-link-number" data-page="3"
-                                                        title="3">3</a>
-                                                </li>
-                                                <li><a class="datatable-pager-link datatable-pager-link-number datatable-pager-link-active"
-                                                        data-page="4" title="4">4</a></li>
-                                                <li><a class="datatable-pager-link datatable-pager-link-number" data-page="5"
-                                                        title="5">5</a>
-                                                </li>
-                                                <li style=""></li>
-                                                <li><a title="بعدی" class="datatable-pager-link datatable-pager-link-next"
-                                                        data-page="5"><i class="flaticon2-back"></i></a></li>
-                                                <li><a title="آخری" class="datatable-pager-link datatable-pager-link-last"
-                                                        data-page="5"><i class="flaticon2-fast-back"></i></a></li>
-                                            </ul>  --}}
+                                           
                                             <div class="datatable-pager-info">
 
 

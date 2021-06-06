@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Service;
+use App\Models\Category;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Permission;
@@ -28,11 +29,10 @@ Route::get('/home', function () {
     // $role = Role::findById(1);
     // $permission = Permission::findById(1);
     // $role->givePermissionTo($permission);
-    
-    dd(Service::factory(100)->create());
-    
+
 
 });
+
 
 
 Route::group([

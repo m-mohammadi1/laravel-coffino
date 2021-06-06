@@ -16,4 +16,8 @@ class Service extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function counts()
+    {
+        return $this->belongsToMany(Count::class);
+    }
 }

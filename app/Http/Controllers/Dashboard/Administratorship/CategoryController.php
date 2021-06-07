@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Administratorship;
 
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
+
 
 class CategoryController extends Controller
 {
@@ -96,3 +96,4 @@ class CategoryController extends Controller
         return back()->with('successMessage', 'دسته بندي با آيدي ' . $catId . ' با موفقيت حذف شد');
     }
 }
+

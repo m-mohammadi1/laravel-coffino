@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Service;
-use App\Models\Category;
-use Spatie\Permission\Models\Role;
+use Shetabit\Multipay\Invoice;
+use Shetabit\Payment\Facade\Payment;
 use Illuminate\Support\Facades\Route;
-use Spatie\Permission\Models\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,27 +20,34 @@ Route::get('/', function () {
 });
 
 
-Route::get('/home', function () {
 
-    // $role = Role::create(['name' => 'manager']);
-    // $permission = Permission::create(['name' => 'edit service']);
-    // $role = Role::findById(1);
-    // $permission = Permission::findById(1);
-    // $role->givePermissionTo($permission);
+Route::get('/pay-test}', function () {
 
-    // $permission = Permission::findById(1);
-    // $role = Role::findById(1);
+    $invoice = new Invoice();
+    $invoice->amount(10000);
 
-    // $role->givePermissionTo($permission);
+    Payment::purchase($invoice, function ($driver, $transactionId) {
+        // We can store $transactionId in database.
+    });
 
-    // auth()->user()->assignRole($role);
-    // dd(auth()->user()->getDirectPermissions());
-    // dd(auth()->user()->getPermissionsViaRoles());
 
-    // auth()->user()->givePermissionTo('add service');
 
+    // You can specify callbackUrl
+    Payment::callbackUrl('http://localhost:8000/verify')->purchase(
+        $invoice,
+        function ($driver, $transactionId) {
+            // We can store $transactionId in database.
+        }
+    );
 
 });
+
+
+Route::get('/verify', function() {
+    
+});
+
+
 
 
 
@@ -54,10 +59,7 @@ Route::group([
 
     Route::view('/', 'dashboard.index');
 
-    Route::resource('services', \App\Http\Controllers\Dashboard\ServiceController::class);
-    Route::resource('categories', \App\Http\Controllers\Dashboard\CategoryController::class);
-    Route::resource('counts', \App\Http\Controllers\Dashboard\CountController::class);
-
-
-
+    Route::resource('services', \App\Http\Controllers\Dashboard\Administratorship\ServiceController::class);
+    Route::resource('categories', \App\Http\Controllers\Dashboard\Administratorship\CategoryController::class);
+    Route::resource('counts', \App\Http\Controllers\Dashboard\Administratorship\CountController::class);
 });

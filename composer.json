@@ -12,6 +12,7 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "shetabit/payment": "^4.0",
         "spatie/laravel-permission": "^4.1"
     },
     "require-dev": {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Models\Service;
 use App\Models\Category;

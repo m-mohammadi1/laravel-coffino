@@ -71,7 +71,11 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between">
-                                <button type="submit" class="btn btn-big btn-primary mr-2">ویرایش</button>
+                                @can('edit service')
+                                    <button type="submit" class="btn btn-big btn-primary mr-2">ویرایش</button>
+                                @else
+                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ویرایش</button>
+                                @endcan
                                 <a href="{{ route('dashboard.services.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>

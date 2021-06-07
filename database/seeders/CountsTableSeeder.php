@@ -18,8 +18,8 @@ class CountsTableSeeder extends Seeder
     {
         Category::factory()
             ->has(
-                Count::factory()
-                    ->has(Service::factory()->count(50))->count(4)
+                Service::factory()
+                    ->has(Count::factory()->count(1))->count(20)
             )->count(2)->create();
     }
 }

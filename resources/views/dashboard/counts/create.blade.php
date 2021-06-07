@@ -17,13 +17,12 @@
                     <div class="card card-custom">
                         <div class="card-header">
                             <h3 class="card-title">
-                                ایجاد سرویس جدید
+                                ایجاد تعداد جدید
                             </h3>
                         </div>
                         <!--begin::Form-->
-                        <form action="{{ route('dashboard.counts.update', $count) }}" method="post">
+                        <form action="{{ route('dashboard.counts.store') }}" method="post">
                             @csrf
-                            @method('PUT')
 
                             <div class="card-body">
 
@@ -34,19 +33,23 @@
 
                                 <div class="form-group">
                                     <label>تعداد سرويس</label>
-                                    <input type="number" class="form-control" name="service_count" value="{{ $count->service_count }}"/>
+                                    <input type="number" class="form-control" name="service_count" value="{{ old('service_count') }}"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>تعداد هديه</label>
-                                    <input type="number" class="form-control" name="gift_count" value="{{ $count->gift_count }}"/>
+                                    <input type="number" class="form-control" name="gift_count" value="{{ old('gift_count') }}"/>
                                 </div>
 
 
                                 
                             </div>
                             <div class="card-footer d-flex justify-content-between">
-                                <button type="submit" class="btn btn-big btn-primary mr-2">ویرایش</button>
+                                @can('create service')
+                                    <button type="submit" class="btn btn-big btn-primary mr-2">ایجاد</button>
+                                @else
+                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ایجاد</button>
+                                @endcan
                                 <a href="{{ route('dashboard.counts.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>

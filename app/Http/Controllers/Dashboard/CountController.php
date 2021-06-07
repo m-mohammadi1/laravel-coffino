@@ -17,6 +17,8 @@ class CountController extends Controller
      */
     public function index()
     {
+        $this->authorize('manage', Count::class);
+        
         $counts = Count::paginate(10);
         return view('dashboard.counts.index', compact('counts'));
     }
@@ -28,7 +30,9 @@ class CountController extends Controller
      */
     public function create()
     {
-        //
+        $this->authorize('create', Count::class);
+
+        return view('dashboard.counts.create');
     }
 
     /**
@@ -37,21 +41,15 @@ class CountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCountRequest $request)
     {
-        //
+        $this->authorize('create', Count::class);
+
+        Count::create($request->validated());
+        
+        return redirect()->route('dashboard.counts.index')->with('successMessage', 'تعداد سرويس با موفقيت ایجاد شد');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -61,6 +59,8 @@ class CountController extends Controller
      */
     public function edit(Count $count)
     {
+        $this->authorize('see', $count);
+
         $services = $count->services()->paginate(5);
         return view('dashboard.counts.edit', compact('count', 'services'));
     }
@@ -74,6 +74,8 @@ class CountController extends Controller
      */
     public function update(StoreCountRequest $request, Count $count)
     {
+        $this->authorize('edit', $count);
+
         $count->update($request->validated());
         return redirect()->route('dashboard.counts.index')->with('successMessage', 'تعداد سرويس با موفقيت ويرايش شد');
     }
@@ -86,6 +88,8 @@ class CountController extends Controller
      */
     public function destroy(Count $count)
     {
+        $this->authorize('delete', $count);
+
         $count->services()->detach();
         $count->delete();
 

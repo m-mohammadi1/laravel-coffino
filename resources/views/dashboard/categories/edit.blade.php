@@ -39,7 +39,11 @@
                                 </div>
                             </div>
                             <div class="card-footer d-flex justify-content-between">
-                                <button type="submit" class="btn btn-big btn-info mr-2">بروزرساني</button>
+                                @can('edit category')
+                                    <button type="submit" class="btn btn-big btn-info mr-2">بروزرساني</button>
+                                @else
+                                    <button type="button" class="btn btn-big btn-info mr-2 disabled" title="دسترسی ندارید">بروزرساني</button>
+                                @endcan
                                 <a href="{{ route('dashboard.categories.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>

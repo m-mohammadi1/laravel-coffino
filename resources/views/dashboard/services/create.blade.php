@@ -27,19 +27,7 @@
 
                             <div class="card-body">
 
-                                <div class="form-group mb-8">
-                                    <div class="alert alert-custom alert-default" role="alert">
-                                        <div class="alert-icon"><i class="flaticon-warning text-primary"></i></div>
-                                        <div class="alert-text">
-                                            فرم مثال زیر عناصر فرم جی اس معمول را نشان می دهد که از کلاس های اضافی سبک های
-                                            به روز شده را از بوت استرپ دریافت می کنند.
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <x-dashboard.partials.error />
-
-
 
                                 <div class="form-group">
                                     <label>عنوان سروس</label>
@@ -65,9 +53,14 @@
                                         @endforeach
                                     </select>
                                 </div>
+
                             </div>
                             <div class="card-footer d-flex justify-content-between">
-                                <button type="submit" class="btn btn-big btn-primary mr-2">ایجاد</button>
+                                @can('create service')
+                                    <button type="submit" class="btn btn-big btn-primary mr-2">ایجاد</button>
+                                @else 
+                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ایجاد</button>
+                                @endcan
                                 <a href="{{ route('dashboard.services.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>

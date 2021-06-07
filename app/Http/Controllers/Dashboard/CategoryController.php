@@ -17,6 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('manage', Category::class);
+        
         $categories = Category::paginate(10);
 
         return view('dashboard.categories.index', compact('categories'));
@@ -58,7 +59,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $this->authorize('see', Category::class);
+        $this->authorize('see', $category);
 
         return view('dashboard.categories.edit', compact('category'));
     }
@@ -72,7 +73,7 @@ class CategoryController extends Controller
      */
     public function update(StoreCategoryRequest $request, Category $category)
     {
-        $this->authorize('edit', Category::class);
+        $this->authorize('edit', $category);
 
         $category->update($request->validated());
 
@@ -87,7 +88,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $this->authorize('delete', Category::class);
+        $this->authorize('delete', $category);
         
         $catId = $category->id;
         $category->delete();

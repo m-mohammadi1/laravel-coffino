@@ -9,41 +9,31 @@ class CategoryPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
 
     public function manage()
     {
-        return auth()->user() && auth()->user()->can('manage service');
+        return auth()->user() && auth()->user()->can('manage category');
     }
 
     public function create()
     {
-        return auth()->user() && auth()->user()->can('create service');
+        return auth()->user() && auth()->user()->can('create category');
     }
 
 
     public function edit()
     {
-        return auth()->user() && auth()->user()->can('edit service');
+        return auth()->user() && auth()->user()->can('edit category');
     }
 
     public function see()
     {
-        return auth()->user() && auth()->user()->can('see service');
+        return auth()->user() && auth()->user()->can('see category');
     }
 
     public function delete()
     {
-        return auth()->user() && auth()->user()->can('delete service');
+        return auth()->user() && auth()->user()->can('delete category');
     }
 
 

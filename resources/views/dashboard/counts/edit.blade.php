@@ -46,7 +46,11 @@
                                 
                             </div>
                             <div class="card-footer d-flex justify-content-between">
-                                <button type="submit" class="btn btn-big btn-primary mr-2">ویرایش</button>
+                                @can('edit count')
+                                    <button type="submit" class="btn btn-big btn-primary mr-2">ویرایش</button>
+                                @else
+                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ویرایش</button>
+                                @endcan
                                 <a href="{{ route('dashboard.counts.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>
@@ -98,7 +102,7 @@
                                     </thead>
                                     <tbody class="datatable-body" style="">
                                         @php($i = 0)
-                                            @foreach ($services as $service)
+                                            @forelse ($services as $service)
                                                 <tr data-row="{{ $i }}" class="datatable-row" style="left: 0px;">
 
                                                     <td  style="width: 20px;" class="datatable-cell-sorted datatable-cell-center datatable-cell datatable-cell-check"
@@ -125,9 +129,19 @@
 
                                                     
                                                 </tr>
-
                                                 @php($i++)
-                                            @endforeach
+                                            @empty
+                                            <tr>
+
+                                                <td colspan="4">
+
+                                                    
+                                                    <div class="text-center">
+                                                        چیزی ثبت نشده است
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforelse
 
 
 

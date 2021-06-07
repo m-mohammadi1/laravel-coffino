@@ -18,6 +18,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
+        $this->authorize('manage', Service::class);
+        
         $services = Service::with('category')->paginate(10);
         return view('dashboard.services.index', compact('services'));
     }
@@ -29,6 +31,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Service::class);
+
         $categories = Category::all();
         return view('dashboard.services.create', compact('categories'));
     }
@@ -41,6 +45,8 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
+        $this->authorize('create', Service::class);
+
         $category = Category::find($request->category_id);
 
         if (!$category)
@@ -51,16 +57,6 @@ class ServiceController extends Controller
         return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با موفقیت ایجاد شد');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -70,6 +66,8 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
+        $this->authorize('see', $service);
+
         $categories = Category::all();
 
         return view('dashboard.services.edit', compact('categories', 'service'));
@@ -85,6 +83,8 @@ class ServiceController extends Controller
      */
     public function update(StoreServiceRequest $request, Service $service)
     {
+        $this->authorize('edit', $service);
+
         $category = Category::find($request->category_id);
 
         if (!$category)
@@ -105,6 +105,8 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
+        $this->authorize('delete', $service);
+
         $serviceTitle = $service->title;
         $service->delete();
 

@@ -14,11 +14,30 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create([
+        $super_admin = User::factory()->create([
             'name' => 'محمد',
             'email' => 'admin@admin.com',
             'password' => bcrypt('12345678'),
             'email_verified_at' => now(),
         ]);
+        $super_admin->assignRole('super-admin');
+
+        $admin = User::factory()->create([
+            'name' => 'محمد',
+            'email' => 'mm@admin.com',
+            'password' => bcrypt('12345678'),
+            'email_verified_at' => now(),
+        ]);
+        $admin->assignRole('admin');
+
+        $user = User::factory()->create([
+            'name' => 'علی',
+            'email' => 'ali@admin.com',
+            'password' => bcrypt('12345678'),
+            'email_verified_at' => now(),
+        ]);
+        $user->assignRole('customer');
+
+
     }
 }

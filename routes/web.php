@@ -24,11 +24,22 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
 
-    // Role::create(['name' => 'writer']);
-    // $permission = Permission::create(['name' => 'edit post']);
+    // $role = Role::create(['name' => 'manager']);
+    // $permission = Permission::create(['name' => 'edit service']);
     // $role = Role::findById(1);
     // $permission = Permission::findById(1);
     // $role->givePermissionTo($permission);
+
+    // $permission = Permission::findById(1);
+    // $role = Role::findById(1);
+
+    // $role->givePermissionTo($permission);
+
+    // auth()->user()->assignRole($role);
+    // dd(auth()->user()->getDirectPermissions());
+    // dd(auth()->user()->getPermissionsViaRoles());
+
+    // auth()->user()->givePermissionTo('add service');
 
 
 });

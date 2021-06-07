@@ -16,6 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $this->authorize('manage', Category::class);
         $categories = Category::paginate(10);
 
         return view('dashboard.categories.index', compact('categories'));
@@ -28,6 +29,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Category::class);
+
         return view('dashboard.categories.create');
     }
 
@@ -39,6 +42,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+        $this->authorize('create', Category::class);
+
         Category::create($request->validated());
 
         return redirect()->route('dashboard.categories.index')->with('successMessage', 'دسته بندی با موفقیت ایجاد شد');
@@ -53,6 +58,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        $this->authorize('see', Category::class);
+
         return view('dashboard.categories.edit', compact('category'));
     }
 
@@ -65,6 +72,8 @@ class CategoryController extends Controller
      */
     public function update(StoreCategoryRequest $request, Category $category)
     {
+        $this->authorize('edit', Category::class);
+
         $category->update($request->validated());
 
         return redirect()->route('dashboard.categories.index')->with('successMessage', 'دسته بندي با عنوان ' . $category->title . ' با موفقيت بروزرساني شد.');
@@ -78,6 +87,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $this->authorize('delete', Category::class);
+        
         $catId = $category->id;
         $category->delete();
 

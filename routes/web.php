@@ -21,27 +21,9 @@ Route::get('/', function () {
 
 
 
-Route::get('/pay-test}', function () {
-
-    $invoice = new Invoice();
-    $invoice->amount(10000);
-
-    Payment::purchase($invoice, function ($driver, $transactionId) {
-        // We can store $transactionId in database.
-    });
-
-
-
-    // You can specify callbackUrl
-    Payment::callbackUrl('http://localhost:8000/verify')->purchase(
-        $invoice,
-        function ($driver, $transactionId) {
-            // We can store $transactionId in database.
-        }
-    );
-
-});
-
+Route::get('dashboard/customers/services', [\App\Http\Controllers\Dashboard\CustomerManagement\ServiceController::class, 'index'])->name('customers.services');
+Route::get('dashboard/customers/services/{service}/purchase', [\App\Http\Controllers\Dashboard\Purchase\PurchaseController::class, 'purchase'])->name('services.purchase');
+Route::get('dashboard/customers/services/{id}/purchase/result', [\App\Http\Controllers\Dashboard\Purchase\PurchaseController::class, 'result'])->name('services.purchase.result');
 
 Route::get('/verify', function() {
     

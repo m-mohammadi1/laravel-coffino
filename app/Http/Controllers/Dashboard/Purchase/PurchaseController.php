@@ -83,25 +83,29 @@ class PurchaseController extends Controller
 
         
         if ($request->missing('payment_id')) {
-            dd('payment id missing');
-            // return view('result')->with('error', '');
+            $error = 'آیدی سفارش نامعتبر می باشد';
+            return view('dashboard.purchases.error', compact('error'));
         }
         $transaction = Transaction::where('payment_id', $request->payment_id)->first();
 
         if (empty($transaction)) {
-            dd('transaction not found');
+            $error = 'سفارش یافت نشد';
+            return view('dashboard.purchases.error', compact('error'));
         }
 
         if ($transaction->user_id <> Auth::id()) {
-            dd('user not match');
+            $error = 'کاربر وارد شده با کاربر ثبت کننده سفارش یکی نیست';
+            return view('dashboard.purchases.error', compact('error'));
         }
 
         if ($transaction->service_id <> $service->id) {
-            dd('user not match');
+            $error = 'سرویس ثبت شده در سفارش معتبر نمی باشد';
+            return view('dashboard.purchases.error', compact('error'));
         }
 
         if ($transaction->status <> Transaction::STATUS_PENDING) {
-            dd('transacon not pending');
+            $error = 'وضعیت تراکنش نامعتبر می باشد';
+            return view('dashboard.purchases.error', compact('error'));
         }
 
         try {
@@ -119,7 +123,8 @@ class PurchaseController extends Controller
                 'status' => PurchasedService::STATUS_PENDING,
             ]);
             
-            dd('OK');
+            $success = 'سفارش شما با موفقیت ثبت شد و در حال بررسی است';
+            return view('dashboard.purchases.verify', compact('success'));
             // return view('transactions'); 
         } catch (InvalidPathException | Exception $e) {
             if ($e->getCode() < 0) {
@@ -129,9 +134,11 @@ class PurchaseController extends Controller
                     'message' => $e->getMessage(),
                     'code' => $e->getCode(),
                 ];
-            }
-            dd($e);
-            dd('transaction failed');
+                $transaction->save();
+            }            
+
+            $error = 'سفارش شما با خطا مواجه شد';
+            return view('dashboard.purchases.error', compact('error'));
             // return view('');
         }
     }

@@ -9,11 +9,12 @@ use App\Models\Service;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Shetabit\Multipay\Invoice;
-use App\Http\Controllers\Controller;
 use App\Models\PurchasedService;
-use Dotenv\Exception\InvalidPathException;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Shetabit\Payment\Facade\Payment;
+use Dotenv\Exception\InvalidPathException;
+use App\Http\Requests\PurchaseServiceRequest;
 use Shetabit\Multipay\Exceptions\PurchaseFailedException;
 
 class PurchaseController extends Controller
@@ -24,16 +25,22 @@ class PurchaseController extends Controller
     }
 
 
-    public function purchase($serivce_id)
+    public function purchase(PurchaseServiceRequest $request)
     {
-        try {
-            $serivce = Service::find($serivce_id);
+        $validated = (object)$request->validated();
+        $serivce_id = $validated->service;
 
-            $service_count = 3;
+        try {
+            $serivce = Service::findOrFail($serivce_id);
+
+            $service_count = $validated->count;
             $total_amount = (int)$serivce->price * $service_count;
 
             $invoice = new Invoice();
             $invoice->amount($total_amount);
+
+            // if ($request->has('description'))
+            //     $invoice->detail(['description' => $validated->description]);
 
 
             $user = Auth::user();
@@ -46,15 +53,13 @@ class PurchaseController extends Controller
                 'payment_id' => $paymentId,
             ]);
 
-
             $callbackUrl = route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
-
             $payment = Payment::callbackUrl($callbackUrl);
-            $payment->config('description', 'خرید سرویس');
-
+            $payment_description = 'خرید ' . $service_count . ' عدد سرویس با قیمت هر واحد : ' . $serivce->price;
+            $payment->config('description', $payment_description);
 
             $payment->purchase($invoice, function ($driver, $transactionId) use ($transaction) {
-                $transaction->transaction_id;
+                $transaction->transaction_id = $transactionId;
                 $transaction->save();
             });
 

@@ -1,6 +1,6 @@
 <x-dashboard.layouts.main>
 
-    @section('title', 'كافينو | ایجاد سرویس')
+    @section('title', 'كافينو | خرید سرویس')
 
 
     @section('headers')
@@ -28,7 +28,7 @@
                             </h3>
                         </div>
                         <!--begin::Form-->
-                        <form action="{{ route('dashboard.costumers.services.store') }}" method="post">
+                        <form action="{{ route('dashboard.customers.services.purchase') }}" method="post">
                             @csrf
 
                             <div class="card-body">
@@ -44,12 +44,12 @@
 
                                 <div class="form-group">
                                     <label>تعداد سرویس</label>
-                                    <input type="text" class="form-control" name="price" value="{{ old('price') }}" />
+                                    <input type="number" class="form-control" min="0" name="count" value="{{ old('count') }}" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="category">دسته بندی</label>
-                                    <select class="form-control" id="category-select" name="category_id">
+                                    <select class="form-control" id="category-select" name="category">
                                             <option value="">انتخاب کنید</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->title }}</option>
@@ -59,9 +59,9 @@
 
                                 <div class="form-group">
                                     <label for="category">سرویس</label>
-                                    <select class="form-control" id="service-select" name="service_id">
+                                    <select class="form-control" id="service-select" name="service" disabled="disabled">
 
-                                        {{--  <option value="0">دسته بندی را انتخاب کنید</option>  --}}
+                                        <option>دسته بندی را انتخاب کنید</option>
 
                                     </select>
                                 </div>

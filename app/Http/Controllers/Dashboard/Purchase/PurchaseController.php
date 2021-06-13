@@ -47,7 +47,7 @@ class PurchaseController extends Controller
             ]);
 
 
-            $callbackUrl = route('services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
+            $callbackUrl = route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
 
             $payment = Payment::callbackUrl($callbackUrl);
             $payment->config('description', 'خرید سرویس');
@@ -142,4 +142,6 @@ class PurchaseController extends Controller
             // return view('');
         }
     }
+
+    
 }

@@ -49,9 +49,10 @@ Route::group([
     ], function () {
 
         Route::get('services', [\App\Http\Controllers\Dashboard\CustomerManagement\ServiceController::class, 'index'])->name('services');
-        Route::get('services/{service}/purchase', [\App\Http\Controllers\Dashboard\Purchase\PurchaseController::class, 'purchase'])->name('services.purchase');
+        Route::get('services/purchase', [\App\Http\Controllers\Dashboard\Purchase\PurchaseController::class, 'purchase'])->name('services.purchase');
         Route::get('services/{id}/purchase/result', [\App\Http\Controllers\Dashboard\Purchase\PurchaseController::class, 'result'])->name('services.purchase.result');
 
+        Route::post('services', [\App\Http\Controllers\Dashboard\CustomerManagement\ServiceController::class, 'servicesByCategory'])->name('services.get_by_cat');
 
 
 

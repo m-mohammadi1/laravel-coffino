@@ -27,7 +27,7 @@ class Transaction extends Model
 
     public function service()
     {
-        $this->belongsTo(Service::class, 'service_id');
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
     public function user()

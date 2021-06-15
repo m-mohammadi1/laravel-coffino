@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Purchase\TransactionController;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,9 @@ Route::group([
 
         Route::post('services', [\App\Http\Controllers\Dashboard\CustomerManagement\ServiceController::class, 'servicesByCategory'])->name('services.get_by_cat');
 
+        Route::get('transactions', [\App\Http\Controllers\Dashboard\CustomerManagement\TransactionController::class, 'index'])->name('transactions');
+
+        
 
 
     });

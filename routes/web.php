@@ -57,7 +57,7 @@ Route::group([
 
         Route::get('transactions', [\App\Http\Controllers\Dashboard\CustomerManagement\TransactionController::class, 'index'])->name('transactions');
 
-        
+        Route::get('purchased', [\App\Http\Controllers\Dashboard\CustomerManagement\PurhchasedServicesCntroller::class, 'index'])->name('purchased_services');
 
 
     });

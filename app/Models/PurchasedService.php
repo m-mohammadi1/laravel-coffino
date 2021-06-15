@@ -22,4 +22,16 @@ class PurchasedService extends Model
     const STATUS_PROGRESS = 2;
     const STATUS_COMPLETED = 3;
 
+    const STATUS = [
+        'rejected' => 0,
+        'pending' => 1,
+        'progress' => 2,
+        'completed' => 3
+    ];
+
+
+    public function service()
+    {
+        return $this->hasOne(Service::class, 'id');
+    }
 }

@@ -25,6 +25,12 @@ class Transaction extends Model
     const STATUS_PENDING = 1;
     const STATUS_SUCCESS = 2;
 
+    const STATUS = [
+        'failed' => 0,
+        'pending' => 1,
+        'success' => 2,
+    ];
+    
     public function service()
     {
         return $this->belongsTo(Service::class, 'service_id');
@@ -53,6 +59,20 @@ class Transaction extends Model
     public function getTransactionResultAttribute($value)
     {
         return unserialize($this->attributes['transaction_result']);
+    }
+
+
+    public function getStatusText()
+    {
+        if ($this->attributes['status'] == $this::STATUS['success']) {
+            return "موفق";
+        } else if($this->attributes['status'] == $this::STATUS['pending']) {
+            return 'در انتظار پرداخت';
+        } else if ($this->attributes['status'] == $this::STATUS['failed']) {
+            return 'ناموفق';
+        }
+
+        return 'نامعلوم';
     }
 
 

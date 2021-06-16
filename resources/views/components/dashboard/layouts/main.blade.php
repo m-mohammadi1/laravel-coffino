@@ -32,6 +32,8 @@
 
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}" />
 
+    <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.css') }}">
+
 </head>
 <!--end::Head-->
 
@@ -543,6 +545,8 @@
     <script src="{{ asset('assets/js/pages/widgets.js?v=7.0.6') }}"></script>
     <!--end::Page Scripts-->
 
+    <script src="{{ asset('assets/plugins/toastr/toastr.js')}}"></script>
+    <script src="{{ asset('assets/plugins/toastr/options.js')}}"></script>
     @yield('scripts')
 </body>
 <!--end::Body-->

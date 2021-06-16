@@ -62,5 +62,9 @@ Route::group([
 
     });
 
+    
+    Route::resource('transactions', \App\Http\Controllers\Dashboard\Administratorship\TransactionController::class);
+
+
 
 });

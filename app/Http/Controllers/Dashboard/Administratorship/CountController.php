@@ -45,9 +45,13 @@ class CountController extends Controller
     {
         $this->authorize('create', Count::class);
 
+        if (!Count::canCreateMore()) {
+            return back()->with('toastr_warning', 'تعداد رکورد ثبت شده به حداکثر خود رسیده است');
+        }
+
         Count::create($request->validated());
         
-        return redirect()->route('dashboard.counts.index')->with('successMessage', 'تعداد سرويس با موفقيت ایجاد شد');
+        return redirect()->route('dashboard.counts.index')->with('toastr_success', 'تعداد سرويس با موفقيت ایجاد شد');
     }
 
 
@@ -77,7 +81,7 @@ class CountController extends Controller
         $this->authorize('edit', $count);
 
         $count->update($request->validated());
-        return redirect()->route('dashboard.counts.index')->with('successMessage', 'تعداد سرويس با موفقيت ويرايش شد');
+        return redirect()->route('dashboard.counts.index')->with('toastr_success', 'تعداد سرويس با موفقيت ويرايش شد');
     }
 
     /**
@@ -93,6 +97,6 @@ class CountController extends Controller
         $count->services()->detach();
         $count->delete();
 
-        return back()->with('successMessage', 'عمليات حذف با موفقيت انجام شد');
+        return back()->with('toastr_success', 'عمليات حذف با موفقيت انجام شد');
     }
 }

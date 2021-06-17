@@ -54,6 +54,7 @@ Route::group([
         Route::get('services/{id}/purchase/result', [\App\Http\Controllers\Dashboard\Purchase\PurchaseController::class, 'result'])->name('services.purchase.result');
 
         Route::post('services', [\App\Http\Controllers\Dashboard\CustomerManagement\ServiceController::class, 'servicesByCategory'])->name('services.get_by_cat');
+        Route::post('services/counts', [\App\Http\Controllers\Dashboard\CustomerManagement\ServiceController::class, 'getServiceCounts'])->name('services.count');
 
         Route::get('transactions', [\App\Http\Controllers\Dashboard\CustomerManagement\TransactionController::class, 'index'])->name('transactions');
 

@@ -25,9 +25,10 @@ class PurchaseServiceRequest extends FormRequest
     {
         return [
             // 'description' => ['string'],
-            'count' => ['required', 'min:1', 'max:1000000'],
+            'count' => ['min:1', 'max:1000000'],
             'category' => ['required'],
             'service' => ['required'],
+            'optional_count' => ['max:1000000', 'required_without:count'],
         ];
     }
 }

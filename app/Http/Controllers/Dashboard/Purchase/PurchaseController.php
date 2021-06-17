@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard\Purchase;
 use Exception;
 use SoapFault;
 use Throwable;
+use ErrorException;
 use App\Models\Service;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -32,15 +33,14 @@ class PurchaseController extends Controller
 
         try {
             $serivce = Service::findOrFail($serivce_id);
+            $service_count = $this->getServiceCount($request, $validated);
+    
+            
 
-            $service_count = $validated->count;
             $total_amount = (int)$serivce->price * $service_count;
 
             $invoice = new Invoice();
             $invoice->amount($total_amount);
-
-            // if ($request->has('description'))
-            //     $invoice->detail(['description' => $validated->description]);
 
 
             $user = Auth::user();
@@ -64,7 +64,7 @@ class PurchaseController extends Controller
             });
 
             return $payment->pay()->render();
-        } catch (PurchaseFailedException | Exception | Throwable | SoapFault $e) {
+        } catch (PurchaseFailedException | Exception | Throwable | SoapFault | ErrorException $e) {
             $error = [
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),
@@ -146,6 +146,18 @@ class PurchaseController extends Controller
             return view('dashboard.purchases.error', compact('error'));
             // return view('');
         }
+    }
+
+
+    private function getServiceCount($request, $validated) {
+        if ($request->has('count')) {
+            $service_count = $validated->count;
+
+        } else {
+            $service_count = $validated->optional_count;
+
+        }
+        return $service_count;
     }
 
     

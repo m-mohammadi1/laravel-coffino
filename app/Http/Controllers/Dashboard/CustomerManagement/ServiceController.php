@@ -28,4 +28,16 @@ class ServiceController extends Controller
             'data' => $services,
         ]);
     }
+
+    public function getServiceCounts(Request $request)
+    {
+        $service_counts = Service::find($request->service_id)->counts;
+        
+        $status = count($service_counts) === 0 ? 'not_found' : 'found';
+        
+        return response()->json([
+            'data' => $service_counts,
+            'status' => $status,
+        ]);
+    }
 }

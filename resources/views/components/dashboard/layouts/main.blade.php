@@ -466,8 +466,6 @@
     </div>
     <!--end::Scrolltop-->
 
-
-    <script>var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";</script>
     <!--begin::Global Config(global config for global جی اس scripts)-->
     <script>
         var KTAppSettings = {
@@ -547,6 +545,8 @@
 
     <script src="{{ asset('assets/plugins/toastr/toastr.js')}}"></script>
     <script src="{{ asset('assets/plugins/toastr/options.js')}}"></script>
+
+    <x-dashboard.partials.messages.toastr />
     @yield('scripts')
 </body>
 <!--end::Body-->

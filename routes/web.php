@@ -65,6 +65,7 @@ Route::group([
 
 
     Route::resource('transactions', \App\Http\Controllers\Dashboard\Administratorship\TransactionController::class);
+    Route::resource('purchases', \App\Http\Controllers\Dashboard\Administratorship\TransactionController::class);
 
 
 

@@ -165,7 +165,6 @@
                                             </td>
 
 
-
                                             <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
                                                 <span style="width: 137px;">{{ $service->service->title }}</span>
                                             </td>
@@ -173,7 +172,6 @@
                                             <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
                                                 <span style="width: 137px;">{{ $service->service_count }}</span>
                                             </td>
-
 
 
                                             <td aria-label="0363-0198" class="datatable-cell status-cell">
@@ -192,9 +190,6 @@
                                             </td>
 
                                         </tr>
-
-
-
                                         @php($i++)
                                     @endforeach
 
@@ -245,7 +240,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">اطلاعات تراکنش</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">اطلاعات سرویس پرداخت شده</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="نزدیک">
                             <i aria-hidden="true" class="ki ki-close"></i>
                         </button>
@@ -257,31 +252,29 @@
 
                         <div class="modal-body">
 
-
-
                             <div data-scroll="true" data-height="500">
 
                                 <div class="form-group">
                                     <label>کاربر ثبت کرده</label>
-                                    <input type="text" id="transaction-user" class="form-control transaction-modal-input"
+                                    <input type="text" id="service-user" class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
                                 </div>
 
                                 <div class="form-group">
                                     <label>سیرویس درخواستی</label>
-                                    <input type="text" id="transaction-service" class="form-control transaction-modal-input"
+                                    <input type="text" id="service-service" class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
                                 </div>
 
                                 <div class="form-group">
                                     <label>تعداد درخواستی</label>
-                                    <input type="text" id="transaction-count" class="form-control transaction-modal-input"
+                                    <input type="text" id="service-count" class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
                                 </div>
 
                                 <div class="form-group">
                                     <label>تاریخ ثبت</label>
-                                    <input type="text" id="transaction-date" class="form-control transaction-modal-input"
+                                    <input type="text" id="service-date" class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
                                 </div>
 
@@ -289,27 +282,24 @@
 
                                 <div class="form-group">
                                     <label>وضعیت</label>
-                                    <select name="status" class="form-control" id="transaction-status" data-id=""
+                                    <select name="status" class="form-control" id="service-status" data-id=""
                                             data-action="-1">
 
-                                        <option value="{{ App\Models\Transaction::STATUS['pending'] }}">
-                                            در انتظار پرداخت
-                                        </option>
+                                        @foreach(App\Models\PurchasedService::getStatusArray() as $status)
+                                            <option value="{{ $status['code'] }}">
+                                                {{ $status['text'] }}
+                                            </option>
+                                        @endforeach
 
                                     </select>
                                 </div>
-
-
-
-
-
 
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light-primary font-weight-bold"
                                         data-dismiss="modal">لغو</button>
-                                <button type="submit" id="saveTransaction"
+                                <button type="submit" id="savePurchased"
                                         class="btn btn-danger font-weight-bold">ذخیره</button>
                             </div>
                     </form>
@@ -347,11 +337,11 @@
 
                     const button = $(this);
 
-                    const user = $("#transaction-user");
-                    const service = $("#transaction-service");
-                    const count = $("#transaction-count");
-                    const status = $("#transaction-status");
-                    const date = $("#transaction-date");
+                    const user = $("#service-user");
+                    const service = $("#service-service");
+                    const count = $("#service-count");
+                    const status = $("#service-status");
+                    const date = $("#service-date");
 
 
                     $.ajaxSetup({
@@ -362,38 +352,40 @@
                     });
 
                     console.log(button.attr('data-action'));
-                    // $.ajax({
-                    //     method: button.attr('data-method'),
-                    //     url: button.attr('data-action'),
-                    //     dataType: 'json',
-                    //     success: function(response) {
-                    //
-                    //         const transaction = response.data;
-                    //
-                    //         // set values of inputs fron response
-                    //         user.val(transaction.user.name);
-                    //         count.val(transaction.service_count);
-                    //         status.val(transaction.status);
-                    //         date.val(transaction.created_at);
-                    //
-                    //         modal.modal('show');
-                    //         // set action of updating status
-                    //         // status.attr('data-action', response.update_route);
-                    //         updatePurchasedForm.attr('action', response.update_route);
-                    //
-                    //     },
-                    //     error: function(data) {
-                    //         //console.log(data);
-                    //
-                    //         console.log('error');
-                    //     }
-                    //
-                    // });
+                    $.ajax({
+                        method: button.attr('data-method'),
+                        url: button.attr('data-action'),
+                        dataType: 'json',
+                        success: function(response) {
+
+                            const purchased_service = response.data;
+
+                            // set values of inputs fron response
+                            user.val(purchased_service.user.name);
+                            service.val(purchased_service.service.title);
+                            count.val(purchased_service.service_count);
+                            status.val(purchased_service.status);
+                            date.val(purchased_service.created_at);
+
+                            modal.modal('show');
+                            // set action of updating status
+                            // status.attr('data-action', response.update_route);
+                            updatePurchasedForm.attr('action', response.update_route);
+
+                        },
+                        error: function(data) {
+                            //console.log(data);
+
+                            console.log('error');
+                            toastr['error']('مشکلی پیش آمده است');
+                        }
+
+                    });
 
 
                 });
 
-                $("#saveTransaction").click(function(e) {
+                $("#savePurchased").click(function(e) {
                     e.preventDefault();
 
                     const dropdown = $(this);
@@ -423,7 +415,9 @@
                                 toastr["error"](response.message);
                             }
 
-                            const statusTdToUpdate = $('tr#' + response.data.transaction_id + " .status-cell span");
+                            const statusTdToUpdate = $('tr#' + response.data.service_id + " .status-cell span");
+
+                            console.log(response);
 
                             statusTdToUpdate.html(response.data.status_text);
 

@@ -43,16 +43,53 @@ class PurchasedService extends Model
     public function getStatusText()
     {
         $text = 'نامعلوم';
-        if ($this->attributes['status'] === self::STATUS['rejected']) {
+        if ($this->attributes['status'] == self::STATUS['rejected']) {
             $text = 'بازگشت داده شده';
-        } else if ($this->attributes['status'] === self::STATUS['pending']) {
+        } else if ($this->attributes['status'] == self::STATUS['pending']) {
             $text = 'در انتظار بررسی';
-        } else if ($this->attributes['status'] === self::STATUS['progress']) {
+        } else if ($this->attributes['status'] == self::STATUS['progress']) {
             $text = 'در حال پردازش';
-        } else if ($this->attributes['status'] === self::STATUS['completed']) {
+        } else if ($this->attributes['status'] == self::STATUS['completed']) {
             $text = 'تکمیل شده';
         }
-
         return $text;
+    }
+
+    public static function getStatusTextByCode($code)
+    {
+        $text = 'نامعلوم';
+        if ($code == self::STATUS['rejected']) {
+            $text = 'بازگشت داده شده';
+        } else if ($code == self::STATUS['pending']) {
+            $text = 'در انتظار بررسی';
+        } else if ($code == self::STATUS['progress']) {
+            $text = 'در حال پردازش';
+        } else if ($code == self::STATUS['completed']) {
+            $text = 'تکمیل شده';
+        }
+        return $text;
+    }
+
+    public static function getStatusArray()
+    {
+        return [
+            'rejected' => [
+                'code' => self::STATUS['rejected'],
+                'text' => self::getStatusTextByCode(self::STATUS['rejected']),
+            ],
+            'pending' => [
+                'code' => self::STATUS['pending'],
+                'text' => self::getStatusTextByCode(self::STATUS['pending']),
+            ],
+            'progress' => [
+                'code' => self::STATUS['progress'],
+                'text' => self::getStatusTextByCode(self::STATUS['progress']),
+            ],
+            'completed' => [
+                'code' => self::STATUS['completed'],
+                'text' => self::getStatusTextByCode(self::STATUS['completed']),
+            ]
+        ];
+
     }
 }

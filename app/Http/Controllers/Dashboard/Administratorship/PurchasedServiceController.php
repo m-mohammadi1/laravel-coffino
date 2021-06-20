@@ -10,7 +10,7 @@ class PurchasedServiceController extends Controller
 {
     public function index()
     {
-        $purchased_services = PurchasedService::all();
+        $purchased_services = PurchasedService::paginate(10);
         $purchased_services->load('user');
 
         return view('dashboard.purchased.index', compact('purchased_services'));

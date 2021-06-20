@@ -203,6 +203,8 @@
 
                                     <div class="datatable-pager-info">
 
+                                        {{ $purchased_services->links() }}
+
 
 
                                         <div class="dropdown bootstrap-select datatable-pager-size" style="width: 60px;">

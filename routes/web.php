@@ -21,14 +21,9 @@ Route::get('/', function () {
 });
 
 
-
-
-Route::get('/verify', function() {
+Route::get('/verify', function () {
 
 });
-
-
-
 
 
 Route::group([
@@ -68,5 +63,13 @@ Route::group([
     Route::resource('purchases', \App\Http\Controllers\Dashboard\Administratorship\PurchasedServiceController::class);
 
 
+    Route::group([
+        'prefix' => 'profile',
+        'as' => 'profile.',
+    ], function () {
+
+        Route::get('/', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'index'])->name('index');
+
+    });
 
 });

@@ -11,47 +11,48 @@ use App\Http\Requests\StoreServiceRequest;
 
 class ServiceController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
         $this->authorize('manage', Service::class);
-        
-        $services = Service::with('category')->paginate(10);
+
+        $services = $this->getServicesPaginated();
         return view('dashboard.services.index', compact('services'));
     }
 
+
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
         $this->authorize('create', Service::class);
 
-        $categories = Category::all();
+        $categories = $this->getCategories();
         return view('dashboard.services.create', compact('categories'));
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreServiceRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreServiceRequest $request)
+    public function store(StoreServiceRequest $request): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('create', Service::class);
 
-        $category = Category::find($request->category_id);
+        $category = $this->findServiceByCatId($request);
 
-        if (!$category)
+        if (!$category) {
             return redirect()->route('dashboard.services.create')->with('errorMessage', 'دسته بندی انتخابی یافت نشد');
-        
+        }
+
         $category->services()->create($request->validated());
 
         return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با موفقیت ایجاد شد');
@@ -59,57 +60,81 @@ class ServiceController extends Controller
 
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Service $service
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Service $service)
     {
         $this->authorize('see', $service);
 
-        $categories = Category::all();
+        $categories = $this->getCategories();
 
         return view('dashboard.services.edit', compact('categories', 'service'));
-
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param StoreServiceRequest $request
+     * @param Service $service
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(StoreServiceRequest $request, Service $service)
+    public function update(StoreServiceRequest $request, Service $service): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('edit', $service);
 
-        $category = Category::find($request->category_id);
+        $category = $this->findServiceByCatId($request);
 
-        if (!$category)
+        if (!$category) {
             return redirect()->route('dashboard.services.edit')->with('errorMessage', 'دسته بندی انتخابی یافت نشد');
-        
-        $service->update($request->validated());
-        $category->services()->save($service);
+        }
 
-        
+        $this->updateServiceAndSyncIt($service, $request, $category);
+
         return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با موفقیت بروزرسانی شد');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Service $service
-     * @return \Illuminate\Http\Response
+     * @param Service $service
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function destroy(Service $service)
+    public function destroy(Service $service): \Illuminate\Http\RedirectResponse
     {
+
         $this->authorize('delete', $service);
 
         $serviceTitle = $service->title;
-        $service->delete();
+        $this->deleteService($service);
 
         return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با عنوان (' . Str::substr($serviceTitle, 0, 60) . '...) با موفقيت حذف شد.');
+    }
+
+    private function findServiceByCatId($request)
+    {
+        return Category::find($request->category_id);
+    }
+
+    private function updateServiceAndSyncIt(Service $service, $request, $category)
+    {
+        $service->update($request->validated());
+        $category->services()->save($service);
+    }
+
+    private function getServicesPaginated()
+    {
+        return Service::with('category')->paginate(10);
+    }
+
+    private function getCategories()
+    {
+        return Category::all();
+    }
+
+    private function deleteService(Service $service): void
+    {
+        $service->delete();
     }
 }

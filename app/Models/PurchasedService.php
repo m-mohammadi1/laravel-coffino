@@ -34,4 +34,25 @@ class PurchasedService extends Model
     {
         return $this->hasOne(Service::class, 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getStatusText()
+    {
+        $text = 'نامعلوم';
+        if ($this->attributes['status'] === self::STATUS['rejected']) {
+            $text = 'بازگشت داده شده';
+        } else if ($this->attributes['status'] === self::STATUS['pending']) {
+            $text = 'در انتظار بررسی';
+        } else if ($this->attributes['status'] === self::STATUS['progress']) {
+            $text = 'در حال پردازش';
+        } else if ($this->attributes['status'] === self::STATUS['completed']) {
+            $text = 'تکمیل شده';
+        }
+
+        return $text;
+    }
 }

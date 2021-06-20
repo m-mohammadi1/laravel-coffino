@@ -111,6 +111,9 @@
                                             <span style="width: 137px;">آیدی دیتابیس</span>
                                         </th>
 
+                                        <th data-field="service" class="datatable-cell datatable-cell-sort">
+                                            <span style="width: 137px;">کاربر درخواستی</span>
+                                        </th>
 
                                         <th data-field="service" class="datatable-cell datatable-cell-sort">
                                             <span style="width: 137px;">سرویس درخواستی</span>
@@ -120,12 +123,8 @@
                                             <span style="width: 137px;">تعداد درخواست شده</span>
                                         </th>
 
-                                        <th data-field="amount" class="datatable-cell datatable-cell-sort">
-                                            <span style="width: 137px;">مبلغ تراکنش</span>
-                                        </th>
-
                                         <th data-field="status" class="datatable-cell datatable-cell-sort">
-                                            <span style="width: 137px;">وضعیت تراکنش</span>
+                                            <span style="width: 137px;">وضعیت موجود</span>
                                         </th>
 
 
@@ -144,53 +143,51 @@
                                     </thead>
                                     <tbody class="datatable-body" style="">
                                     @php($i = 0)
-                                    @foreach ($transactions as $transaction)
-                                        <tr id="{{ $transaction->id }}" data-row="{{ $i }}" class="datatable-row" style="left: 0px;">
+                                    @foreach ($purchased_services as $service)
+                                        <tr id="{{ $service->id }}" data-row="{{ $i }}" class="datatable-row" style="left: 0px;">
                                             <td class="datatable-cell-sorted datatable-cell-center datatable-cell datatable-cell-check"
-                                                data-field="RecordID" aria-label="61"><span style="width: 20px;"><label
-                                                        class="checkbox checkbox-single"><input type="checkbox"
-                                                                                                value="61">&nbsp;<span></span></label></span></td>
+                                                data-field="RecordID" aria-label="61">
+                                                <span style="width: 20px;"><label
+                                                        class="checkbox checkbox-single">
+                                                        <input type="checkbox" value="61">&nbsp;
+                                                        <span></span>
+                                                    </label>
+                                                </span>
+                                            </td>
 
-                                            <td data-field="ID" aria-label="0363-0198" class="datatable-cell">
-                                                <span style="width: 137px;" id="transaction-id">{{ $transaction->id }}</span>
+
+                                            <td class="datatable-cell">
+                                                <span style="width: 137px;" id="transaction-id">{{ $service->id }}</span>
+                                            </td>
+
+                                            <td class="datatable-cell">
+                                                <span style="width: 137px;" id="transaction-id">{{ $service->user->email }}</span>
                                             </td>
 
 
 
                                             <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
-                                                <span style="width: 137px;">{{ $transaction->service->title }}</span>
+                                                <span style="width: 137px;">{{ $service->service->title }}</span>
                                             </td>
 
                                             <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
-                                                <span style="width: 137px;">{{ $transaction->service_count }}</span>
+                                                <span style="width: 137px;">{{ $service->service_count }}</span>
                                             </td>
 
-                                            <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
-                                                        <span style="width: 137px;">{{ number_format($transaction->paid) }}
-                                                            تومان</span>
-                                            </td>
+
 
                                             <td aria-label="0363-0198" class="datatable-cell status-cell">
                                                         <span style="width: 137px;">
-                                                            @if ($transaction->status === $transaction::STATUS_SUCCESS)
-                                                                موفق
-                                                            @elseif ($transaction->status === $transaction::STATUS_PENDING)
-                                                                در انتظار پرداخت
-                                                            @elseif ($transaction->status === $transaction::STATUS_FAILED)
-                                                                ناموفق
-                                                            @else
-                                                                نامعلوم
-                                                            @endif
+                                                            {{ $service->getStatusText() }}
                                                         </span>
                                             </td>
-
-
 
                                             <td data-field="Actions" aria-label="0363-0198" class="datatable-cell">
                                                         <span style="width: 137px;">
                                                             <button type="button" class="btn btn-info data-show"
-                                                                    data-action="{{ route('dashboard.transactions.show', $transaction->id) }}"
-                                                                    data-method="GET">مشاهده و ویرایش</button>
+                                                                    data-action="{{ route('dashboard.purchases.show', $service->id) }}"
+                                                                    data-method="GET"
+                                                            >مشاهده و ویرایش</button>
                                                         </span>
                                             </td>
 
@@ -211,7 +208,6 @@
 
                                     <div class="datatable-pager-info">
 
-                                        {{ $transactions->links() }}
 
 
                                         <div class="dropdown bootstrap-select datatable-pager-size" style="width: 60px;">
@@ -244,7 +240,7 @@
 
 
         <!-- مودال-->
-        <div class="modal fade" id="transactionDetailsModal" data-backdrop="static" tabindex="-1" role="dialog"
+        <div class="modal fade" id="purchasedDetailsModal" data-backdrop="static" tabindex="-1" role="dialog"
              aria-labelledby="none" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -255,7 +251,7 @@
                         </button>
                     </div>
 
-                    <form id="updateTransactionForm" action="" method="post">
+                    <form id="updatePurchasedForm" action="" method="post">
                         @csrf
                         @method('PUT')
 
@@ -264,21 +260,6 @@
 
 
                             <div data-scroll="true" data-height="500">
-
-
-
-
-                                <div class="form-group">
-                                    <label>آیدی پرداخت</label>
-                                    <input type="text" id="transaction-payment-id" class="form-control" disabled="disabled"
-                                           value="">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>آیدی تراکنش (درگاه)</label>
-                                    <input type="text" id="transaction-transaction-id"
-                                           class="form-control transaction-modal-input" disabled="disabled" value="">
-                                </div>
 
                                 <div class="form-group">
                                     <label>کاربر ثبت کرده</label>
@@ -299,14 +280,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>مبلغ تراکنش</label>
-                                    <input type="text" id="transaction-amount" class="form-control transaction-modal-input"
-                                           disabled="disabled" value="">
-                                </div>
-
-
-
-                                <div class="form-group">
                                     <label>تاریخ ثبت</label>
                                     <input type="text" id="transaction-date" class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
@@ -319,10 +292,9 @@
                                     <select name="status" class="form-control" id="transaction-status" data-id=""
                                             data-action="-1">
 
-                                        <option value="{{ App\Models\Transaction::STATUS['pending'] }}">در انتظار پرداخت
+                                        <option value="{{ App\Models\Transaction::STATUS['pending'] }}">
+                                            در انتظار پرداخت
                                         </option>
-                                        <option value="{{ App\Models\Transaction::STATUS['success'] }}">موفق</option>
-                                        <option value="{{ App\Models\Transaction::STATUS['failed'] }}">ناموفق</option>
 
                                     </select>
                                 </div>
@@ -367,22 +339,17 @@
 
         <script>
             $(document).ready(function() {
-                const updateTransactionForm = $("#updateTransactionForm");
-                const modal = $("#transactionDetailsModal");
+                const updatePurchasedForm = $("#updatePurchasedForm");
+                const modal = $("#purchasedDetailsModal");
 
 
                 $(".data-show").click(function() {
 
-
-
                     const button = $(this);
 
-                    const payId = $("#transaction-payment-id");
-                    const transactionId = $("#transaction-transaction-id");
                     const user = $("#transaction-user");
                     const service = $("#transaction-service");
                     const count = $("#transaction-count");
-                    const amount = $("#transaction-amount");
                     const status = $("#transaction-status");
                     const date = $("#transaction-date");
 
@@ -394,37 +361,34 @@
                         }
                     });
 
-                    $.ajax({
-                        method: button.attr('data-method'),
-                        url: button.attr('data-action'),
-                        dataType: 'json',
-                        success: function(response) {
-
-                            const transaction = response.data;
-
-                            // set values of inputs fron response
-                            payId.val(transaction.payment_id);
-                            transactionId.val(transaction.transaction_id);
-                            user.val(transaction.user.name);
-                            service.val(transaction.service.title + " -- قیمت واحد : " +
-                                transaction.service.price);
-                            count.val(transaction.service_count);
-                            amount.val(transaction.paid);
-                            status.val(transaction.status);
-                            date.val(transaction.created_at);
-
-                            modal.modal('show');
-                            // set action of updating status
-                            // status.attr('data-action', response.update_route);
-                            updateTransactionForm.attr('action', response.update_route);
-
-                        },
-                        error: function(data) {
-                            //console.log(data);
-                            console.log('error');
-                        }
-
-                    });
+                    console.log(button.attr('data-action'));
+                    // $.ajax({
+                    //     method: button.attr('data-method'),
+                    //     url: button.attr('data-action'),
+                    //     dataType: 'json',
+                    //     success: function(response) {
+                    //
+                    //         const transaction = response.data;
+                    //
+                    //         // set values of inputs fron response
+                    //         user.val(transaction.user.name);
+                    //         count.val(transaction.service_count);
+                    //         status.val(transaction.status);
+                    //         date.val(transaction.created_at);
+                    //
+                    //         modal.modal('show');
+                    //         // set action of updating status
+                    //         // status.attr('data-action', response.update_route);
+                    //         updatePurchasedForm.attr('action', response.update_route);
+                    //
+                    //     },
+                    //     error: function(data) {
+                    //         //console.log(data);
+                    //
+                    //         console.log('error');
+                    //     }
+                    //
+                    // });
 
 
                 });
@@ -445,10 +409,10 @@
                     });
 
                     $.ajax({
-                        method: updateTransactionForm.attr('method'),
-                        url: updateTransactionForm.attr('action'),
+                        method: updatePurchasedForm.attr('method'),
+                        url: updatePurchasedForm.attr('action'),
                         dataType: 'json',
-                        data: updateTransactionForm.serialize(),
+                        data: updatePurchasedForm.serialize(),
                         success: function(response) {
 
                             modal.modal('hide');
@@ -486,7 +450,6 @@
 
 
             });
-
         </script>
 
 

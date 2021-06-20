@@ -10,23 +10,19 @@ use App\Http\Requests\StoreCategoryRequest;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
         $this->authorize('manage', Category::class);
-        
+
         $categories = Category::paginate(10);
 
         return view('dashboard.categories.index', compact('categories'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
@@ -35,27 +31,25 @@ class CategoryController extends Controller
         return view('dashboard.categories.create');
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCategoryRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('create', Category::class);
 
-        Category::create($request->validated());
+        $this->sotreCat($request->validated());
 
         return redirect()->route('dashboard.categories.index')->with('successMessage', 'دسته بندی با موفقیت ایجاد شد');
     }
 
-
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Category $category)
     {
@@ -65,35 +59,57 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param StoreCategoryRequest $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(StoreCategoryRequest $request, Category $category)
+    public function update(StoreCategoryRequest $request, Category $category): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('edit', $category);
 
-        $category->update($request->validated());
+        $this->updateCat($category, $request);
+
 
         return redirect()->route('dashboard.categories.index')->with('successMessage', 'دسته بندي با عنوان ' . $category->title . ' با موفقيت بروزرساني شد.');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Category $category)
     {
         $this->authorize('delete', $category);
-        
+
         $catId = $category->id;
-        $category->delete();
+
+        $this->deleteCat($category);
 
         return back()->with('successMessage', 'دسته بندي با آيدي ' . $catId . ' با موفقيت حذف شد');
+    }
+
+
+    private function sotreCat($values): void
+    {
+        Category::create($values);
+    }
+
+
+    /**
+     * @param $category
+     */
+    private function deleteCat($category): void
+    {
+            $category->delete();
+    }
+
+    /**
+     * @param Category $category
+     * @param StoreCategoryRequest $request
+     */
+    private function updateCat(Category $category, StoreCategoryRequest $request): void
+    {
+        $category->update($request->validated());
     }
 }
 

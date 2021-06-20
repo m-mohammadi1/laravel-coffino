@@ -172,15 +172,7 @@
 
                                                     <td aria-label="0363-0198" class="datatable-cell status-cell">
                                                         <span style="width: 137px;">
-                                                            @if ($transaction->status === $transaction::STATUS_SUCCESS)
-                                                                موفق
-                                                            @elseif ($transaction->status === $transaction::STATUS_PENDING)
-                                                                در انتظار پرداخت
-                                                            @elseif ($transaction->status === $transaction::STATUS_FAILED)
-                                                                ناموفق
-                                                            @else
-                                                                نامعلوم
-                                                            @endif
+                                                            {{ $transaction->getStatusText()  }}
                                                         </span>
                                                     </td>
 
@@ -452,7 +444,7 @@
                                 success: function(response) {
 
                                     modal.modal('hide');
-                                    
+
                                     if (response.status === 'success') {
                                         toastr["success"](response.message);
                                     } else {

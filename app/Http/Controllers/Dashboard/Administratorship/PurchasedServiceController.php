@@ -3,50 +3,31 @@
 namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Http\Controllers\Controller;
+use App\Models\PurchasedService;
 use Illuminate\Http\Request;
 
-class PurchasedServicesController extends Controller
+class PurchasedServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $purchased_services = PurchasedService::all();
+        $purchased_services->load('user');
+
+        return view('dashboard.purchased.index', compact('purchased_services'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Request $request, PurchasedService $service)
     {
-        //
+        dd($service);
+
+//        return response()->json([
+//            'data' => $service,
+//            'status' => 'success',
+//            'update_route' => route('dashboard.purchases.update', $service->id),
+//        ])
+
     }
 
     /**

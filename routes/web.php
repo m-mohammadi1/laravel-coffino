@@ -72,7 +72,8 @@ Route::group([
 
         if (\Laravel\Fortify\Features::enabled(\Laravel\Fortify\Features::updateProfileInformation())) {
             Route::put('/', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'update'])->name('update');
-            Route::put('/', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'updatePassword'])->name('update_password');
+            Route::get('/password', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'password'])->name('password');
+            Route::put('/password', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'updatePassword'])->name('update_password');
         }
     });
 

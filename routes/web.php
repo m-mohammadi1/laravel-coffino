@@ -70,6 +70,10 @@ Route::group([
 
         Route::get('/', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'index'])->name('index');
 
+        if (\Laravel\Fortify\Features::enabled(\Laravel\Fortify\Features::updateProfileInformation())) {
+            Route::put('/', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'update'])->name('update');
+            Route::put('/', [\App\Http\Controllers\Dashboard\Profile\ProfileController::class, 'updatePassword'])->name('update_password');
+        }
     });
 
 });

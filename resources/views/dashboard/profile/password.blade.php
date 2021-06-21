@@ -343,31 +343,8 @@
                                 <!--begin::Body-->
                                 <div class="card-body">
 
-                                    @if ($errors->updatePassword->any())
+                                    <x-dashboard.partials.messages.error-bag :errorBag="'updatePassword'" />
 
-
-                                        @foreach($errors->updatePassword->all() as $error)
-
-
-                                            <div class="alert alert-custom alert-light-danger fade show mb-5"
-                                                 role="alert">
-                                                <div class="alert-icon"><i class="la la-check"></i></div>
-                                                <div class="alert-text"> {{ $error  }}</div>
-                                                <div class="alert-close">
-                                                    <button type="button" class="close" data-dismiss="alert"
-                                                            aria-label="نزدیک">
-                                                        <span aria-hidden="true"><i class="ki ki-close"></i></span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        @endforeach
-
-
-                                    @endif
-
-
-                                    <x-dashboard.partials.messages.error/>
-                                    <x-dashboard.partials.messages.success/>
 
                                     <div class="form-group row">
                                         <label class="col-xl-3 col-lg-3 col-form-label text-right">پسورد فعلی</label>

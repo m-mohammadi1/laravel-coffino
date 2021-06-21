@@ -343,6 +343,11 @@
                                 <!--end::Header-->
                                 <!--begin::Body-->
                                 <div class="card-body">
+
+
+                                    <x-dashboard.partials.messages.error-bag :errorBag="'updateProfileInformation'" />
+
+
                                     <div class="form-group row">
                                         <label class="col-xl-3 col-lg-3 col-form-label text-right">آواتار</label>
                                         <div class="col-lg-9 col-xl-6">

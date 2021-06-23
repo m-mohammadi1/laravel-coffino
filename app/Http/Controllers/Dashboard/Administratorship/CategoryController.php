@@ -18,14 +18,6 @@ class CategoryController extends Controller
 
         $categories = Category::paginate(10);
 
-        $dataTableInformation = [
-            'objectColumnNames' => ['آیدی', 'توضیحات'],
-            'columns' => ['id', 'description'],
-            'isPaginated' => true,
-            'tableColumnsCount' => 2,
-
-        ];
-
         return view('dashboard.categories.index', compact('categories', 'dataTableInformation'));
     }
 

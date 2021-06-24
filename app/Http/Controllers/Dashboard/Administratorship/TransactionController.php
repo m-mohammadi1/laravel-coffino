@@ -15,6 +15,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $this->authorize('manage', Transaction::class);
         $transactions = Transaction::paginate(10);
 
         return view('dashboard.transactions.index', compact('transactions'));
@@ -30,6 +31,8 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
+        $this->authorize('see', $transaction);
+
         $transaction->load(['user', 'service']);
         return response()->json([
             'data' => $transaction,
@@ -48,6 +51,8 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction): \Illuminate\Http\JsonResponse
     {
+        $this->authorize('update', $transaction);
+
         if (!$request->ajax()) {
             return response()->json([
                 'message' => 'درخواست نامعتبر است دوباره تلاش کنید',

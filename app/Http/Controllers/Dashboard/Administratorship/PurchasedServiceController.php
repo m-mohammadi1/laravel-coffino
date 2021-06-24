@@ -10,6 +10,8 @@ class PurchasedServiceController extends Controller
 {
     public function index()
     {
+        $this->authorize('manage', PurchasedService::class);
+
         $purchased_services = PurchasedService::paginate(10);
         $purchased_services->load('user');
 
@@ -26,6 +28,8 @@ class PurchasedServiceController extends Controller
      */
     public function show(PurchasedService $purchase)
     {
+        $this->authorize('see', $purchase);
+
         $purchase->load(['user', 'service']);
         return response()->json([
             'data' => $purchase,
@@ -45,6 +49,8 @@ class PurchasedServiceController extends Controller
      */
     public function update(Request $request, PurchasedService $purchase): \Illuminate\Http\JsonResponse
     {
+        $this->authorize('update', $purchase);
+
         if (!$request->ajax()) {
             return response()->json([
                 'message' => 'درخواست نامعتبر است دوباره تلاش کنید',

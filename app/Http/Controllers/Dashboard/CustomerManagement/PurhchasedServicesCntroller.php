@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 
 class PurhchasedServicesCntroller extends Controller
 {
-    
+
     public function index()
     {
+        $this->authorize('customer_manage', PurchasedService::class);
 
         $services = PurchasedService::all();
+
+
 
         return view('dashboard.customers.purchased.index', compact('services'));
     }

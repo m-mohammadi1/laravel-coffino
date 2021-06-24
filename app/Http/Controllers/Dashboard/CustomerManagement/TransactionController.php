@@ -14,6 +14,8 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $this->authorize('customer_manage', Transaction::class);
+        
         $transactions = auth()->user()->transactions;
 
         $transactions->load('service');

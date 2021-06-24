@@ -197,11 +197,11 @@
 
                                                     <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
                                                         <span style="width: 137px;">
-                                                            @if ($transaction->status === $transaction::STATUS_SUCCESS)
+                                                            @if ($transaction->status === $transaction::STATUS['success'])
                                                                 موفق
-                                                            @elseif ($transaction->status === $transaction::STATUS_PENDING)
+                                                            @elseif ($transaction->status === $transaction::STATUS['pending'])
                                                                 در انتظار پرداخت
-                                                            @elseif ($transaction->status === $transaction::STATUS_REJECTED)
+                                                            @elseif ($transaction->status === $transaction::STATUS['failed'])
                                                                 ناموفق
                                                             @else
                                                                 نامعلوم

@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
@@ -103,7 +104,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 
         $avatar_path = $image->storeAs('public/avatars', $fileNameToStore);
         if ($avatar_path) {
-            return $fileNameToStore;
+            return Str::of($fileNameToStore)->substr(0, 512);
         }
 
         return null;

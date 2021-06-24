@@ -48,6 +48,13 @@ class PermissionSeeder extends Seeder
         $see_transaction = Permission::create(['name' => 'see transaction']);
         $manage_transaction = Permission::create(['name' => 'manage transaction']);
 
+        // for PurchasedService Model
+        $create_purchased_service = Permission::create(['name' => 'create purchased_service']);
+        $edit_purchased_service = Permission::create(['name' => 'edit purchased_service']);
+        $delete_purchased_service = Permission::create(['name' => 'delete purchased_service']);
+        $see_purchased_service = Permission::create(['name' => 'see purchased_service']);
+        $manage_purchased_service = Permission::create(['name' => 'manage purchased_service']);
+
 
 
 

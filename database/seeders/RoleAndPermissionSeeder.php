@@ -21,20 +21,53 @@ class RoleAndPermissionSeeder extends Seeder
         $customer = Role::create(['name' => 'customer']);
 
 
+        // for Category Model
+        $create_cat = Permission::create(['name' => 'create category']);
+        $edit_cat = Permission::create(['name' => 'edit category']);
+        $delete_cat = Permission::create(['name' => 'delete category']);
+        $see_cat = Permission::create(['name' => 'see category']);
+        $manage_cat = Permission::create(['name' => 'manage category']);
+
+
+        // for Service Model
+        $create_service = Permission::create(['name' => 'create service']);
+        $edit_service = Permission::create(['name' => 'edit service']);
+        $delete_service = Permission::create(['name' => 'delete service']);
+        $see_service = Permission::create(['name' => 'see service']);
+        $manage_service = Permission::create(['name' => 'manage service']);
+
+        // for Count Model
+        $create_count = Permission::create(['name' => 'create count']);
+        $edit_count = Permission::create(['name' => 'edit count']);
+        $delete_count = Permission::create(['name' => 'delete count']);
+        $see_count = Permission::create(['name' => 'see count']);
+        $manage_count = Permission::create(['name' => 'manage count']);
+
+        // for Transaction Model
+        $create_transaction = Permission::create(['name' => 'create transaction']);
+        $edit_transaction = Permission::create(['name' => 'edit transaction']);
+        $delete_transaction = Permission::create(['name' => 'delete transaction']);
+        $see_transaction = Permission::create(['name' => 'see transaction']);
+        $manage_transaction = Permission::create(['name' => 'manage transaction']);
+
+        // for PurchasedService Model
+        $create_purchased_service = Permission::create(['name' => 'create purchased_service']);
+        $edit_purchased_service = Permission::create(['name' => 'edit purchased_service']);
+        $delete_purchased_service = Permission::create(['name' => 'delete purchased_service']);
+        $see_purchased_service = Permission::create(['name' => 'see purchased_service']);
+        $manage_purchased_service = Permission::create(['name' => 'manage purchased_service']);
 
 
         // asign permissions to roles
-
-        $super_admin->givePermissionTo([
-            $create_cat, $edit_cat, $delete_cat, $see_cat, $manage_cat,
-            $create_service, $edit_service, $delete_service, $see_service, $manage_service,
-            $create_count, $edit_count, $delete_count, $see_count, $manage_count
-        ]);
+        $all_permissions = Permission::all();
+        $super_admin->givePermissionTo($all_permissions);
 
         $admin->givePermissionTo([
             $create_cat, $edit_cat, $see_cat, $manage_cat,
             $create_service, $edit_service, $see_service, $manage_service,
-            $create_count, $edit_count, $see_count, $manage_count
+            $create_count, $edit_count, $see_count, $manage_count,
+            $create_transaction, $edit_transaction, $see_transaction, $manage_transaction,
+            $create_purchased_service, $edit_purchased_service, $see_purchased_service, $manage_purchased_service
         ]);
     }
 }

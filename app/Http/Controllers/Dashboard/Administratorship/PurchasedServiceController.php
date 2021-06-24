@@ -49,7 +49,7 @@ class PurchasedServiceController extends Controller
      */
     public function update(Request $request, PurchasedService $purchase): \Illuminate\Http\JsonResponse
     {
-        $this->authorize('update', $purchase);
+        $this->authorize('edit', $purchase);
 
         if (!$request->ajax()) {
             return response()->json([

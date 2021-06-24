@@ -180,14 +180,16 @@
                                                         </span>
                                             </td>
 
-                                            <td data-field="Actions" aria-label="0363-0198" class="datatable-cell">
-                                                        <span style="width: 137px;">
-                                                            <button type="button" class="btn btn-info data-show"
-                                                                    data-action="{{ route('dashboard.purchases.show', $service->id) }}"
-                                                                    data-method="GET"
-                                                            >مشاهده و ویرایش</button>
-                                                        </span>
-                                            </td>
+                                            @can('edit purchased_service')
+                                                <td data-field="Actions" aria-label="0363-0198" class="datatable-cell">
+                                                            <span style="width: 137px;">
+                                                                <button type="button" class="btn btn-info data-show"
+                                                                        data-action="{{ route('dashboard.purchases.show', $service->id) }}"
+                                                                        data-method="GET"
+                                                                >مشاهده و ویرایش</button>
+                                                            </span>
+                                                </td>
+                                            @endcan
 
                                         </tr>
                                         @php($i++)
@@ -205,22 +207,6 @@
 
                                         {{ $purchased_services->links() }}
 
-
-
-                                        <div class="dropdown bootstrap-select datatable-pager-size" style="width: 60px;">
-
-                                            <select class="selectpicker form-control" title="انتخاب اندازه صفحه"
-                                                    data-width="120px" data-selected="20">
-                                                <option class="bs-title-option" value="">انتخاب</option>
-                                                <option value="5">5</option>
-                                                <option value="10">10</option>
-                                                <option value="20">20</option>
-                                                <option value="30">30</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
-                                            </select>
-                                        </div>
-                                        <span class="datatable-pager-detail">نمایش 61 - 80 از 100</span>
                                     </div>
                                 </div>
                             </div>
@@ -328,8 +314,8 @@
 
 
     @section('scripts')
-
-        <script>
+        @can('edit purchased_service')
+            <script>
             $(document).ready(function() {
                 const updatePurchasedForm = $("#updatePurchasedForm");
                 const modal = $("#purchasedDetailsModal");
@@ -447,7 +433,7 @@
 
             });
         </script>
-
+        @endcan
 
 
         <!--begin::Page Scripts(used by this page)-->

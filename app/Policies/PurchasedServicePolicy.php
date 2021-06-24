@@ -13,28 +13,28 @@ class PurchasedServicePolicy
 
     public function manage()
     {
-        return auth()->user() && auth()->user()->can('manage purchased_services');
+        return auth()->user() && auth()->user()->can('manage purchased_service');
     }
 
     public function create()
     {
-        return auth()->user() && auth()->user()->can('create purchased_services');
+        return auth()->user() && auth()->user()->can('create purchased_service');
     }
 
 
     public function edit()
     {
-        return auth()->user() && auth()->user()->can('edit purchased_services');
+        return auth()->user() && auth()->user()->can('edit purchased_service');
     }
 
     public function see()
     {
-        return auth()->user() && auth()->user()->can('see purchased_services');
+        return auth()->user() && auth()->user()->can('see purchased_service');
     }
 
     public function delete()
     {
-        return auth()->user() && auth()->user()->can('delete purchased_services');
+        return auth()->user() && auth()->user()->can('delete purchased_service');
     }
 
     /**

@@ -177,14 +177,15 @@
                                                     </td>
 
 
-
-                                                    <td data-field="Actions" aria-label="0363-0198" class="datatable-cell">
-                                                        <span style="width: 137px;">
-                                                            <button type="button" class="btn btn-info data-show"
-                                                                data-action="{{ route('dashboard.transactions.show', $transaction->id) }}"
-                                                                data-method="GET">مشاهده و ویرایش</button>
-                                                        </span>
-                                                    </td>
+                                                    @can('edit transaction')
+                                                        <td data-field="Actions" aria-label="0363-0198" class="datatable-cell">
+                                                            <span style="width: 137px;">
+                                                                <button type="button" class="btn btn-info data-show"
+                                                                    data-action="{{ route('dashboard.transactions.show', $transaction->id) }}"
+                                                                    data-method="GET">مشاهده و ویرایش</button>
+                                                            </span>
+                                                        </td>
+                                                    @endcan
 
                                                 </tr>
 
@@ -205,21 +206,6 @@
 
                                                 {{ $transactions->links() }}
 
-
-                                                <div class="dropdown bootstrap-select datatable-pager-size" style="width: 60px;">
-
-                                                    <select class="selectpicker form-control" title="انتخاب اندازه صفحه"
-                                                        data-width="120px" data-selected="20">
-                                                        <option class="bs-title-option" value="">انتخاب</option>
-                                                        <option value="5">5</option>
-                                                        <option value="10">10</option>
-                                                        <option value="20">20</option>
-                                                        <option value="30">30</option>
-                                                        <option value="50">50</option>
-                                                        <option value="100">100</option>
-                                                    </select>
-                                                </div>
-                                                <span class="datatable-pager-detail">نمایش 61 - 80 از 100</span>
                                             </div>
                                         </div>
                                     </div>
@@ -357,130 +343,115 @@
 
             @section('scripts')
 
-                <script>
-                    $(document).ready(function() {
-                        const updateTransactionForm = $("#updateTransactionForm");
-                        const modal = $("#transactionDetailsModal");
+            @can('edit transaction')
 
+            <script>
+                        $(document).ready(function() {
+                            const updateTransactionForm = $("#updateTransactionForm");
+                            const modal = $("#transactionDetailsModal");
 
-                        $(".data-show").click(function() {
+                            $(".data-show").click(function() {
 
+                                const button = $(this);
 
+                                const payId = $("#transaction-payment-id");
+                                const transactionId = $("#transaction-transaction-id");
+                                const user = $("#transaction-user");
+                                const service = $("#transaction-service");
+                                const count = $("#transaction-count");
+                                const amount = $("#transaction-amount");
+                                const status = $("#transaction-status");
+                                const date = $("#transaction-date");
 
-                            const button = $(this);
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
+                                            'content')
+                                    }
+                                });
 
-                            const payId = $("#transaction-payment-id");
-                            const transactionId = $("#transaction-transaction-id");
-                            const user = $("#transaction-user");
-                            const service = $("#transaction-service");
-                            const count = $("#transaction-count");
-                            const amount = $("#transaction-amount");
-                            const status = $("#transaction-status");
-                            const date = $("#transaction-date");
+                                $.ajax({
+                                    method: button.attr('data-method'),
+                                    url: button.attr('data-action'),
+                                    dataType: 'json',
+                                    success: function(response) {
 
+                                        const transaction = response.data;
 
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
-                                        'content')
-                                }
-                            });
+                                        // set values of inputs fron response
+                                        payId.val(transaction.payment_id);
+                                        transactionId.val(transaction.transaction_id);
+                                        user.val(transaction.user.name);
+                                        service.val(transaction.service.title + " -- قیمت واحد : " +
+                                            transaction.service.price);
+                                        count.val(transaction.service_count);
+                                        amount.val(transaction.paid);
+                                        status.val(transaction.status);
+                                        date.val(transaction.created_at);
 
-                            $.ajax({
-                                method: button.attr('data-method'),
-                                url: button.attr('data-action'),
-                                dataType: 'json',
-                                success: function(response) {
+                                        modal.modal('show');
+                                        // set action of updating status
+                                        // status.attr('data-action', response.update_route);
+                                        updateTransactionForm.attr('action', response.update_route);
 
-                                    const transaction = response.data;
-
-                                    // set values of inputs fron response
-                                    payId.val(transaction.payment_id);
-                                    transactionId.val(transaction.transaction_id);
-                                    user.val(transaction.user.name);
-                                    service.val(transaction.service.title + " -- قیمت واحد : " +
-                                        transaction.service.price);
-                                    count.val(transaction.service_count);
-                                    amount.val(transaction.paid);
-                                    status.val(transaction.status);
-                                    date.val(transaction.created_at);
-
-                                    modal.modal('show');
-                                    // set action of updating status
-                                    // status.attr('data-action', response.update_route);
-                                    updateTransactionForm.attr('action', response.update_route);
-
-                                },
-                                error: function(data) {
-                                    //console.log(data);
-                                    console.log('error');
-                                }
-
-                            });
-
-
-                        });
-
-                        $("#saveTransaction").click(function(e) {
-                            e.preventDefault();
-
-                            const dropdown = $(this);
-                            const action = dropdown.attr('data-action');
-                            const selectedStatusId = $('#status').find(":selected").val();
-
-
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
-                                        'content')
-                                }
-                            });
-
-                            $.ajax({
-                                method: updateTransactionForm.attr('method'),
-                                url: updateTransactionForm.attr('action'),
-                                dataType: 'json',
-                                data: updateTransactionForm.serialize(),
-                                success: function(response) {
-
-                                    modal.modal('hide');
-
-                                    if (response.status === 'success') {
-                                        toastr["success"](response.message);
-                                    } else {
-                                        toastr["error"](response.message);
+                                    },
+                                    error: function(data) {
+                                        //console.log(data);
+                                        console.log('error');
                                     }
 
-                                    const statusTdToUpdate = $('tr#' + response.data.transaction_id + " .status-cell span");
-
-                                    statusTdToUpdate.html(response.data.status_text);
-
-
-
-
-                                },
-                                error: function(data) {
-                                    modal.modal('hide');
-
-                                    //console.log(data);
-                                    toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
-                                }
-
+                                });
 
                             });
 
+                            $("#saveTransaction").click(function(e) {
+                                e.preventDefault();
 
+                                const dropdown = $(this);
+                                const action = dropdown.attr('data-action');
+                                const selectedStatusId = $('#status').find(":selected").val();
+
+
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
+                                            'content')
+                                    }
+                                });
+
+                                $.ajax({
+                                    method: updateTransactionForm.attr('method'),
+                                    url: updateTransactionForm.attr('action'),
+                                    dataType: 'json',
+                                    data: updateTransactionForm.serialize(),
+                                    success: function(response) {
+
+                                        modal.modal('hide');
+
+                                        if (response.status === 'success') {
+                                            toastr["success"](response.message);
+                                        } else {
+                                            toastr["error"](response.message);
+                                        }
+
+                                        const statusTdToUpdate = $('tr#' + response.data.transaction_id + " .status-cell span");
+
+                                        statusTdToUpdate.html(response.data.status_text);
+
+                                    },
+                                    error: function(data) {
+                                        modal.modal('hide');
+
+                                        //console.log(data);
+                                        toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
+                                    }
+                                });
+
+                            });
 
                         });
-
-
-
-
-
-                    });
-
-                </script>
-
+                    </script>
+            @endcan
 
 
                 <!--begin::Page Scripts(used by this page)-->

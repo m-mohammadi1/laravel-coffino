@@ -51,7 +51,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction): \Illuminate\Http\JsonResponse
     {
-        $this->authorize('update', $transaction);
+        $this->authorize('edit', $transaction);
 
         if (!$request->ajax()) {
             return response()->json([
@@ -59,7 +59,6 @@ class TransactionController extends Controller
                 'status' => 'error',
             ]);
         }
-
 
         if ($transaction->update($request->only('status'))) {
             return response()->json([
@@ -71,7 +70,6 @@ class TransactionController extends Controller
                 ]
             ]);
         }
-
 
         return response()->json([
             'message' => 'مشکلی در اجرای درخواست شما بوجود آمد لطفا دوباره امتحان کنید',

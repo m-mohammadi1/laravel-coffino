@@ -34,8 +34,8 @@ class PurchaseController extends Controller
         try {
             $serivce = Service::findOrFail($serivce_id);
             $service_count = $this->getServiceCount($request, $validated);
-    
-            
+
+
 
             $total_amount = (int)$serivce->price * $service_count;
 
@@ -78,38 +78,19 @@ class PurchaseController extends Controller
 
     public function result(Request $request, $service_id)
     {
-        $service = Service::findOrFail($service_id);
+        $error = '';
 
-        // $service_exists_in_purchased = PurchasedService::where('user_id', Auth::id())->where('service_id', $serivce->id)->where(function ($query) {
-        //     return $query->where('status', PurchasedService::STATUS_PENDING)
-        //                     ->where('status', PurchasedService::STATUS_PROGRESS);
-        // })->exists();
-        // complete later
+        if (!$service = Service::find($service_id)) {
+            $error = 'آیدی سرویس نامعتبر می باشد';
+        }
 
-        
         if ($request->missing('payment_id')) {
             $error = 'آیدی سفارش نامعتبر می باشد';
-            return view('dashboard.purchases.error', compact('error'));
         }
         $transaction = Transaction::where('payment_id', $request->payment_id)->first();
+        $error = $this->getError($transaction, $service, $error);
 
-        if (empty($transaction)) {
-            $error = 'سفارش یافت نشد';
-            return view('dashboard.purchases.error', compact('error'));
-        }
-
-        if ($transaction->user_id <> Auth::id()) {
-            $error = 'کاربر وارد شده با کاربر ثبت کننده سفارش یکی نیست';
-            return view('dashboard.purchases.error', compact('error'));
-        }
-
-        if ($transaction->service_id <> $service->id) {
-            $error = 'سرویس ثبت شده در سفارش معتبر نمی باشد';
-            return view('dashboard.purchases.error', compact('error'));
-        }
-
-        if ($transaction->status <> Transaction::STATUS_PENDING) {
-            $error = 'وضعیت تراکنش نامعتبر می باشد';
+        if (!empty($error)) {
             return view('dashboard.purchases.error', compact('error'));
         }
 
@@ -127,10 +108,10 @@ class PurchaseController extends Controller
                 'service_count' => $transaction->service_count,
                 'status' => PurchasedService::STATUS_PENDING,
             ]);
-            
+
             $success = 'سفارش شما با موفقیت ثبت شد و در حال بررسی است';
             return view('dashboard.purchases.verify', compact('success'));
-            // return view('transactions'); 
+            // return view('transactions');
         } catch (InvalidPathException | Exception $e) {
             if ($e->getCode() < 0) {
                 $transaction->status = Transaction::STATUS_FAILED;
@@ -140,7 +121,7 @@ class PurchaseController extends Controller
                     'code' => $e->getCode(),
                 ];
                 $transaction->save();
-            }            
+            }
 
             $error = 'سفارش شما با خطا مواجه شد';
             return view('dashboard.purchases.error', compact('error'));
@@ -160,5 +141,25 @@ class PurchaseController extends Controller
         return $service_count;
     }
 
-    
+    private function getError($transaction, $service, $error): string
+    {
+        if (empty($transaction)) {
+            $error = 'سفارش یافت نشد';
+        }
+
+        if ($transaction->user_id <> Auth::id()) {
+            $error = 'کاربر وارد شده با کاربر ثبت کننده سفارش یکی نیست';
+        }
+
+        if ($transaction->service_id <> $service->id) {
+            $error = 'سرویس ثبت شده در سفارش معتبر نمی باشد';
+        }
+
+        if ($transaction->status <> Transaction::STATUS_PENDING) {
+            $error = 'وضعیت تراکنش نامعتبر می باشد';
+        }
+        return $error;
+    }
+
+
 }

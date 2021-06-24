@@ -18,7 +18,7 @@ class CategoryController extends Controller
 
         $categories = Category::paginate(10);
 
-        return view('dashboard.categories.index', compact('categories', 'dataTableInformation'));
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**

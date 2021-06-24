@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar'
     ];
 
     /**
@@ -43,8 +44,6 @@ class User extends Authenticatable
     ];
 
 
-
-
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'user_id');
@@ -56,6 +55,15 @@ class User extends Authenticatable
     }
 
 
+    public function getAvatarAttribute()
+    {
+        return 'storage/avatars/' . $this->attributes['avatar'];
+    }
+
+    public function getAvatarStoragePathAttribute()
+    {
+        return 'public/avatars/' . $this->attributes['avatar'];
+    }
 
 
 }

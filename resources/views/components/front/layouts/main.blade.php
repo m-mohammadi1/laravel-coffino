@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>فاکک آبی - قالب خلاقانه و چند منظوره HTML</title>
+    <title>مثل آبی </title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Bluetec Saas Software Startup Website Template" name="description" />
     <meta content="" name="keywords" />
@@ -47,7 +47,7 @@
                 Enable Dark Mode
         </span>
     </div>
-    
+
     <script src="{{ asset('front/js/all.js') }}"></script>
 
 </body>

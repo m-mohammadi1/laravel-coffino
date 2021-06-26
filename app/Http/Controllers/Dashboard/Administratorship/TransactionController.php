@@ -90,6 +90,7 @@ class TransactionController extends Controller
                 [
                     'service_id' => $transaction->service_id,
                     'service_count' => $transaction->service_count,
+                    'service_link' => $transaction->service_link,
                     'status' => PurchasedService::STATUS['pending'],
                     'transaction_id' => $transaction->id
                 ]

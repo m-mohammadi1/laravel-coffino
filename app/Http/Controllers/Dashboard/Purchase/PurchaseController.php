@@ -35,25 +35,14 @@ class PurchaseController extends Controller
         try {
             $serivce = Service::findOrFail($serivce_id);
             $service_count = $this->getServiceCount($request, $validated);
-
-
             $total_amount = (int)$serivce->price * $service_count;
 
             $invoice = new Invoice();
             $invoice->amount($total_amount);
 
-
             $user = Auth::user();
             $paymentId = md5(uniqid());
-            $transaction = $user->transactions()->create([
-                'service_id' => $serivce->id,
-                'service_count' => $service_count,
-                'service_link' => $validated->link,
-                'paid' => $invoice->getAmount(),
-                'invoice_details' => $invoice,
-                'payment_id' => $paymentId,
-            ]);
-
+            $transaction = $this->createUserTransaction($user, $serivce, $service_count, $validated, $invoice, $paymentId);
 
             $callbackUrl = route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
             $payment = Payment::callbackUrl($callbackUrl);
@@ -165,13 +154,25 @@ class PurchaseController extends Controller
     {
         $purchased_service = Auth::user()->purchasedServices()->create([
             'service_count' => $transaction->service_count,
-            'service_id' => $service->id,
+            'service_id' => $transaction->service_id,
             'service_link' => $transaction->service_link,
             'status' => PurchasedService::STATUS['pending'],
             'transaction_id' => $transaction->id,
         ]);
     }
 
+    private function createUserTransaction(?\Illuminate\Contracts\Auth\Authenticatable $user, $serivce, $service_count, object $validated, Invoice $invoice, string $paymentId)
+    {
+        $transaction = $user->transactions()->create([
+            'service_id' => $serivce->id,
+            'service_count' => $service_count,
+            'service_link' => $validated->link,
+            'paid' => $invoice->getAmount(),
+            'invoice_details' => $invoice,
+            'payment_id' => $paymentId,
+        ]);
+        return $transaction;
+    }
 
 
 }

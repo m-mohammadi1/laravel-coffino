@@ -14,6 +14,7 @@ class PurchasedService extends Model
         'service_count',
         'user_id',
         'status',
+        'transaction_id',
     ];
 
 
@@ -92,4 +93,10 @@ class PurchasedService extends Model
         ];
 
     }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
+
 }

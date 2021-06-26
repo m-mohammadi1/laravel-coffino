@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\Purchase;
 
 use Exception;
+use Illuminate\Support\Facades\DB;
 use SoapFault;
 use Throwable;
 use ErrorException;
@@ -34,7 +35,6 @@ class PurchaseController extends Controller
         try {
             $serivce = Service::findOrFail($serivce_id);
             $service_count = $this->getServiceCount($request, $validated);
-
 
 
             $total_amount = (int)$serivce->price * $service_count;
@@ -101,36 +101,34 @@ class PurchaseController extends Controller
 
             $transaction->transaction_result = $receipt;
             $transaction->status = Transaction::STATUS_SUCCESS;
-            $transaction->save();
 
-            Auth::user()->purchasedServices()->create([
-                'service_id' => $service->id,
-                'service_count' => $transaction->service_count,
-                'status' => PurchasedService::STATUS_PENDING,
-            ]);
+            DB::transaction(function () use ($transaction, $service) {
+                $transaction->save();
+                $this->createPurchasedServiceWithTransactionId($transaction, $service);
+            });
 
             $success = 'سفارش شما با موفقیت ثبت شد و در حال بررسی است';
             return view('dashboard.purchases.verify', compact('success'));
             // return view('transactions');
         } catch (InvalidPathException | Exception $e) {
-            if ($e->getCode() < 0) {
-                $transaction->status = Transaction::STATUS_FAILED;
 
-                $transaction->transaction_result = [
-                    'message' => $e->getMessage(),
-                    'code' => $e->getCode(),
-                ];
-                $transaction->save();
-            }
+            $transaction->status = Transaction::STATUS_FAILED;
+
+            $transaction->transaction_result = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+            ];
+            $transaction->save();
+
 
             $error = 'سفارش شما با خطا مواجه شد';
             return view('dashboard.purchases.error', compact('error'));
-            // return view('');
         }
     }
 
 
-    private function getServiceCount($request, $validated) {
+    private function getServiceCount($request, $validated)
+    {
         if ($request->has('count')) {
             $service_count = $validated->count;
 
@@ -159,6 +157,16 @@ class PurchaseController extends Controller
             $error = 'وضعیت تراکنش نامعتبر می باشد';
         }
         return $error;
+    }
+
+    private function createPurchasedServiceWithTransactionId($transaction, $service): void
+    {
+        $purchased_service = Auth::user()->purchasedServices()->create([
+            'service_count' => $transaction->service_count,
+            'service_id' => $service->id,
+            'status' => PurchasedService::STATUS['pending'],
+            'transaction_id' => $transaction->id,
+        ]);
     }
 
 

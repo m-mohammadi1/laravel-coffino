@@ -434,6 +434,8 @@
                                     dataType: 'json',
                                     data: updateTransactionForm.serialize(),
                                     success: function(response) {
+                                        console.log(response);
+
 
                                         modal.modal('hide');
 
@@ -451,7 +453,7 @@
                                     error: function(data) {
                                         modal.modal('hide');
 
-                                        //console.log(data);
+                                        console.log(data);
                                         toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
                                     }
                                 });

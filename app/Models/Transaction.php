@@ -75,5 +75,10 @@ class Transaction extends Model
         return 'نامعلوم';
     }
 
+    public function purchasedService()
+    {
+        return $this->hasOne(PurchasedService::class);
+    }
+
 
 }

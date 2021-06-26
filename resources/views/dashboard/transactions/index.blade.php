@@ -290,6 +290,11 @@
                                                 disabled="disabled" value="">
                                         </div>
 
+                                        <div class="form-group">
+                                            <label>جزییات تراکنش</label>
+                                            <textarea class="form-control" id="transaction-result" cols="30" rows="10"></textarea>
+                                        </div>
+
 
 
                                         <div class="form-group">
@@ -362,6 +367,8 @@
                                 const amount = $("#transaction-amount");
                                 const status = $("#transaction-status");
                                 const date = $("#transaction-date");
+                                const transactionResult = $("#transaction-result")
+
 
                                 $.ajaxSetup({
                                     headers: {
@@ -388,6 +395,8 @@
                                         amount.val(transaction.paid);
                                         status.val(transaction.status);
                                         date.val(transaction.created_at);
+
+                                        transactionResult.html(transaction.transaction_result);
 
                                         modal.modal('show');
                                         // set action of updating status

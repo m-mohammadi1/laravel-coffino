@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'user_id',
         'service_id',
@@ -30,7 +30,7 @@ class Transaction extends Model
         'pending' => 1,
         'success' => 2,
     ];
-    
+
     public function service()
     {
         return $this->belongsTo(Service::class, 'service_id');
@@ -58,7 +58,7 @@ class Transaction extends Model
 
     public function getTransactionResultAttribute($value)
     {
-        return unserialize($this->attributes['transaction_result']);
+        return ($this->attributes['transaction_result']);
     }
 
 

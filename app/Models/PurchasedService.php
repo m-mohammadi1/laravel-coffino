@@ -12,6 +12,7 @@ class PurchasedService extends Model
     protected $fillable = [
         'service_id',
         'service_count',
+        'service_link',
         'user_id',
         'status',
         'transaction_id',

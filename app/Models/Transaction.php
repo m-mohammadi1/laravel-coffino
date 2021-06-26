@@ -14,6 +14,7 @@ class Transaction extends Model
         'service_id',
         'payment_id',
         'service_count',
+        'service_link',
         'paid',
         'status',
         'invoice_details',

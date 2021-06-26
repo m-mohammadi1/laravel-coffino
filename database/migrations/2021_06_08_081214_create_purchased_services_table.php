@@ -18,6 +18,7 @@ class CreatePurchasedServicesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('service_count');
+            $table->text('service_link');
             $table->unsignedTinyInteger('status')->defualt(1); // 0 : rejected, 1: pending, 2: progress, 3: completed
             $table->timestamps();
         });

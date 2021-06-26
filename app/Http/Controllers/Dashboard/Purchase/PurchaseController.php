@@ -48,10 +48,12 @@ class PurchaseController extends Controller
             $transaction = $user->transactions()->create([
                 'service_id' => $serivce->id,
                 'service_count' => $service_count,
+                'service_link' => $validated->link,
                 'paid' => $invoice->getAmount(),
                 'invoice_details' => $invoice,
                 'payment_id' => $paymentId,
             ]);
+
 
             $callbackUrl = route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
             $payment = Payment::callbackUrl($callbackUrl);
@@ -164,10 +166,12 @@ class PurchaseController extends Controller
         $purchased_service = Auth::user()->purchasedServices()->create([
             'service_count' => $transaction->service_count,
             'service_id' => $service->id,
+            'service_link' => $transaction->service_link,
             'status' => PurchasedService::STATUS['pending'],
             'transaction_id' => $transaction->id,
         ]);
     }
+
 
 
 }

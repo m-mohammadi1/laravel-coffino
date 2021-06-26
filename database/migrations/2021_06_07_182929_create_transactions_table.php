@@ -19,6 +19,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('service_count');
+            $table->text('service_link');
             $table->unsignedBigInteger('paid');
             $table->unsignedTinyInteger('status')->default(1); // 0 : failed, 1: in progress, 2: success
             $table->text('invoice_details')->nullable();

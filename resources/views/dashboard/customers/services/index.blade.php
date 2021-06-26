@@ -35,7 +35,11 @@
                                 <x-dashboard.partials.error />
 
 
-                                
+
+                                <div class="form-group">
+                                    <label>لینک مورد نظر برای اعمال سرویس</label>
+                                    <input style="text-align: left; direction: rtl;" type="text" class="form-control" name="link" />
+                                </div>
 
                                 <div class="form-group">
                                     <label for="category">دسته بندی</label>
@@ -97,7 +101,7 @@
 
         <script>
             const optionalCountInput = $("#countInput");
-            
+
             $("#category-select").on("change", function() {
                 const categorySelect = $(this);
                 const category = $(this).val();
@@ -123,7 +127,6 @@
                     'cat_id': category
                 }
 
-
                 $.ajax({
                     method: categorySelect.attr('data-method'),
                     url: categorySelect.attr('data-action'),
@@ -132,7 +135,7 @@
                     success: function(response) {
                         const services = response.data;
                         const servicesExsits = services.length;
-                        
+
 
                         if (!servicesExsits) {
                             $('#service-select').append('<option>هیچ سرویسی با دسته بندی مورد نظر پیدا نشد</option>');
@@ -147,15 +150,12 @@
                             }
                         }
 
-
-
                     },
                     error: function(data) {
                         //console.log(data);
                         console.log('error');
 
                     }
-
 
                 });
 
@@ -192,7 +192,7 @@
                     success: function(response) {
                         const counts = response.data;
                         const status = response.status;
-                        
+
                         if (status === 'found') {
 
                             countSelect.removeAttr("disabled");
@@ -210,7 +210,6 @@
                             optionalCountInput.fadeIn(500);
 
                         }
-
                     },
                     error: function(data) {
                         //console.log(data);
@@ -218,10 +217,7 @@
 
                     }
 
-
                 });
-
-
 
             });
 

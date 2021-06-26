@@ -29,6 +29,7 @@ class PurchaseServiceRequest extends FormRequest
             'category' => ['required'],
             'service' => ['required'],
             'optional_count' => ['max:1000000', 'required_without:count'],
+            'link' => ['required', 'min:5', 'max:1024'],
         ];
     }
 }

@@ -271,10 +271,18 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label>لینک سیرویس درخواستی</label>
+                                            <input type="text" id="transaction-service-link" class="form-control transaction-modal-input"
+                                                   disabled="disabled" value="">
+                                        </div>
+
+                                        <div class="form-group">
                                             <label>تعداد درخواستی</label>
                                             <input type="text" id="transaction-count" class="form-control transaction-modal-input"
                                                 disabled="disabled" value="">
                                         </div>
+
+
 
                                         <div class="form-group">
                                             <label>مبلغ تراکنش</label>
@@ -364,10 +372,12 @@
                                 const user = $("#transaction-user");
                                 const service = $("#transaction-service");
                                 const count = $("#transaction-count");
+                                const link = $("#transaction-service-link");
                                 const amount = $("#transaction-amount");
                                 const status = $("#transaction-status");
                                 const date = $("#transaction-date");
                                 const transactionResult = $("#transaction-result")
+
 
 
                                 $.ajaxSetup({
@@ -395,6 +405,8 @@
                                         amount.val(transaction.paid);
                                         status.val(transaction.status);
                                         date.val(transaction.created_at);
+                                        link.val(transaction.service_link);
+
 
                                         transactionResult.html(transaction.transaction_result);
 

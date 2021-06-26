@@ -261,6 +261,12 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>لینک سیرویس درخواستی</label>
+                                    <input type="text" id="service-service-link" class="form-control transaction-modal-input"
+                                           disabled="disabled" value="">
+                                </div>
+
+                                <div class="form-group">
                                     <label>تاریخ ثبت</label>
                                     <input type="text" id="service-date" class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
@@ -330,6 +336,7 @@
                     const count = $("#service-count");
                     const status = $("#service-status");
                     const date = $("#service-date");
+                    const link = $("#service-service-link");
 
 
                     $.ajaxSetup({
@@ -354,6 +361,7 @@
                             count.val(purchased_service.service_count);
                             status.val(purchased_service.status);
                             date.val(purchased_service.created_at);
+                            link.val(purchased_service.service_link);
 
                             modal.modal('show');
                             // set action of updating status
@@ -408,9 +416,6 @@
                             console.log(response);
 
                             statusTdToUpdate.html(response.data.status_text);
-
-
-
 
                         },
                         error: function(data) {

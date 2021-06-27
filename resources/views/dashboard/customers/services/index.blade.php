@@ -112,7 +112,7 @@
                 // $('#service-select').append('<option>در حال جستجو</option>');
                 serviceSelect.attr("disabled", 'disabled');
 
-                // romove last options (services)
+                // remove last options (services)
                 $("#service-select option").each(function() {
                     $(this).remove();
                 });
@@ -142,7 +142,7 @@
 
                         } else {
                             serviceSelect.removeAttr("disabled");
-
+                            // add services to select service input base on category
                             for (let i = 0; i < services.length; i++) {
                                 let service = services[i];
                                 $('#service-select').append('<option value="' + service.id + '">' +
@@ -152,16 +152,14 @@
 
                     },
                     error: function(data) {
-                        //console.log(data);
-                        console.log('error');
-
+                        toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
                     }
 
                 });
 
             });
 
-            $("#service-select").on("change", function () {
+            $("#service-select").on("click", function () {
                 const serviceSelect = $(this);
                 const service = $(this).val();
                 const countSelect = $('#count-select');
@@ -213,8 +211,7 @@
                     },
                     error: function(data) {
                         //console.log(data);
-                        console.log('error');
-
+                        toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
                     }
 
                 });

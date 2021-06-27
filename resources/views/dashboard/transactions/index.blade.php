@@ -158,7 +158,13 @@
 
 
                                                     <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
-                                                        <span style="width: 137px;">{{ $transaction->service->title }}</span>
+                                                        <span style="width: 137px;">
+                                                            @if($transaction->service)
+                                                                {{ $transaction->service->title }}
+                                                            @else
+                                                                حذف شده
+                                                            @endif
+                                                        </span>
                                                     </td>
 
                                                     <td data-field="-=Pay-ID" aria-label="0363-0198" class="datatable-cell">
@@ -418,7 +424,7 @@
                                     },
                                     error: function(data) {
                                         //console.log(data);
-                                        console.log('error');
+                                        toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
                                     }
 
                                 });

@@ -306,7 +306,7 @@
 
                                         <div class="form-group">
                                             <label>جزییات تراکنش</label>
-                                            <textarea class="form-control" id="transaction-result" cols="30" rows="10"></textarea>
+                                            <textarea class="form-control" id="transaction-result" cols="30" rows="10" disabled="disabled"></textarea>
                                         </div>
 
 
@@ -405,8 +405,12 @@
                                         payId.val(transaction.payment_id);
                                         transactionId.val(transaction.transaction_id);
                                         user.val(transaction.user.name);
-                                        service.val(transaction.service.title + " -- قیمت واحد : " +
-                                            transaction.service.price);
+
+                                        if (transaction.service === null || transaction.service === undefined) {
+                                            service.val('سرویس حذف شده است');
+                                        } else {
+                                            service.val(transaction.service.title + " -- قیمت واحد : " + transaction.service.price);
+                                        }
                                         count.val(transaction.service_count);
                                         amount.val(transaction.paid);
                                         status.val(transaction.status);
@@ -423,7 +427,6 @@
 
                                     },
                                     error: function(data) {
-                                        //console.log(data);
                                         toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
                                     }
 

@@ -88,6 +88,4 @@ Route::group([
 
 // front routes
 
-Route::get('faqs', function () {
-    return view('front.pages.faqs');
-});
+Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index']);

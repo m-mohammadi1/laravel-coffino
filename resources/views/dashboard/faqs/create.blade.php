@@ -21,7 +21,7 @@
                             </h3>
                         </div>
                         <!--begin::Form-->
-                        <form action="{{ route('dashboard.counts.store') }}" method="post">
+                        <form action="{{ route('dashboard.faqs.store') }}" method="post">
                             @csrf
 
                             <div class="card-body">
@@ -36,9 +36,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>عنوان سوال</label>
-                                    <div class="summernote" id="summernote" rows="30"></div>
+                                    <label>توضیحات</label>
 
+                                    <textarea class="summernote" id="summernote" name="description">{{ old('description') }}</textarea>
                                 </div>
 
 
@@ -71,9 +71,7 @@
     @endsection
 
     @section('scripts')
-
         <script src="{{ asset('assets/js/pages/crud/forms/editors/summernote.js?v=7.0.6') }}"></script>
-
     @endsection
 
 

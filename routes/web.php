@@ -77,6 +77,11 @@ Route::group([
         }
     });
 
+
+    // front management routes
+    Route::resource('faqs', \App\Http\Controllers\Dashboard\Administratorship\FaqController::class);
+
+
 });
 
 

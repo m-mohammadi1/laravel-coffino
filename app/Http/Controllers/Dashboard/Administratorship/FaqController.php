@@ -15,7 +15,7 @@ class FaqController extends Controller
 
     public function create()
     {
-        //
+        return view('dashboard.faqs.create');
     }
 
 

@@ -78,3 +78,11 @@ Route::group([
     });
 
 });
+
+
+
+// front routes
+
+Route::get('faqs', function () {
+    return view('front.pages.faqs');
+});

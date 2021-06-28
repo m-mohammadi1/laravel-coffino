@@ -5,21 +5,19 @@
         <div class="no-bottom no-top" id="content">
             <div id="top"></div>
 
-            @include('front.partials.landing')
+            <x-front.partials.landing />
 
-
-            @include('front.partials.highlight')
+            <x.front.partials.highlight />
 
             <!-- section begin -->
-            @include('front.partials.pricing')
+            <x-front.partials.pricing />
             <!-- section close -->
 
-            @include('front.partials.section-text')
+            <x-front.partials.section-text />
 
-            @include('front.partials.comments')
+            <x-front.partials.comments />
 
-
-            @include('front.partials.contact-us')
+            <x-front.partials.contact-us />
 
         </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Purchase;
 
+use Error;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use SoapFault;
@@ -41,10 +42,10 @@ class PurchaseController extends Controller
             $invoice->amount($total_amount);
 
             $user = Auth::user();
-            $paymentId = md5(uniqid());
+            $paymentId = md5(uniqid('', true));
             $transaction = $this->createUserTransaction($user, $serivce, $service_count, $validated, $invoice, $paymentId);
 
-            $callbackUrl = route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
+            $callbackUrl = $this->getCallBackUrl($serivce, $paymentId);
             $payment = Payment::callbackUrl($callbackUrl);
             $payment_description = 'خرید ' . $service_count . ' عدد سرویس با قیمت هر واحد : ' . $serivce->price;
             $payment->config('description', $payment_description);
@@ -55,7 +56,7 @@ class PurchaseController extends Controller
             });
 
             return $payment->pay()->render();
-        } catch (PurchaseFailedException | Exception | Throwable | SoapFault | ErrorException $e) {
+        } catch (PurchaseFailedException | Exception | Throwable | Error | SoapFault | ErrorException $e) {
             $error = [
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),
@@ -74,13 +75,16 @@ class PurchaseController extends Controller
         if (!$service = Service::find($service_id)) {
             $error = 'آیدی سرویس نامعتبر می باشد';
         }
-
         if ($request->missing('payment_id')) {
             $error = 'آیدی سفارش نامعتبر می باشد';
         }
-        $transaction = Transaction::where('payment_id', $request->payment_id)->first();
-        $error = $this->getError($transaction, $service, $error);
+        if (!empty($error)) {
+            return view('dashboard.purchases.error', compact('error'));
+        }
 
+        $transaction = Transaction::where('payment_id', $request->payment_id)->first();
+
+        $error = $this->getError($transaction, $service, $error);
         if (!empty($error)) {
             return view('dashboard.purchases.error', compact('error'));
         }
@@ -101,7 +105,7 @@ class PurchaseController extends Controller
             $success = 'سفارش شما با موفقیت ثبت شد و در حال بررسی است';
             return view('dashboard.purchases.verify', compact('success'));
             // return view('transactions');
-        } catch (InvalidPathException | Exception $e) {
+        } catch (InvalidPathException | Exception | Error | Throwable $e) {
 
             $transaction->status = Transaction::STATUS_FAILED;
 
@@ -174,5 +178,12 @@ class PurchaseController extends Controller
         return $transaction;
     }
 
+    private function getCallBackUrl($serivce, string $paymentId): string
+    {
+        $callbackUrl = route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
+        return $callbackUrl;
+    }
+
 
 }
+

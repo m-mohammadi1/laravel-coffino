@@ -17,12 +17,13 @@
                     <div class="card card-custom">
                         <div class="card-header">
                             <h3 class="card-title">
-                                ایجاد سوال جدید
+                                ویرایش سوال
                             </h3>
                         </div>
                         <!--begin::Form-->
-                        <form action="{{ route('dashboard.faqs.store') }}" method="post">
-                            @csrf
+                        <form action="{{ route('dashboard.faqs.update', $faq) }}" method="post">
+                        @csrf
+                        @method('PUT')
 
                             <div class="card-body">
 
@@ -32,24 +33,19 @@
 
                                 <div class="form-group">
                                     <label>عنوان سوال</label>
-                                    <input type="text" class="form-control" name="title" value="{{ old('title') }}"/>
+                                    <input type="text" class="form-control" name="title" value="{{ $faq->title  }}"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>توضیحات</label>
-
-                                    <textarea class="summernote" id="summernote" name="description">{{ old('description') }}</textarea>
+                                    <textarea class="summernote" id="summernote" name="description">{{ $faq->description }}</textarea>
                                 </div>
-
-
-
-
 
 
                             </div>
                             <div class="card-footer d-flex justify-content-between">
 {{--                                @can('create service')--}}
-                                    <button type="submit" class="btn btn-big btn-primary mr-2">ایجاد</button>
+                                    <button type="submit" class="btn btn-big btn-primary mr-2">ذخیره</button>
 {{--                                @else--}}
 {{--                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ایجاد</button>--}}
 {{--                                @endcan--}}

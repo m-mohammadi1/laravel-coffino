@@ -9,6 +9,8 @@ class Faq extends Model
 {
     use HasFactory;
 
+    const PAGINATE_COUNT = 10;
+
     protected $fillable = ['title', 'description'];
 
 }

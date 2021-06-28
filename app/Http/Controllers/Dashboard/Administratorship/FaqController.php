@@ -12,7 +12,8 @@ class FaqController extends Controller
 
     public function index()
     {
-
+        $faqs = Faq::paginate(Faq::PAGINATE_COUNT);
+        return view('dashboard.faqs.index', compact('faqs'));
     }
 
     public function create()
@@ -25,30 +26,25 @@ class FaqController extends Controller
     {
         Faq::create($request->validated());
 
-        return back()->with('toastr_success', 'عملیات موفقیت آمیز بود');
+        return redirect()->route('dashboard.faqs.index')->with('toastr_success', 'عملیات ایجاد سوال موفقیت آمیز بود');
+    }
+
+    public function edit(Faq $faq)
+    {
+        return view('dashboard.faqs.edit', compact('faq'));
     }
 
 
-    public function show($id)
+    public function update(StoreFaqRequest $request, Faq $faq)
     {
-        //
+        $faq->update($request->validated());
+        return redirect()->route('dashboard.faqs.index')->with('toastr_success', 'عملیات آپدیت سوال موفقیت آمیز بود');
     }
 
 
-    public function edit($id)
+    public function destroy(Faq $faq)
     {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-    public function destroy($id)
-    {
-        //
+        $faq->delete();
+        return redirect()->route('dashboard.faqs.index')->with('toastr_success', 'عملیات حذف موفقیت آمیز بود');
     }
 }

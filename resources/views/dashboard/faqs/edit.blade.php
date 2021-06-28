@@ -1,6 +1,6 @@
 <x-dashboard.layouts.main>
 
-    @section('title', 'كافينو  | افزودن سوال متداول')
+    @section('title', 'كافينو  | ویرایش سوال متداول')
 
     @section('content')
 
@@ -44,11 +44,9 @@
 
                             </div>
                             <div class="card-footer d-flex justify-content-between">
-{{--                                @can('create service')--}}
+                                @can('edit faq')
                                     <button type="submit" class="btn btn-big btn-primary mr-2">ذخیره</button>
-{{--                                @else--}}
-{{--                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ایجاد</button>--}}
-{{--                                @endcan--}}
+                                @endcan
                                 <a href="{{ route('dashboard.faqs.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>

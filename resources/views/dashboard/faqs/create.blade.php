@@ -48,11 +48,11 @@
 
                             </div>
                             <div class="card-footer d-flex justify-content-between">
-{{--                                @can('create service')--}}
+                                @can('create faq')
                                     <button type="submit" class="btn btn-big btn-primary mr-2">ایجاد</button>
-{{--                                @else--}}
-{{--                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ایجاد</button>--}}
-{{--                                @endcan--}}
+                                @else
+                                    <button type="button" class="btn btn-big btn-primary mr-2 disabled">ایجاد</button>
+                                @endcan
                                 <a href="{{ route('dashboard.faqs.index') }}" class="btn btn-secondary">لغو</a>
                             </div>
                         </form>

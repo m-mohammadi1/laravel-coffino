@@ -57,8 +57,15 @@ class RoleAndPermissionSeeder extends Seeder
         $see_purchased_service = Permission::create(['name' => 'see purchased_service']);
         $manage_purchased_service = Permission::create(['name' => 'manage purchased_service']);
 
+        // for faqs model
+        $create_faq = Permission::create(['name' => 'create faq']);
+        $edit_faq = Permission::create(['name' => 'edit faq']);
+        $delete_faq = Permission::create(['name' => 'delete faq']);
+        $see_faq = Permission::create(['name' => 'see faq']);
+        $manage_faq = Permission::create(['name' => 'manage faq']);
 
-        // asign permissions to roles
+
+        // assign permissions to roles
         $all_permissions = Permission::all();
         $super_admin->givePermissionTo($all_permissions);
 
@@ -67,7 +74,8 @@ class RoleAndPermissionSeeder extends Seeder
             $create_service, $edit_service, $see_service, $manage_service,
             $create_count, $edit_count, $see_count, $manage_count,
             $create_transaction, $edit_transaction, $see_transaction, $manage_transaction,
-            $create_purchased_service, $edit_purchased_service, $see_purchased_service, $manage_purchased_service
+            $create_purchased_service, $edit_purchased_service, $see_purchased_service, $manage_purchased_service,
+            $create_faq,  $edit_faq, $see_faq, $manage_faq
         ]);
     }
 }

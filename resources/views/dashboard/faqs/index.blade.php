@@ -23,9 +23,9 @@
                                 </h3>
                             </div>
                             <div class="card-toolbar">
-{{--                                @can('create count')--}}
+                                @can('create faq')
                                     <!--begin::دکمه-->
-                                    <a href="{{ route('dashboard.counts.create') }}" class="btn btn-primary font-weight-bolder">
+                                    <a href="{{ route('dashboard.faqs.create') }}" class="btn btn-primary font-weight-bolder">
                                         <span class="svg-icon svg-icon-md">
                                             <!--begin::Svg Icon | path:assets/media/svg/icons/طرح/Flatten.svg--><svg
                                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -39,10 +39,10 @@
                                                 </g>
                                             </svg>
                                             <!--end::Svg Icon-->
-                                        </span>تعداد جدید
+                                        </span>سوال جدید
                                     </a>
                                     <!--end::دکمه-->
-{{--                                @endcan--}}
+                                @endcan
                             </div>
 
                         </div>
@@ -95,7 +95,7 @@
                                                         class="datatable-cell">
                                                         <span style="overflow: visible; position: relative; width: 125px;">
 
-{{--                                                            @can('see count')--}}
+                                                            @can('see faq')
                                                                 <a href="{{ route('dashboard.faqs.edit', $faq) }}" class="btn btn-sm btn-clean btn-icon mr-2"
                                                                     title="ويرايش">
                                                                     <span class="svg-icon svg-icon-md">
@@ -116,11 +116,11 @@
                                                                         </svg>
                                                                     </span>
                                                                 </a>
-{{--                                                            @endcan--}}
+                                                            @endcan
 
 
 
-{{--                                                            @can('delete count')--}}
+                                                            @can('delete faq')
                                                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon entityDeleteButton"
                                                                     title="حذف" data-id="{{ $faq->id }}">
                                                                     <span class="svg-icon svg-icon-md">
@@ -140,7 +140,7 @@
                                                                         </svg>
                                                                     </span>
                                                                 </a>
-{{--                                                            @endcan--}}
+                                                            @endcan
 
 
                                                         </span>

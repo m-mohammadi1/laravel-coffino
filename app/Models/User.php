@@ -57,7 +57,9 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        return 'storage/avatars/' . $this->attributes['avatar'];
+        return !isset($this->attributes['avatar'])
+            ? asset('assets/media/users/blank.png')
+            : 'storage/avatars/' . $this->attributes['avatar'];
     }
 
     public function getAvatarStoragePathAttribute()

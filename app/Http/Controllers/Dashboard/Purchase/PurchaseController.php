@@ -180,8 +180,7 @@ class PurchaseController extends Controller
 
     private function getCallBackUrl($serivce, string $paymentId): string
     {
-        $callbackUrl = route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
-        return $callbackUrl;
+        return route('dashboard.customers.services.purchase.result', [$serivce->id, 'payment_id' => $paymentId]);
     }
 
 

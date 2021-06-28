@@ -1,34 +1,41 @@
 <ul class="menu-nav ">
-    <li class="menu-item  menu-item-open menu-item-here menu-item-submenu menu-item-rel menu-item-open menu-item-here"
-        data-menu-toggle="hover" aria-haspopup="true"><a href="javascript:;" class="menu-link menu-toggle">
-            <span class="menu-text">داشبورد</span>
-            <span class="menu-desc">آخرین آپدیت
-                و گزارشات
+
+    @hasanyrole('super-admin|admin')
+
+    <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
+        <a
+            href="javascript:;" class="menu-link menu-toggle">
+            <span class="menu-text">صفحه اصلی</span>
+            <span class="menu-desc">
+                مدیریت بخش جلویی سایت
             </span>
             <i class="menu-arrow"></i>
         </a>
         <div class="menu-submenu menu-submenu-classic menu-submenu-left">
             <ul class="menu-subnav">
-                <li class="menu-item  menu-item-active " aria-haspopup="true">
-                    <a href="index.html" class="menu-link ">
-                        <span class="menu-text">آخرین آپدیت</span>
-                        <span class="menu-desc"></span>
-                    </a>
-                </li>
+
                 <li class="menu-item " aria-haspopup="true">
-                    <a target="_blank" href="https://preview.keenthemes.com/metronic/preview/demo9/builder.html"
-                       class="menu-link ">
-                        <span class="menu-text">سازنده</span>
-                        <span class="menu-desc"></span>
+                    <a href="#" class="menu-link ">
+                        <span class="svg-icon menu-icon">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
+                            <i class="la la-backward"></i>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-text">سوالات متداول</span>
                     </a>
                 </li>
+
+
             </ul>
         </div>
     </li>
 
-    @hasanyrole('super-admin|admin')
 
-    <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true"><a
+
+
+
+    <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
+        <a
             href="javascript:;" class="menu-link menu-toggle">
             <span class="menu-text">مدیریت</span>
             <span class="menu-desc">
@@ -115,7 +122,8 @@
     @endhasanyrole
 
 
-    <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true"><a
+    <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
+        <a
             href="javascript:;" class="menu-link menu-toggle">
             <span class="menu-text">بخش پرداخت</span>
             <span class="menu-desc">

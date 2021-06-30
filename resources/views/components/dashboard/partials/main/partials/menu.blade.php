@@ -227,4 +227,30 @@
     </li>
 
 
+    <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
+        <a
+            href="javascript:;" class="menu-link menu-toggle">
+            <span class="menu-text">بیشتر</span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+            <ul class="menu-subnav">
+
+                <li class="menu-item " aria-haspopup="true">
+                    <a href="{{ route('dashboard.customers.create_comment') }}" class="menu-link">
+                        <span class="svg-icon menu-icon">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
+                            <i class="la flaticon-edit text-secondary text-hover-danger"></i>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-text">ثبت نظر</span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </div>
+    </li>
+
+
 </ul>

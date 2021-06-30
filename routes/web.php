@@ -65,6 +65,4 @@ Route::group([
 // front routes
 
 Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index'])->name('faqs');
-Route::get('/', function () {
-    return view('front.index');
-})->name('home');
+Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->name('home');

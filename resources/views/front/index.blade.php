@@ -15,7 +15,7 @@
 
             <x-front.partials.section-text />
 
-            <x-front.partials.comments />
+            <x-front.partials.comments :comments="$comments" />
 
             <x-front.partials.contact-us />
 

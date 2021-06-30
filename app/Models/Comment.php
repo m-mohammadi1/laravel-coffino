@@ -4,12 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = ['value', 'user_id'];
+
+
+    public function getCommentText()
+    {
+
+        $text = Str::of($this->attributes['value'])->substr(0, 70);
+
+        return $text;
+
+
+
+    }
 
 
     const STATUS = [

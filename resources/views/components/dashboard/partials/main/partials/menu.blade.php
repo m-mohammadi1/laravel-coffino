@@ -15,10 +15,10 @@
             <ul class="menu-subnav">
 
                 <li class="menu-item " aria-haspopup="true">
-                    <a href="#" class="menu-link ">
+                    <a href="{{ route('dashboard.faqs.index') }}" class="menu-link ">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                            <i class="la la-backward"></i>
+                            <i class="la fab la-medapps text-secondary text-hover-danger"></i>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">سوالات متداول</span>

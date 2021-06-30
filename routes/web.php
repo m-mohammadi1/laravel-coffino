@@ -28,11 +28,17 @@ Route::group([
         Route::get('transactions', [\App\Http\Controllers\Dashboard\CustomerManagement\TransactionController::class, 'index'])->name('transactions');
         Route::get('purchased', [\App\Http\Controllers\Dashboard\CustomerManagement\PurhchasedServicesCntroller::class, 'index'])->name('purchased_services');
 
+        // comments section routes
+        Route::get('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'create'])->name('create_comment');
+        Route::post('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'store'])->name('store_comment');
+
 
     });
 
     Route::resource('transactions', \App\Http\Controllers\Dashboard\Administratorship\TransactionController::class);
     Route::resource('purchases', \App\Http\Controllers\Dashboard\Administratorship\PurchasedServiceController::class);
+//    Route::resource('comments', \App\Http\Controllers\Dashboard\Administratorship\PurchasedServiceController::class);
+
 
     Route::group([
         'prefix' => 'profile',
@@ -49,6 +55,7 @@ Route::group([
     // front management routes
     Route::resource('faqs', \App\Http\Controllers\Dashboard\Administratorship\FaqController::class);
     Route::resource('single-options', \App\Http\Controllers\Dashboard\Administratorship\SingleOptionController::class);
+
 
 
 });

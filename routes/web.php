@@ -37,7 +37,7 @@ Route::group([
 
     Route::resource('transactions', \App\Http\Controllers\Dashboard\Administratorship\TransactionController::class);
     Route::resource('purchases', \App\Http\Controllers\Dashboard\Administratorship\PurchasedServiceController::class);
-//    Route::resource('comments', \App\Http\Controllers\Dashboard\Administratorship\PurchasedServiceController::class);
+    Route::resource('comments', \App\Http\Controllers\Dashboard\Administratorship\CommentController::class);
 
 
     Route::group([

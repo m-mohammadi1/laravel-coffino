@@ -1,5 +1,7 @@
 <x-auth.main>
 
+    @section('title', 'لاگین')
+
     @section('content')
 
         <!--begin::Login-->

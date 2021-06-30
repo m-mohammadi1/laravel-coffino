@@ -24,7 +24,7 @@ class UserTableSeeder extends Seeder
 
         $admin = User::factory()->create([
             'name' => 'محمد',
-            'email' => 'mm@admin.com',
+            'email' => '',
             'password' => bcrypt('12345678'),
             'email_verified_at' => now(),
         ]);

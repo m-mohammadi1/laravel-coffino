@@ -1,23 +1,25 @@
 <x-auth.main>
 
+    @section('title', 'ثبت نام')
+
 
     @section('content')
 
-        <!--begin::Login-->
+    <!--begin::Login-->
         <div class="login login-3 login-signin-on d-flex flex-row-fluid" id="kt_login">
             <div class="d-flex flex-center bgi-size-cover bgi-no-repeat flex-row-fluid"
-                style="background-image: url(assets/media/bg/bg-1.jpg);">
+                 style="background-image: url(assets/media/bg/bg-1.jpg);">
                 <div class="login-form text-center text-white p-7 position-relative overflow-hidden">
                     <!--begin::Login Header-->
                     <div class="d-flex flex-center mb-15">
                         <a href="#">
-                            <img src="assets/media/logos/logo-letter-9.png" class="max-h-100px" alt="" />
+                            <img src="assets/media/logos/logo-letter-9.png" class="max-h-100px" alt=""/>
                         </a>
                     </div>
                     <!--end::Login Header-->
 
 
-                    <x-dashboard.partials.error />
+                    <x-dashboard.partials.error/>
 
 
                     <!--begin::Login Sign up form-->
@@ -27,33 +29,34 @@
                             <p class="opacity-60">برای ایجاد حساب کاربری ، جزئیات خود را وارد کنید</p>
                         </div>
                         <form class="form text-center" id="kt_login_signup_form" method="post"
-                            action="{{ route('register') }}">
+                              action="{{ route('register') }}">
                             @csrf
 
                             <div class="form-group ">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="text" placeholder="نام و ناو خانوادگی" name="name" required />
+                                    type="text" placeholder="نام و ناو خانوادگی" name="name" required/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="email" placeholder="پست الکترونیک" name="email" autocomplete="off" required />
+                                    type="email" placeholder="پست الکترونیک" name="email" autocomplete="off" required/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="password" placeholder="کلمه عبور" name="password" required />
+                                    type="password" placeholder="کلمه عبور" name="password" required/>
                             </div>
                             <div class="form-group">
                                 <input
                                     class="form-control h-auto text-white placeholder-white opacity-70 bg-dark-o-70 rounded-pill border-0 py-4 px-8"
-                                    type="password" placeholder="تکرار کلمه عبور" name="password_confirmation" required />
+                                    type="password" placeholder="تکرار کلمه عبور" name="password_confirmation"
+                                    required/>
                             </div>
                             <div class="form-group text-left px-8">
                                 <div class="checkbox-inline">
                                     <label class="checkbox checkbox-outline checkbox-white text-white m-0">
-                                        <input type="checkbox" name="agree" />
+                                        <input type="checkbox" name="agree"/>
                                         <span></span>
                                         می پذیرم <a href="#" class="text-white font-weight-bold ml-1">قوانین و
                                             مقررات</a>.
@@ -63,8 +66,10 @@
                             </div>
                             <div class="form-group">
                                 <button id="kt_login_signup_submit" type="submit"
-                                    class="btn btn-pill btn-outline-white font-weight-bold opacity-90 px-15 py-3 m-2">ثبت
-                                    نام</button>
+                                        class="btn btn-pill btn-outline-white font-weight-bold opacity-90 px-15 py-3 m-2">
+                                    ثبت
+                                    نام
+                                </button>
                             </div>
                         </form>
                     </div>

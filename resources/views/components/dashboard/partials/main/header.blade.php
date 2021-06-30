@@ -6,7 +6,7 @@
             <!--begin::راست-->
             <div class="d-none d-lg-flex align-items-center mr-3">
                 <!--begin::Logo-->
-                <a href="index.html" class="mr-20">
+                <a href="{{ route('home') }}" class="mr-20">
                     <img alt="Logo" src="{{ asset('assets/media/logos/logo-letter-9.png') }}" class="max-h-35px" />
                 </a>
                 <!--end::Logo-->
@@ -138,8 +138,8 @@
                 </div>
                 <!--end::Tablet & Mobile جستجو-->
 
-    
-           
+
+
 
                 <!--begin::User-->
                 <div class="topbar-item">

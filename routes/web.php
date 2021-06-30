@@ -48,6 +48,7 @@ Route::group([
 
     // front management routes
     Route::resource('faqs', \App\Http\Controllers\Dashboard\Administratorship\FaqController::class);
+    Route::resource('single-options', \App\Http\Controllers\Dashboard\Administratorship\SingleOptionController::class);
 
 
 });

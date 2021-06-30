@@ -1,5 +1,6 @@
 <x-front.layouts.main>
 
+
     @section('content')
 
         <div class="no-bottom no-top" id="content">

@@ -41,7 +41,7 @@
                 </div>
                 <!--end::Row-->
 
-
+                @hasanyrole('super-admin|admin')
                 <!--begin::Row-->
                 <div class="row mt-0 mt-lg-3">
                     <div class="col-xl-12">
@@ -276,7 +276,7 @@
 
                 </div>
                 <!--end::Row-->
-
+                @endhasanyrole
 
                 <!--end::داشبورد-->
             </div>

@@ -11,10 +11,10 @@
             <x.front.partials.highlight />
 
             <!-- section begin -->
-            <x-front.partials.pricing />
+{{--            <x-front.partials.pricing />--}}
             <!-- section close -->
 
-            <x-front.partials.section-text />
+{{--            <x-front.partials.section-text />--}}
 
             <x-front.partials.comments :comments="$comments" />
 

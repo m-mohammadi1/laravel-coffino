@@ -9,6 +9,8 @@
     <meta content="" name="keywords" />
     <meta content="" name="author" />
 
+
+    <link rel="stylesheet" href="{{ asset('front/custom.css') }}" />
     <link rel="stylesheet" href="{{ asset('front/css/all.css') }}" />
 
 </head>

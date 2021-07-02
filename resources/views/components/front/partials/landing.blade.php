@@ -4,12 +4,15 @@
             <div class="col-lg-5 wow fadeInRight" data-wow-delay=".5s">
                 <h4 class="id-color">ما متخصص سئو هستیم</h4>
                 <div class="spacer-10"></div>
-                <h1>آماده راه اندازی کسب و کار خود هستید؟</h1>
-                <p class="lead">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
-                    طراحان گرافیک است، چاپگرها و متون</p>
+                <h1>
+                    {{ $site_options['landing_header'] }}
+                </h1>
+                <p class="lead">
+                    {{ $site_options['landing_sub_header'] }}
+                </p>
                 <div class="spacer-20"></div>
-                <a class="btn-custom bg-color-2" href="#">بزن بریم!</a>&nbsp;
-                <a class="btn-custom" href="#">ادامه مطلب</a>
+                <a class="btn-custom bg-color-2" href="{{ route('dashboard.index') }}">بزن بریم!</a>&nbsp;
+                <a class="btn-custom" href="{{ route('faqs') }}">سوالی داری؟</a>
                 <div class="mb-sm-30"></div>
             </div>
             <div class="col-lg-7 wow fadeInLeft" data-wow-delay=".5s">

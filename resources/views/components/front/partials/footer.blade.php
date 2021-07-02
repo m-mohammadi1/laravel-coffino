@@ -31,20 +31,19 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row d-flex justify-content-between">
             <div class="col-md-6 sm-text-center mb-sm-30">
                 <div class="mt10">
                     {{ $site_options['footer_copyright'] }}
+                    <i class="fa fa-twitter fa-lg"></i>
                 </div>
             </div>
 
-            <div class="col-md-6 text-md-right text-sm-left" dir="ltr">
-                <div class="social-icons">
-                    <a href="#"><i class="fa fa-facebook fa-lg"></i></a>
-                    <a href="#"><i class="fa fa-twitter fa-lg"></i></a>
-                    <a href="#"><i class="fa fa-linkedin fa-lg"></i></a>
-                    <a href="#"><i class="fa fa-google-plus fa-lg"></i></a>
-                    <a href="#"><i class="fa fa-rss fa-lg"></i></a>
+
+            <div class="col-md-6 text-md-right text-sm-left text-left" dir="ltr">
+                <div class="social-icons text-left">
+                    <a href="{{ $site_options['social_telegram'] }}"><i class="fa fa-telegram fa-lg"></i></a>
+                    <a href="{{ $site_options['social_linkedin'] }}"><i class="fa fa-linkedin fa-lg"></i></a>
                 </div>
             </div>
         </div>

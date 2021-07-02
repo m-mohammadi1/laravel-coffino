@@ -15,7 +15,7 @@ class CreateSingleOptionsTable extends Migration
     {
         Schema::create('single_options', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('title', 512);
             $table->text('value');
             $table->timestamps();

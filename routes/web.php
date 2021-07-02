@@ -1,6 +1,8 @@
 <?php
 
 
+use App\Models\Transaction;
+
 Route::group([
     'prefix' => 'dashboard',
     'middleware' => 'auth',
@@ -66,3 +68,11 @@ Route::group([
 
 Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index'])->name('faqs');
 Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->name('home');
+
+Route::get('test', function () {
+
+//    $val = Transaction::getTodaySaleAmount();
+//    $val = \App\Models\Service::getServiceAmountAverage();
+//    dd($val);
+    auth()->user()->givePermissionTo('manage single_options');
+});

@@ -71,6 +71,13 @@ class RoleAndPermissionSeeder extends Seeder
         $see_comment = Permission::create(['name' => 'see comment']);
         $manage_comment = Permission::create(['name' => 'manage comment']);
 
+        // signle optiopns
+        $create_single_options = Permission::create(['name' => 'create single_options']);
+        $edit_single_options = Permission::create(['name' => 'edit single_options']);
+        $delete_single_options = Permission::create(['name' => 'delete single_options']);
+        $see_single_options = Permission::create(['name' => 'see single_options']);
+        $manage_single_options = Permission::create(['name' => 'manage single_options']);
+
 
 
         // assign permissions to roles
@@ -85,6 +92,7 @@ class RoleAndPermissionSeeder extends Seeder
             $create_purchased_service, $edit_purchased_service, $see_purchased_service, $manage_purchased_service,
             $create_faq,  $edit_faq, $see_faq, $manage_faq,
             $create_comment,  $edit_comment, $see_comment, $manage_comment,
+            $edit_single_options,  $manage_single_options
         ]);
     }
 }

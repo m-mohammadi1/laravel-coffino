@@ -6,6 +6,42 @@
             <!--begin::Container-->
             <div class=" container ">
                 <!--begin::داشبورد-->
+
+                <!--begin::Row-->
+                <div class="row mt-0 mt-lg-3">
+                    <div class="col-xl-12">
+                        <!--begin::ترکیبی Widget 17-->
+                        <div class="card card-custom gutter-b card-stretch">
+                            <!--begin::Header-->
+                            <div class="card-header border-0 pt-5">
+                                <div class="card-title font-weight-bolder">
+                                    <div class="card-label">
+                                        پنل کاربری
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Header-->
+
+                            <!--begin::Body-->
+                            <div class="card-body p-0 d-flex flex-column">
+                                <!--begin::Items-->
+                                <div class="flex-grow-1 card-spacer">
+
+                                    <div class="alert alert-light">
+                                        {{ $site_options['dashboard_welcome_message'] }}
+                                    </div>
+
+                                </div>
+                                <!--end::Items-->
+                            </div>
+                            <!--end::Body-->
+                        </div>
+                    </div>
+
+                </div>
+                <!--end::Row-->
+
+
                 <!--begin::Row-->
                 <div class="row mt-0 mt-lg-3">
                     <div class="col-xl-12">
@@ -81,7 +117,7 @@
                                                 <!--begin::Title-->
                                                 <div>
                                                     <div class="font-size-h4 text-dark-75 font-weight-bolder">
-                                                        دلار2,034
+                                                        {{ number_format($dashboardData['sale_chart']['weekly_sale']) }}  تومان
                                                     </div>
                                                     <div class="font-size-sm text-muted font-weight-bold mt-1">
                                                         فروش یک هفته گذشته
@@ -125,10 +161,10 @@
                                                 <!--begin::Title-->
                                                 <div>
                                                     <div class="font-size-h4 text-dark-75 font-weight-bolder">
-                                                        دلار706
+                                                        {{ number_format($dashboardData['sale_chart']['today_sale']) }}  تومان
                                                     </div>
                                                     <div class="font-size-sm text-muted font-weight-bold mt-1">
-                                                        متوسط فروش هفتگی
+                                                        فروش امروز
                                                     </div>
                                                 </div>
                                                 <!--end::Title-->
@@ -170,7 +206,7 @@
                                                 <!--begin::Title-->
                                                 <div>
                                                     <div class="font-size-h4 text-dark-75 font-weight-bolder">
-                                                        دلار49
+                                                        {{ number_format($dashboardData['sale_chart']['service_avg_price']) }}  تومان
                                                     </div>
                                                     <div class="font-size-sm text-muted font-weight-bold mt-1">
                                                         متوسط قیمت سرویس ها
@@ -212,7 +248,7 @@
                                                 <!--begin::Title-->
                                                 <div>
                                                     <div class="font-size-h4 text-dark-75 font-weight-bolder">
-                                                        دلار5.8M
+                                                        {{ number_format($dashboardData['sale_chart']['whole_sale']) }}  تومان
                                                     </div>
                                                     <div class="font-size-sm text-muted font-weight-bold mt-1">
                                                         کل فروش
@@ -229,8 +265,8 @@
                                 <!--begin::Chart-->
                                 <div id="kt_mixed_widget_17_chart"
                                      class="card-rounded-bottom" data-color="info"
-                                     data-json='{"data":[ 10, 20, 30, 40, 50, 60]}'
-                                     style="height: 300px"></div>
+                                     data-json='{"data":{{ ($dashboardData['sale_chart']['six_month_sale']) }}}'
+                                     style="min-height: 300px"></div>
                                 <!--end::Chart-->
                             </div>
                             <!--end::Body-->

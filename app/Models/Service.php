@@ -20,4 +20,10 @@ class Service extends Model
     {
         return $this->belongsToMany(Count::class);
     }
+
+    public static function getServiceAmountAverage()
+    {
+        return self::avg('price');
+    }
+
 }

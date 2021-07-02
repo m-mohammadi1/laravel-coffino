@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -80,6 +81,26 @@ class Transaction extends Model
     {
         return $this->hasOne(PurchasedService::class);
     }
+
+
+    public static function getWholeSaleAmount()
+    {
+        return self::where('status', self::STATUS['success'])->sum('paid');
+    }
+
+    public static function getLastWeekSaleAmount()
+    {
+        $date = Carbon::today()->subDays(7);
+        return self::where('created_at', '>=', $date)->where('status', self::STATUS['success'])->sum('paid');
+    }
+
+    public static function getTodaySaleAmount()
+    {
+        $date = Carbon::today();
+        return self::where('created_at', '>=', $date)->where('status', self::STATUS['success'])->sum('paid');
+    }
+
+
 
 
 }

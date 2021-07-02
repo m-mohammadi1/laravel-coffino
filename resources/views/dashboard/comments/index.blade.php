@@ -76,18 +76,15 @@
                                                         <a href="javascript:;"
                                                            class="btn btn-{{ $comment->status != 0 ? 'primary' : 'warning' }}"
                                                            title="تغییر وضعیت"
-                                                           onclick="document.getElementById('updateStatus').submit();"
+                                                           onclick="document.getElementById('updateStatus-{{ $comment->id }}').submit();"
                                                         >
                                                             {{ $comment->getStatusText() }}
                                                         </a>
+
                                                 </span>
                                             </td>
 
-                                            <form id="updateStatus" action="{{ route('dashboard.comments.update', $comment) }}"
-                                                  method="post">
-                                                @csrf
-                                                @method('PUT')
-                                            </form>
+
 
                                             <td data-field="Actions" data-autohide-disabled="false" aria-label="null"
                                                 class="datatable-cell">
@@ -126,6 +123,12 @@
 
                                             @csrf
                                             @method('DELETE')
+                                        </form>
+
+                                        <form id="updateStatus-{{ $comment->id }}" action="{{ route('dashboard.comments.update', $comment) }}"
+                                              method="post">
+                                            @csrf
+                                            @method('PUT')
                                         </form>
 
                                         @php($i++)

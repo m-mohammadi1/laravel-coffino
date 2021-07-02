@@ -11,7 +11,7 @@ class PageController extends Controller
 
     public function home()
     {
-        $comments = Comment::with('user')->limit(15)->get();
+        $comments = Comment::with('user')->where('status', '1')->take(10)->get();
 
         return view('front.index', compact('comments'));
     }

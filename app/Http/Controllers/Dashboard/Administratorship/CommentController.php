@@ -11,7 +11,7 @@ class CommentController extends Controller
 
     public function index()
     {
-        $comments = Comment::with('user')->paginate(10);
+        $comments = Comment::with('user')->orderByDesc('id')->paginate(10);
         return view('dashboard.comments.index', compact('comments'));
     }
 

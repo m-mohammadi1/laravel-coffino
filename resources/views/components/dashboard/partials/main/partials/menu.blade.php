@@ -114,6 +114,17 @@
                     </a>
                 </li>
 
+                    <li class="menu-item " aria-haspopup="true">
+                        <a href="{{ route('dashboard.comments.index') }}" class="menu-link ">
+                    <span class="svg-icon menu-icon">
+                        <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
+                        <i class="la la-backward"></i>
+                        <!--end::Svg Icon-->
+                    </span>
+                            <span class="menu-text">نظرات ثبت شده</span>
+                        </a>
+                    </li>
+
 
             </ul>
         </div>

@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Http\Controllers\Controller;
+use App\Models\SingleOption;
 use Illuminate\Http\Request;
 
 class SingleOptionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return view('dashboard.single-options.index');
+        $options = SingleOption::all();
+        return view('dashboard.single-options.index', compact('options'));
     }
 
     /**
@@ -46,7 +44,7 @@ class SingleOptionController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -60,16 +58,20 @@ class SingleOptionController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+
+    public function update(Request $request, SingleOption $single_option)
     {
-        //
+        if (array_key_exists($single_option->name, $request->all())) {
+            $single_option->update([
+                'value' => $request->{$single_option->name}
+            ]);
+
+            return back()->with('toastr_success', 'بروزرسانی با موفقیت انجام شد');
+        }
+
+        return back()->with('toastr_error', 'عملیات ناموفق');
+
     }
 
     /**

@@ -21,30 +21,30 @@
                         <!--begin::Form-->
                         <div class="card-body">
 
-                            <form method="post" action="">
-                                <div class="form-group row">
-                                    <label class="col-2 col-form-label">متن</label>
-                                    <div class="col-10">
-                                        <input class="form-control" type="text" value="کاله صنعتگر"
-                                               id="example-text-input"/>
-                                    </div>
-                                </div>
-                            </form>
+                            @foreach ($options as $option)
 
-                            <div class="form-group row">
-                                <label for="example-search-input" class="col-2 col-form-label">جستجو</label>
-                                <div class="col-10">
-                                    <input class="form-control" type="search" value="چگونه وب را تسخیر کنم"
-                                           id="example-search-input"/>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="example-email-input" class="col-2 col-form-label">پست الکترونیک</label>
-                                <div class="col-10">
-                                    <input class="form-control" type="email" value="bootstrap@example.com"
-                                           id="example-email-input"/>
-                                </div>
-                            </div>
+                                <form method="post" action="{{ route('dashboard.single-options.update', $option) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="form-group row">
+                                        <label class="col-2 col-form-label">{{  $option->title }}</label>
+                                        <div class="col-10">
+                                            <input class="form-control" type="text" name="{{ $option->name }}" value="{{ $option->value }}" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-2 col-form-label">عملیات</label>
+                                        <div class="col-10">
+                                            <button type="submit" class="btn btn-block btn-dark">بروزرسانی</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr />
+
+                            @endforeach
+
+
                         </div>
 
 

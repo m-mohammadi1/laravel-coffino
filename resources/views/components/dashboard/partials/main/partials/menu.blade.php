@@ -5,9 +5,9 @@
     <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
         <a
             href="javascript:;" class="menu-link menu-toggle">
-            <span class="menu-text">صفحه اصلی</span>
+            <span class="menu-text">صفحه اصلی و تنظیمات</span>
             <span class="menu-desc">
-                مدیریت بخش جلویی سایت
+                مدیریت بخش ظاهری و تنظیمات
             </span>
             <i class="menu-arrow"></i>
         </a>
@@ -18,10 +18,21 @@
                     <a href="{{ route('dashboard.faqs.index') }}" class="menu-link ">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                            <i class="la fab la-medapps text-secondary text-hover-danger"></i>
+                            <i class="fas fa-question-circle text-secondary text-hover-danger"></i>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">سوالات متداول</span>
+                    </a>
+                </li>
+
+                <li class="menu-item " aria-haspopup="true">
+                    <a href="{{ route('dashboard.single-options.index') }}" class="menu-link ">
+                        <span class="svg-icon menu-icon">
+                            <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
+                            <i class="flaticon2-settings text-secondary text-hover-danger"></i>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-text">تنظیمات سایت</span>
                     </a>
                 </li>
 
@@ -29,9 +40,6 @@
             </ul>
         </div>
     </li>
-
-
-
 
 
     <li class="menu-item  menu-item-submenu menu-item-rel" data-menu-toggle="hover" aria-haspopup="true">
@@ -48,10 +56,10 @@
 
                 @can('manage users')
                     <li class="menu-item " aria-haspopup="true">
-                        <a href="#" class="menu-link ">
+                        <a href="#" class="menu-link">
                             <span class="svg-icon menu-icon">
                                 <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                                <i class="la la-backward"></i>
+                                <i class="fas fa-users text-dark text-hover-danger"></i>
                                 <!--end::Svg Icon-->
                             </span>
                             <span class="menu-text">کاربران</span>
@@ -63,7 +71,7 @@
                     <a href="{{ route('dashboard.categories.index') }}" class="menu-link ">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                            <i class="la la-backward"></i>
+                            <i class="flaticon2-indent-dots text-dark text-hover-danger"></i>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">دسته بندي ها</span>
@@ -74,7 +82,7 @@
                     <a href="{{ route('dashboard.services.index') }}" class="menu-link ">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                            <i class="la la-backward"></i>
+                            <i class="fab fa-servicestack text-dark text-hover-danger"></i>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">سرويس ها</span>
@@ -85,7 +93,7 @@
                     <a href="{{ route('dashboard.counts.index') }}" class="menu-link ">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                            <i class="la la-backward"></i>
+                            <i class="fab fa-stack-overflow text-dark text-hover-danger"></i>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">تعداد ثبت شده سرویس ها</span>
@@ -96,7 +104,7 @@
                     <a href="{{ route('dashboard.transactions.index') }}" class="menu-link ">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                            <i class="la la-backward"></i>
+                            <i class="flaticon-graphic-2 text-dark text-hover-danger"></i>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">مدیریت تراکنش ها</span>
@@ -107,7 +115,7 @@
                     <a href="{{ route('dashboard.purchases.index') }}" class="menu-link ">
                     <span class="svg-icon menu-icon">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                        <i class="la la-backward"></i>
+                        <i class="flaticon2-supermarket text-dark text-hover-danger"></i>
                         <!--end::Svg Icon-->
                     </span>
                         <span class="menu-text">مدیریت سرویس های درخواستی</span>
@@ -118,7 +126,7 @@
                         <a href="{{ route('dashboard.comments.index') }}" class="menu-link ">
                     <span class="svg-icon menu-icon">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                        <i class="la la-backward"></i>
+                        <i class="far fa-comments text-dark text-hover-danger"></i>
                         <!--end::Svg Icon-->
                     </span>
                             <span class="menu-text">نظرات ثبت شده</span>
@@ -149,7 +157,7 @@
                     <a href="{{ route('dashboard.customers.services') }}" class="menu-link ">
                         <span class="svg-icon menu-icon">
                             <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
-                            <i class="la la-backward"></i>
+                            <i class="fas fa-shopping-basket text-danger"></i>
                             <!--end::Svg Icon-->
                         </span>
                         <span class="menu-text">خرید سرویس</span>

@@ -64,6 +64,14 @@ class RoleAndPermissionSeeder extends Seeder
         $see_faq = Permission::create(['name' => 'see faq']);
         $manage_faq = Permission::create(['name' => 'manage faq']);
 
+        // comments
+        $create_comment = Permission::create(['name' => 'create comment']);
+        $edit_comment = Permission::create(['name' => 'edit comment']);
+        $delete_comment = Permission::create(['name' => 'delete comment']);
+        $see_comment = Permission::create(['name' => 'see comment']);
+        $manage_comment = Permission::create(['name' => 'manage comment']);
+
+
 
         // assign permissions to roles
         $all_permissions = Permission::all();
@@ -75,7 +83,8 @@ class RoleAndPermissionSeeder extends Seeder
             $create_count, $edit_count, $see_count, $manage_count,
             $create_transaction, $edit_transaction, $see_transaction, $manage_transaction,
             $create_purchased_service, $edit_purchased_service, $see_purchased_service, $manage_purchased_service,
-            $create_faq,  $edit_faq, $see_faq, $manage_faq
+            $create_faq,  $edit_faq, $see_faq, $manage_faq,
+            $create_comment,  $edit_comment, $see_comment, $manage_comment,
         ]);
     }
 }

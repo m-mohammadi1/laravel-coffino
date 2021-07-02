@@ -3141,10 +3141,14 @@ var KTWidgets = function() {
             return;
         }
 
+        const dataFromIndex = $("#kt_mixed_widget_17_chart").attr('data-json');
+        const dataToShowInChart = JSON.parse(dataFromIndex).data;
+
+        console.log(dataToShowInChart);
         var options = {
             series: [{
                 name: 'سود خالص',
-                data: [30, 25, 45, 30, 55, 55]
+                data: dataToShowInChart
             }],
             chart: {
                 type: 'area',
@@ -3177,7 +3181,7 @@ var KTWidgets = function() {
                 colors: [KTApp.getSettings()['colors']['theme']['base'][color]]
             },
             xaxis: {
-                categories: ['فوریه', 'مارچ', 'آپریل', 'می', 'ژوئن', 'جولای'],
+                categories: ['6 ماه گذشته', '5 ماه گذشته', '4 ماه گذشته', '3 ماه گذشته', '2 ماه گذشته', '1 ماه گذشته'],
                 axisBorder: {
                     show: false,
                 },

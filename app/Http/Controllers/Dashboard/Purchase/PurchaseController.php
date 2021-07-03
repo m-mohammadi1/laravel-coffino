@@ -95,7 +95,7 @@ class PurchaseController extends Controller
                 ->verify();
 
             $transaction->transaction_result = $receipt;
-            $transaction->status = Transaction::STATUS_SUCCESS;
+            $transaction->status = Transaction::STATUS['success'];
 
             DB::transaction(function () use ($transaction, $service) {
                 $transaction->save();
@@ -107,7 +107,7 @@ class PurchaseController extends Controller
             // return view('transactions');
         } catch (InvalidPathException | Exception | Error | Throwable $e) {
 
-            $transaction->status = Transaction::STATUS_FAILED;
+            $transaction->status = Transaction::STATUS['failed'];
 
             $transaction->transaction_result = [
                 'message' => $e->getMessage(),
@@ -148,7 +148,7 @@ class PurchaseController extends Controller
             $error = 'سرویس ثبت شده در سفارش معتبر نمی باشد';
         }
 
-        if ($transaction->status <> Transaction::STATUS_PENDING) {
+        if ($transaction->status <> Transaction::STATUS['pending']) {
             $error = 'وضعیت تراکنش نامعتبر می باشد';
         }
         return $error;

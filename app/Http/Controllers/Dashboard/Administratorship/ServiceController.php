@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\Administratorship;
 
+use App\Models\Count;
 use App\Models\Service;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -35,15 +36,11 @@ class ServiceController extends Controller
         $this->authorize('create', Service::class);
 
         $categories = $this->getCategories();
-        return view('dashboard.services.create', compact('categories'));
+        $counts = Count::all();
+        return view('dashboard.services.create', compact('categories', 'counts'));
     }
 
 
-    /**
-     * @param StoreServiceRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function store(StoreServiceRequest $request): \Illuminate\Http\RedirectResponse
     {
         $this->authorize('create', Service::class);
@@ -54,7 +51,10 @@ class ServiceController extends Controller
             return redirect()->route('dashboard.services.create')->with('errorMessage', 'دسته بندی انتخابی یافت نشد');
         }
 
-        $category->services()->create($request->validated());
+        $service = $category->services()->create($request->validated());
+        if ($service && $request->has('counts')) {
+            $service->counts()->attach(array_values($request->counts));
+        }
 
         return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با موفقیت ایجاد شد');
     }

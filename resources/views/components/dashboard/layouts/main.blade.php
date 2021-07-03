@@ -9,7 +9,6 @@
     <meta name="description" content="Updates and statistics"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 
-@yield('headers')
 
 <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
@@ -34,6 +33,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/media/logos/favicon.ico') }}"/>
 
     <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.css') }}">
+    @yield('headers')
 
 </head>
 <!--end::Head-->
@@ -169,10 +169,6 @@
 <script src="{{ asset('assets/plugins/custom/prismjs/prismjs.bundle.js?v=7.0.6') }}"></script>
 <script src="{{ asset('assets/js/scripts.bundle.js?v=7.0.6') }}"></script>
 <!--end::Global تم Bundle-->
-
-<!--begin::Page Vendors(used by this page)-->
-<script src="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js?v=7.0.6') }}"></script>
-<!--end::Page Vendors-->
 
 <!--begin::Page Scripts(used by this page)-->
 <script src="{{ asset('assets/js/pages/widgets.js?v=7.0.6') }}"></script>

@@ -13,4 +13,12 @@ class Faq extends Model
 
     protected $fillable = ['title', 'description'];
 
+    public const FILTER_ITEMS = [
+        'id' => 'آیدی',
+        'title' => 'عنوان',
+        '-title' => 'عنوان - نزولی',
+        '-id' => 'آیدی - نزولی'
+    ];
+
+
 }

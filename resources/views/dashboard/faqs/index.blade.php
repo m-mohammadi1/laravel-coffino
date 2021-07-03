@@ -48,18 +48,56 @@
                         </div>
                         <div class="card-body">
 
+                            <div class="mb-7">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-9 col-xl-8">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4 my-2 my-md-0">
+                                                <div class="input-icon">
+                                                    <input type="text" class="form-control search-input"
+                                                           placeholder="جستجو..."
+                                                           id="kt_datatable_search_query">
+                                                    <span><i class="flaticon2-search-1 text-muted"></i></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 my-2 my-md-0">
+                                                <div class="d-flex align-items-center">
+                                                    <label class="mr-3 mb-0 d-none d-md-block">براساس:</label>
+                                                    <div class="dropdown bootstrap-select form-control"><select
+                                                            class="form-control search-column-select" id="kt_datatable_search_type">
+                                                            @foreach ($filter_items as $column => $name)
+                                                                <option value="{{ $column }}">{{ $name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <div class="dropdown-menu ">
+                                                            <div class="inner show" role="listbox" id="bs-select-2"
+                                                                 tabindex="-1">
+                                                                <ul class="dropdown-menu inner show" role="presentation">
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                                        <a href="javascript:;" class="btn btn-light-primary px-6 font-weight-bold search-link">
+                                            اعمال و جستجو
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <form data-action="{{ route('dashboard.faqs.index') }}" action="" id="search-from"></form>
+
                             <!--begin: جدو داده ها-->
                             <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded"
                                 id="kt_datatable" style="">
                                 <table class="datatable-table" style="display: block;">
                                     <thead class="datatable-head">
                                         <tr class="datatable-row" style="left: 0px;">
-                                            <th data-field="RecordID"
-                                                class="datatable-cell-center datatable-cell datatable-cell-check">
-                                                <span style="width: 20px;"><label
-                                                        class="checkbox checkbox-single checkbox-all"><input
-                                                            type="checkbox">&nbsp;<span></span></label></span>
-                                            </th>
+
                                             <th data-field="ID" class="datatable-cell datatable-cell-sort">
                                                 <span style="width: 137px;">آیدی</span>
                                             </th>
@@ -75,14 +113,8 @@
                                         </tr>
                                     </thead>
                                     <tbody class="datatable-body" style="">
-                                        @php($i = 0)
                                             @foreach ($faqs as $faq)
-                                                <tr data-row="{{ $i }}" class="datatable-row" style="left: 0px;">
-                                                    <td class="datatable-cell-sorted datatable-cell-center datatable-cell datatable-cell-check"
-                                                        data-field="RecordID" aria-label="61"><span style="width: 20px;"><label
-                                                                class="checkbox checkbox-single"><input type="checkbox"
-                                                                    value="61">&nbsp;<span></span></label></span></td>
-
+                                                <tr data-row="{{ $loop->index }}" class="datatable-row" style="left: 0px;">
                                                     <td data-field="ID" aria-label="0363-0198" class="datatable-cell">
                                                         <span style="width: 137px;">{{ $faq->id }}</span>
                                                     </td>
@@ -118,8 +150,6 @@
                                                                 </a>
                                                             @endcan
 
-
-
                                                             @can('delete faq')
                                                                 <a href="javascript:;" class="btn btn-sm btn-clean btn-icon entityDeleteButton"
                                                                     title="حذف" data-id="{{ $faq->id }}">
@@ -142,7 +172,6 @@
                                                                 </a>
                                                             @endcan
 
-
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -155,10 +184,7 @@
                                                     @method('DELETE')
                                                 </form>
 
-                                                @php($i++)
                                                 @endforeach
-
-
 
                                             </tbody>
                                         </table>
@@ -222,7 +248,6 @@
                             const button = $(this);
                             const entityID = button.attr('data-id');
 
-
                             // show category id in modal
                             $("#deletingEntityId").html(entityID);
                             // show modal
@@ -233,6 +258,23 @@
                                 const form = $("#ID-" + entityID);
                                 form.submit();
                             });
+                        });
+
+                        const searchInput = $(".search-input");
+                        const searchColumnSelect = $(".search-column-select");
+                        const searchLink = $(".search-link");
+                        const searchForm = $("#search-from");
+                        const searchAction = searchForm.attr('data-action');
+
+                        searchLink.click(function () {
+                            const data = {
+                                searchText: searchInput.val(),
+                                column:  searchColumnSelect.find(":selected").val(),
+                            };
+                            // let link = searchAction + '?filter[status]=' + data.status;
+                            let link = searchAction + '?sort=' + data.column + '&filter['+ data.column +']=' + data.searchText;
+                            // console.log(link);
+                            window.location.replace(link);
                         });
                     });
                 </script>

@@ -6,14 +6,26 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFaqRequest;
 use App\Models\Faq;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class FaqController extends Controller
 {
 
     public function index()
     {
-        $faqs = Faq::paginate(Faq::PAGINATE_COUNT);
-        return view('dashboard.faqs.index', compact('faqs'));
+
+        $faqs = QueryBuilder::for(Faq::class)
+            ->allowedFilters(array_merge(
+                array_keys(Faq::FILTER_ITEMS), [AllowedFilter::exact('id')]
+            ))
+            ->allowedSorts(array_keys(Faq::FILTER_ITEMS))
+            ->paginate(10)
+            ->appends(request()->query());
+        $filter_items = Faq::FILTER_ITEMS;
+
+
+        return view('dashboard.faqs.index', compact('faqs', 'filter_items'));
     }
 
     public function create()

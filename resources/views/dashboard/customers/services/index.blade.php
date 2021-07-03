@@ -16,8 +16,8 @@
 
                 <div class="col-md-8 offset-md-2">
 
-                    <x-dashboard.partials.messages.success />
-                    <x-dashboard.partials.messages.error />
+                    <x-dashboard.partials.messages.success/>
+                    <x-dashboard.partials.messages.error/>
 
 
                     <div class="card card-custom">
@@ -32,19 +32,21 @@
 
                             <div class="card-body">
 
-                                <x-dashboard.partials.error />
-
+                                <x-dashboard.partials.error/>
 
 
                                 <div class="form-group">
                                     <label>لینک مورد نظر برای اعمال سرویس</label>
-                                    <input style="text-align: left; direction: rtl;" type="text" class="form-control" name="link" />
+                                    <input style="text-align: left; direction: rtl;" type="text" class="form-control"
+                                           name="link"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="category">دسته بندی</label>
-                                    <select class="form-control" id="category-select" name="category" data-action="{{ route('dashboard.customers.services.get_by_cat') }}" data-method="POST">
-                                            <option value="">انتخاب کنید</option>
+                                    <select class="form-control" id="category-select" name="category"
+                                            data-action="{{ route('dashboard.customers.services.get_by_cat') }}"
+                                            data-method="POST">
+                                        <option value="">انتخاب کنید</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->title }}</option>
                                         @endforeach
@@ -53,7 +55,9 @@
 
                                 <div class="form-group">
                                     <label for="category">سرویس</label>
-                                    <select class="form-control" id="service-select" name="service" disabled="disabled" data-action="{{ route('dashboard.customers.services.count') }}" data-method="POST">
+                                    <select class="form-control" id="service-select" name="service" disabled="disabled"
+                                            data-action="{{ route('dashboard.customers.services.info') }}"
+                                            data-method="POST">
 
                                         <option>دسته بندی را انتخاب کنید</option>
 
@@ -71,7 +75,11 @@
 
                                 <div class="form-group" id="countInput" style="display: none;">
                                     <label>تعداد سرویس(تعداد دلخواه)</label>
-                                    <input type="number" class="form-control" name="optional_count" />
+                                    <input type="number" class="form-control" name="optional_count"/>
+                                </div>
+
+                                <label>توضیحات سرویس</label>
+                                <div class="alert alert-light" id="serviceDescriptionContainer">
                                 </div>
 
                             </div>
@@ -102,18 +110,17 @@
         <script>
             const optionalCountInput = $("#countInput");
 
-            $("#category-select").on("change", function() {
+            $("#category-select").on("change", function () {
                 const categorySelect = $(this);
                 const category = $(this).val();
                 const serviceSelect = $("#service-select");
 
 
                 // disable the services select
-                // $('#service-select').append('<option>در حال جستجو</option>');
                 serviceSelect.attr("disabled", 'disabled');
 
                 // remove last options (services)
-                $("#service-select option").each(function() {
+                $("#service-select option").each(function () {
                     $(this).remove();
                 });
 
@@ -132,7 +139,7 @@
                     url: categorySelect.attr('data-action'),
                     data: categoryInfo,
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         const services = response.data;
                         const servicesExsits = services.length;
 
@@ -151,7 +158,7 @@
                         }
 
                     },
-                    error: function(data) {
+                    error: function (data) {
                         toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
                     }
 
@@ -163,12 +170,14 @@
                 const serviceSelect = $(this);
                 const service = $(this).val();
                 const countSelect = $('#count-select');
+                const serviceDescriptionContainer = $("#serviceDescriptionContainer");
+
 
                 countSelect.attr("disabled", 'disabled');
                 // disapear count input
                 optionalCountInput.fadeOut(300);
 
-                $("#count-select option").each(function() {
+                $("#count-select option").each(function () {
                     $(this).remove();
                 });
 
@@ -182,14 +191,18 @@
                     'service_id': service
                 }
 
+                // get and show service's counts and description
                 $.ajax({
                     method: serviceSelect.attr('data-method'),
                     url: serviceSelect.attr('data-action'),
                     data: serviceInfo,
                     dataType: 'json',
-                    success: function(response) {
-                        const counts = response.data;
+                    success: function (response) {
+                        const counts = response.data.counts;
+                        const serviceDescription = response.data.service_description;
                         const status = response.status;
+
+                        serviceDescriptionContainer.html(serviceDescription);
 
                         if (status === 'found') {
 
@@ -209,7 +222,7 @@
 
                         }
                     },
-                    error: function(data) {
+                    error: function (data) {
                         //console.log(data);
                         toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
                     }

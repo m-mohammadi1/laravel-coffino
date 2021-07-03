@@ -37,21 +37,27 @@ class ServiceController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getServiceCounts(Request $request): \Illuminate\Http\JsonResponse
+    public function getServiceInfo(Request $request): \Illuminate\Http\JsonResponse
     {
-        $service_counts = $this->getAllServiceCounts($request);
+        $service = Service::find($request->service_id);
+
+        $service_counts = $service->counts;
+        $service_description = $service->description;
 
         $status = count($service_counts) === 0 ? 'not_found' : 'found';
 
+
         return response()->json([
-            'data' => $service_counts,
+            'data' => [
+                'counts' => $service_counts,
+                'service_description' => $service_description,
+            ],
             'status' => $status,
         ]);
     }
 
     private function getAllServiceCounts(Request $request)
     {
-        return Service::find($request->service_id)->counts;
     }
 
     private function getServicesByCatId($cat_id)

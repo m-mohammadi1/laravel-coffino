@@ -42,7 +42,7 @@
 
                                 <div class="form-group mb-1">
                                     <label for="description">توضیحات سرویس</label>
-                                    <textarea class="form-control" rows="3"
+                                    <textarea class="form-control summernote" rows="3" id="summernote"
                                               name="description">{{ $service->description }}</textarea>
                                 </div>
 
@@ -111,6 +111,7 @@
         </script>
 
         <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/crud/forms/editors/summernote.js?v=7.0.6') }}"></script>
 
     @endsection
 

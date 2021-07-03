@@ -11,10 +11,10 @@ class Category extends Model
 
     protected $fillable = ['title', 'description'];
 
-
-    public $columns = ['id', 'description'];
-    public $columnsCount = 2;
-    public $isPaginated = false;
+    public const FILTER_ITEMS = [
+        'id' => 'آیدی',
+        'title' => 'عنوان',
+    ];
 
     public function services()
     {

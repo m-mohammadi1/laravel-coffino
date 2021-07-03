@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Administratorship;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 
 class CategoryController extends Controller
@@ -16,9 +18,16 @@ class CategoryController extends Controller
     {
         $this->authorize('manage', Category::class);
 
-        $categories = Category::paginate(10);
+        $categories = QueryBuilder::for(Category::class)
+            ->allowedFilters(array_merge(
+                array_keys(Category::FILTER_ITEMS), [AllowedFilter::exact('id')]
+            ))
+            ->allowedSorts(array_keys(Category::FILTER_ITEMS))
+            ->paginate(10);
 
-        return view('dashboard.categories.index', compact('categories'));
+        $filter_items = Category::FILTER_ITEMS;
+
+        return view('dashboard.categories.index', compact('categories', 'filter_items'));
     }
 
     /**

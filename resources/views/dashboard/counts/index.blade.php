@@ -39,7 +39,7 @@
                                                 </g>
                                             </svg>
                                             <!--end::Svg Icon-->
-                                        </span>تعداد جدید 
+                                        </span>تعداد جدید
                                     </a>
                                     <!--end::دکمه-->
                                 @endcan
@@ -55,49 +55,25 @@
                                         <div class="row align-items-center">
                                             <div class="col-md-4 my-2 my-md-0">
                                                 <div class="input-icon">
-                                                    <input type="text" class="form-control" placeholder="جستجو..."
-                                                        id="kt_datatable_search_query">
+                                                    <input type="text" class="form-control search-input"
+                                                           placeholder="جستجو..."
+                                                           id="kt_datatable_search_query">
                                                     <span><i class="flaticon2-search-1 text-muted"></i></span>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4 my-2 my-md-0">
                                                 <div class="d-flex align-items-center">
-                                                    <label class="mr-3 mb-0 d-none d-md-block">وضعیت:</label>
+                                                    <label class="mr-3 mb-0 d-none d-md-block">براساس:</label>
                                                     <div class="dropdown bootstrap-select form-control"><select
-                                                            class="form-control" id="kt_datatable_search_status">
-                                                            <option value="">همه</option>
-                                                            <option value="1">در انتظار</option>
-                                                            <option value="2">تحویل داده شده</option>
-                                                            <option value="3">لغو شده</option>
-                                                            <option value="4">موفقیت</option>
-                                                            <option value="5">اطلاعات</option>
-                                                            <option value="6">هشدار</option>
-                                                        </select>
-
-                                                        <div class="dropdown-menu ">
-                                                            <div class="inner show" role="listbox" id="bs-select-1"
-                                                                tabindex="-1">
-                                                                <ul class="dropdown-menu inner show" role="presentation">
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 my-2 my-md-0">
-                                                <div class="d-flex align-items-center">
-                                                    <label class="mr-3 mb-0 d-none d-md-block">نوع:</label>
-                                                    <div class="dropdown bootstrap-select form-control"><select
-                                                            class="form-control" id="kt_datatable_search_type">
-                                                            <option value="">همه</option>
-                                                            <option value="1">Online</option>
-                                                            <option value="2">Retail</option>
-                                                            <option value="3">Direct</option>
+                                                            class="form-control search-column-select" id="kt_datatable_search_type">
+                                                            @foreach ($filter_items as $column => $name)
+                                                                <option value="{{ $column }}">{{ $name }}</option>
+                                                            @endforeach
                                                         </select>
                                                         <div class="dropdown-menu ">
                                                             <div class="inner show" role="listbox" id="bs-select-2"
-                                                                tabindex="-1">
+                                                                 tabindex="-1">
                                                                 <ul class="dropdown-menu inner show" role="presentation">
                                                                 </ul>
                                                             </div>
@@ -108,12 +84,14 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                        <a href="#" class="btn btn-light-primary px-6 font-weight-bold">
-                                            جستجو
+                                        <a href="javascript:;" class="btn btn-light-primary px-6 font-weight-bold search-link">
+                                            اعمال و جستجو
                                         </a>
                                     </div>
                                 </div>
                             </div>
+
+                            <form data-action="{{ route('dashboard.counts.index') }}" action="" id="search-from"></form>
                             <!--end::جستجو Form-->
                             <!--end: جستجو Form-->
 
@@ -123,12 +101,7 @@
                                 <table class="datatable-table" style="display: block;">
                                     <thead class="datatable-head">
                                         <tr class="datatable-row" style="left: 0px;">
-                                            <th data-field="RecordID"
-                                                class="datatable-cell-center datatable-cell datatable-cell-check">
-                                                <span style="width: 20px;"><label
-                                                        class="checkbox checkbox-single checkbox-all"><input
-                                                            type="checkbox">&nbsp;<span></span></label></span>
-                                            </th>
+
                                             <th data-field="ID" class="datatable-cell datatable-cell-sort">
                                                 <span style="width: 137px;">آیدی</span>
                                             </th>
@@ -153,11 +126,6 @@
                                         @php($i = 0)
                                             @foreach ($counts as $count)
                                                 <tr data-row="{{ $i }}" class="datatable-row" style="left: 0px;">
-                                                    <td class="datatable-cell-sorted datatable-cell-center datatable-cell datatable-cell-check"
-                                                        data-field="RecordID" aria-label="61"><span style="width: 20px;"><label
-                                                                class="checkbox checkbox-single"><input type="checkbox"
-                                                                    value="61">&nbsp;<span></span></label></span></td>
-
                                                     <td data-field="ID" aria-label="0363-0198" class="datatable-cell">
                                                         <span style="width: 137px;">{{ $count->id }}</span>
                                                     </td>
@@ -244,25 +212,7 @@
 
                                         <div class="datatable-pager datatable-paging-loaded">
                                             {{ $counts->links() }}
-                                           
-                                            <div class="datatable-pager-info">
 
-
-                                                <div class="dropdown bootstrap-select datatable-pager-size" style="width: 60px;">
-                                                
-                                                    <select class="selectpicker form-control" title="انتخاب اندازه صفحه"
-                                                        data-width="120px" data-selected="20">
-                                                        <option class="bs-title-option" value="">انتخاب</option>
-                                                        <option value="5">5</option>
-                                                        <option value="10">10</option>
-                                                        <option value="20">20</option>
-                                                        <option value="30">30</option>
-                                                        <option value="50">50</option>
-                                                        <option value="100">100</option>
-                                                    </select>
-                                                </div>
-                                                <span class="datatable-pager-detail">نمایش 61 - 80 از 100</span>
-                                            </div>
                                         </div>
                                     </div>
                                     <!--end: جدول داده ها-->
@@ -331,6 +281,23 @@
                                 form.submit();
                             });
                         });
+                    });
+
+                    const searchInput = $(".search-input");
+                    const searchColumnSelect = $(".search-column-select");
+                    const searchLink = $(".search-link");
+                    const searchForm = $("#search-from");
+                    const searchAction = searchForm.attr('data-action');
+
+                    searchLink.click(function () {
+                        const data = {
+                            searchText: searchInput.val(),
+                            column:  searchColumnSelect.find(":selected").val(),
+                        };
+                        // let link = searchAction + '?filter[status]=' + data.status;
+                        let link = searchAction + '?sort=' + data.column + '&filter['+ data.column +']=' + data.searchText;
+                        // console.log(link);
+                        window.location.replace(link);
                     });
                 </script>
 

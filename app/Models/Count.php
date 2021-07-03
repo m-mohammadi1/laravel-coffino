@@ -13,6 +13,11 @@ class Count extends Model
 
     protected $fillable = ['gift_count', 'service_count'];
 
+    public const FILTER_ITEMS = [
+        'id' => 'آیدی',
+        'service_count' => 'تعداد',
+        'gift_count' => 'تعداد هدیه',
+    ];
 
     public function services()
     {

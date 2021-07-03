@@ -24,7 +24,8 @@ class TransactionController extends Controller
                 array_keys(Transaction::FILTER_ITEMS), [AllowedFilter::exact('id'), AllowedFilter::exact('transaction_id'), 'status']
             ))
             ->allowedSorts(array_keys(Transaction::FILTER_ITEMS))
-            ->paginate(10);
+            ->paginate(10)
+            ->appends(request()->query());
 
         $statuses = $this->getTransactionStatusArray();
         $filter_items = $this->getTransactionFilterItemsArray();

@@ -102,7 +102,8 @@ class CategoryController extends Controller
                 array_keys(Category::FILTER_ITEMS), [AllowedFilter::exact('id')]
             ))
             ->allowedSorts(array_keys(Category::FILTER_ITEMS))
-            ->paginate(10);
+            ->paginate(10)
+            ->appends(request()->query());
     }
 }
 

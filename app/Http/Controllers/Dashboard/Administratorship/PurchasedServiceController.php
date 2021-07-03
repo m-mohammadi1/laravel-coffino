@@ -87,18 +87,17 @@ class PurchasedServiceController extends Controller
             'message' => 'مشکلی در اجرای درخواست شما بوجود آمد لطفا دوباره امتحان کنید',
             'status' => 'error',
         ]);
-
     }
 
     private function getFilteredPurchasedServices(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
-        $purchased_services = QueryBuilder::for(PurchasedService::class)
+        return QueryBuilder::for(PurchasedService::class)
             ->allowedFilters(array_merge(
                 array_keys(PurchasedService::FILTER_ITEMS), [AllowedFilter::exact('id'), AllowedFilter::exact('service_link'), 'status']
             ))
             ->allowedSorts(array_keys(PurchasedService::FILTER_ITEMS))
-            ->paginate(10);
-        return $purchased_services;
+            ->paginate(10)
+            ->appends(request()->query());
     }
 
 

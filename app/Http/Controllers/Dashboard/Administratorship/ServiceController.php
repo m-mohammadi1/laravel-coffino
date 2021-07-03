@@ -131,7 +131,9 @@ class ServiceController extends Controller
                 array_keys(Service::FILTER_ITEMS), [AllowedFilter::exact('id')]
             ))
             ->allowedSorts(array_keys(Service::FILTER_ITEMS))
-            ->paginate(10);
+            ->paginate(10)
+            ->appends(request()->query());
+
         return $services;
     }
 

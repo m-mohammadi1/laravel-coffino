@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Administratorship;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CommentController extends Controller
 {
@@ -13,8 +15,27 @@ class CommentController extends Controller
     {
         $this->authorize('manage', Comment::class);
 
-        $comments = Comment::with('user')->orderByDesc('id')->paginate(10);
-        return view('dashboard.comments.index', compact('comments'));
+        $comments = QueryBuilder::for(Comment::class)
+            ->allowedFilters(array_merge(
+                array_keys(Comment::FILTER_ITEMS), [AllowedFilter::exact('id'), 'status']
+            ))
+            ->allowedSorts(array_keys(Comment::FILTER_ITEMS))
+            ->paginate(10)
+            ->appends(request()->query());
+
+        $filter_items = Comment::FILTER_ITEMS;
+        $statuses = $this->getCommentsStatusArray();
+
+        return view('dashboard.comments.index', compact('comments', 'filter_items', 'statuses'));
+    }
+
+    private function getCommentsStatusArray(): array
+    {
+        $statuses = [];
+        foreach (Comment::STATUS as $text => $code) {
+            $statuses[$code] = Comment::getStatusTextByCode($code);
+        }
+        return $statuses;
     }
 
 

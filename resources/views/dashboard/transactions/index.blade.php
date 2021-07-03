@@ -477,7 +477,6 @@
                             column:  searchColumnSelect.find(":selected").val(),
                         };
                         let link = searchAction + '?sort=' + data.column + '&filter['+ data.column +']=' + data.searchText + '&filter[status]=' + data.status;
-                        // console.log(link);
                         window.location.replace(link);
                     });
                 });

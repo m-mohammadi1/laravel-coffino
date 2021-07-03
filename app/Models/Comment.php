@@ -12,16 +12,17 @@ class Comment extends Model
 
     protected $fillable = ['value', 'user_id'];
 
+    public const FILTER_ITEMS = [
+        'id' => 'آیدی',
+        'value' => 'متن',
+        'user_id' => 'آیدی کاربر'
+    ];
 
     public function getCommentText()
     {
-
         $text = Str::of($this->attributes['value'])->substr(0, 70);
 
         return $text;
-
-
-
     }
 
 
@@ -30,9 +31,15 @@ class Comment extends Model
         'confirmed' => 1,
     ];
 
-    public function getStatusTextByCode($code)
+    public static function getStatusTextByCode($code)
     {
-
+        $text = 'نامعلوم';
+        if ($code == self::STATUS['unconfirmed']) {
+            $text = 'تایید نشده';
+        } elseif ($code == self::STATUS['confirmed']) {
+            $text = 'تایید شده';
+        }
+        return $text;
     }
 
     public function getStatusText()

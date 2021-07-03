@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard\Administratorship;
 use App\Http\Controllers\Controller;
 use App\Models\PurchasedService;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class PurchasedServiceController extends Controller
 {
@@ -12,10 +14,22 @@ class PurchasedServiceController extends Controller
     {
         $this->authorize('manage', PurchasedService::class);
 
-        $purchased_services = PurchasedService::paginate(10);
+        $purchased_services = $this->getFilteredPurchasedServices();
         $purchased_services->load('user');
+        $filter_items = PurchasedService::FILTER_ITEMS;
+        $statuses = $this->getTransactionStatusArray();
 
-        return view('dashboard.purchased.index', compact('purchased_services'));
+        return view('dashboard.purchased.index', compact('purchased_services', 'filter_items', 'statuses'));
+    }
+
+
+    private function getTransactionStatusArray(): array
+    {
+        $statuses = [];
+        foreach (PurchasedService::STATUS as $text => $code) {
+            $statuses[$code] = PurchasedService::getStatusTextByCode($code);
+        }
+        return $statuses;
     }
 
 
@@ -74,6 +88,17 @@ class PurchasedServiceController extends Controller
             'status' => 'error',
         ]);
 
+    }
+
+    private function getFilteredPurchasedServices(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        $purchased_services = QueryBuilder::for(PurchasedService::class)
+            ->allowedFilters(array_merge(
+                array_keys(PurchasedService::FILTER_ITEMS), [AllowedFilter::exact('id'), AllowedFilter::exact('service_link'), 'status']
+            ))
+            ->allowedSorts(array_keys(PurchasedService::FILTER_ITEMS))
+            ->paginate(10);
+        return $purchased_services;
     }
 
 

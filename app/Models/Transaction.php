@@ -23,7 +23,6 @@ class Transaction extends Model
         'transaction_result',
     ];
 
-
     public const STATUS = [
         'failed' => 0,
         'pending' => 1,

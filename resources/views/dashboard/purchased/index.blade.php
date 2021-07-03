@@ -11,15 +11,15 @@
 
                 <div class="col-md-12">
 
-                    <x-dashboard.partials.messages.success />
-                    <x-dashboard.partials.messages.error />
+                    <x-dashboard.partials.messages.success/>
+                    <x-dashboard.partials.messages.error/>
 
 
                     <div class="card card-custom">
                         <div class="card-header flex-wrap border-0 pt-6 pb-0">
                             <div class="card-title">
                                 <h3 class="card-label">
-                                    مدیریت تراکنش های کاربران
+                                    مدیریت سرویس های درخواستی کاربران
                                 </h3>
                             </div>
 
@@ -33,7 +33,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-md-4 my-2 my-md-0">
                                                 <div class="input-icon">
-                                                    <input type="text" class="form-control" placeholder="جستجو..."
+                                                    <input type="text" class="form-control search-input"
+                                                           placeholder="جستجو..."
                                                            id="kt_datatable_search_query">
                                                     <span><i class="flaticon2-search-1 text-muted"></i></span>
                                                 </div>
@@ -41,22 +42,19 @@
 
                                             <div class="col-md-4 my-2 my-md-0">
                                                 <div class="d-flex align-items-center">
-                                                    <label class="mr-3 mb-0 d-none d-md-block">وضعیت:</label>
+                                                    <label class="mr-3 mb-0 d-none d-md-block">براساس:</label>
                                                     <div class="dropdown bootstrap-select form-control"><select
-                                                            class="form-control" id="kt_datatable_search_status">
-                                                            <option value="">همه</option>
-                                                            <option value="1">در انتظار</option>
-                                                            <option value="2">تحویل داده شده</option>
-                                                            <option value="3">لغو شده</option>
-                                                            <option value="4">موفقیت</option>
-                                                            <option value="5">اطلاعات</option>
-                                                            <option value="6">هشدار</option>
+                                                            class="form-control search-column-select"
+                                                            id="kt_datatable_search_type">
+                                                            @foreach ($filter_items as $column => $name)
+                                                                <option value="{{ $column }}">{{ $name }}</option>
+                                                            @endforeach
                                                         </select>
-
                                                         <div class="dropdown-menu ">
-                                                            <div class="inner show" role="listbox" id="bs-select-1"
+                                                            <div class="inner show" role="listbox" id="bs-select-2"
                                                                  tabindex="-1">
-                                                                <ul class="dropdown-menu inner show" role="presentation">
+                                                                <ul class="dropdown-menu inner show"
+                                                                    role="presentation">
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -65,18 +63,21 @@
                                             </div>
                                             <div class="col-md-4 my-2 my-md-0">
                                                 <div class="d-flex align-items-center">
-                                                    <label class="mr-3 mb-0 d-none d-md-block">نوع:</label>
+                                                    <label class="mr-3 mb-0 d-none d-md-block">وضعیت:</label>
                                                     <div class="dropdown bootstrap-select form-control"><select
-                                                            class="form-control" id="kt_datatable_search_type">
+                                                            class="form-control search-status-select"
+                                                            id="kt_datatable_search_status">
                                                             <option value="">همه</option>
-                                                            <option value="1">Online</option>
-                                                            <option value="2">Retail</option>
-                                                            <option value="3">Direct</option>
+                                                            @foreach ($statuses as $code => $status_text)
+                                                                <option value="{{ $code }}">{{ $status_text }}</option>
+                                                            @endforeach
                                                         </select>
+
                                                         <div class="dropdown-menu ">
-                                                            <div class="inner show" role="listbox" id="bs-select-2"
+                                                            <div class="inner show" role="listbox" id="bs-select-1"
                                                                  tabindex="-1">
-                                                                <ul class="dropdown-menu inner show" role="presentation">
+                                                                <ul class="dropdown-menu inner show"
+                                                                    role="presentation">
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -86,27 +87,27 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                                        <a href="#" class="btn btn-light-primary px-6 font-weight-bold">
-                                            جستجو
+                                        <a href="javascript:;"
+                                           class="btn btn-light-primary px-6 font-weight-bold search-link">
+                                            اعمال و جستجو
                                         </a>
                                     </div>
                                 </div>
                             </div>
+
+                            <form data-action="{{ route('dashboard.purchases.index') }}" action=""
+                                  id="search-from"></form>
+
                             <!--end::جستجو Form-->
                             <!--end: جستجو Form-->
 
                             <!--begin: جدول داده ها-->
-                            <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded"
-                                 id="kt_datatable" style="">
+                            <div
+                                class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded"
+                                id="kt_datatable" style="">
                                 <table class="datatable-table" style="display: block; overflow: auto;">
                                     <thead class="datatable-head">
                                     <tr class="datatable-row" style="left: 0px;">
-                                        <th data-field="RecordID"
-                                            class="datatable-cell-center datatable-cell datatable-cell-check">
-                                                <span style="width: 20px;"><label
-                                                        class="checkbox checkbox-single checkbox-all"><input
-                                                            type="checkbox">&nbsp;<span></span></label></span>
-                                        </th>
                                         <th data-field="ID" class="datatable-cell datatable-cell-sort">
                                             <span style="width: 137px;">آیدی دیتابیس</span>
                                         </th>
@@ -135,33 +136,21 @@
                                         </th>
 
 
-
-
-
-
                                     </tr>
                                     </thead>
                                     <tbody class="datatable-body" style="">
                                     @php($i = 0)
                                     @foreach ($purchased_services as $service)
-                                        <tr id="{{ $service->id }}" data-row="{{ $i }}" class="datatable-row" style="left: 0px;">
-                                            <td class="datatable-cell-sorted datatable-cell-center datatable-cell datatable-cell-check"
-                                                data-field="RecordID" aria-label="61">
-                                                <span style="width: 20px;"><label
-                                                        class="checkbox checkbox-single">
-                                                        <input type="checkbox" value="61">&nbsp;
-                                                        <span></span>
-                                                    </label>
-                                                </span>
-                                            </td>
-
-
+                                        <tr id="{{ $service->id }}" data-row="{{ $i }}" class="datatable-row"
+                                            style="left: 0px;">
                                             <td class="datatable-cell">
-                                                <span style="width: 137px;" id="transaction-id">{{ $service->id }}</span>
+                                                <span style="width: 137px;"
+                                                      id="transaction-id">{{ $service->id }}</span>
                                             </td>
 
                                             <td class="datatable-cell">
-                                                <span style="width: 137px;" id="transaction-id">{{ $service->user->email }}</span>
+                                                <span style="width: 137px;"
+                                                      id="transaction-id">{{ $service->user->email }}</span>
                                             </td>
 
 
@@ -194,7 +183,6 @@
                                         </tr>
                                         @php($i++)
                                     @endforeach
-
 
 
                                     </tbody>
@@ -262,7 +250,8 @@
 
                                 <div class="form-group">
                                     <label>لینک سیرویس درخواستی</label>
-                                    <input type="text" id="service-service-link" class="form-control transaction-modal-input"
+                                    <input type="text" id="service-service-link"
+                                           class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
                                 </div>
 
@@ -271,7 +260,6 @@
                                     <input type="text" id="service-date" class="form-control transaction-modal-input"
                                            disabled="disabled" value="">
                                 </div>
-
 
 
                                 <div class="form-group">
@@ -292,13 +280,13 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light-primary font-weight-bold"
-                                        data-dismiss="modal">لغو</button>
+                                        data-dismiss="modal">لغو
+                                </button>
                                 <button type="submit" id="savePurchased"
-                                        class="btn btn-danger font-weight-bold">ذخیره</button>
+                                        class="btn btn-danger font-weight-bold">ذخیره
+                                </button>
                             </div>
                     </form>
-
-
 
 
                 </div>
@@ -322,126 +310,140 @@
     @section('scripts')
         @can('edit purchased_service')
             <script>
-            $(document).ready(function() {
-                const updatePurchasedForm = $("#updatePurchasedForm");
-                const modal = $("#purchasedDetailsModal");
+                $(document).ready(function () {
+                    const updatePurchasedForm = $("#updatePurchasedForm");
+                    const modal = $("#purchasedDetailsModal");
 
 
-                $(".data-show").click(function() {
+                    $(".data-show").click(function () {
 
-                    const button = $(this);
+                        const button = $(this);
 
-                    const user = $("#service-user");
-                    const service = $("#service-service");
-                    const count = $("#service-count");
-                    const status = $("#service-status");
-                    const date = $("#service-date");
-                    const link = $("#service-service-link");
-
-
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
-                                'content')
-                        }
-                    });
-
-                    console.log(button.attr('data-action'));
-                    $.ajax({
-                        method: button.attr('data-method'),
-                        url: button.attr('data-action'),
-                        dataType: 'json',
-                        success: function(response) {
-
-                            const purchased_service = response.data;
-
-                            // set values of inputs fron response
-                            user.val(purchased_service.user.name);
-                            service.val(purchased_service.service.title);
-                            count.val(purchased_service.service_count);
-                            status.val(purchased_service.status);
-                            date.val(purchased_service.created_at);
-                            link.val(purchased_service.service_link);
-
-                            modal.modal('show');
-                            // set action of updating status
-                            // status.attr('data-action', response.update_route);
-                            updatePurchasedForm.attr('action', response.update_route);
-
-                        },
-                        error: function(data) {
-                            //console.log(data);
-
-                            console.log('error');
-                            toastr['error']('مشکلی پیش آمده است');
-                        }
-
-                    });
+                        const user = $("#service-user");
+                        const service = $("#service-service");
+                        const count = $("#service-count");
+                        const status = $("#service-status");
+                        const date = $("#service-date");
+                        const link = $("#service-service-link");
 
 
-                });
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
+                                    'content')
+                            }
+                        });
 
-                $("#savePurchased").click(function(e) {
-                    e.preventDefault();
+                        console.log(button.attr('data-action'));
+                        $.ajax({
+                            method: button.attr('data-method'),
+                            url: button.attr('data-action'),
+                            dataType: 'json',
+                            success: function (response) {
 
-                    const dropdown = $(this);
-                    const action = dropdown.attr('data-action');
-                    const selectedStatusId = $('#status').find(":selected").val();
+                                const purchased_service = response.data;
 
+                                // set values of inputs fron response
+                                user.val(purchased_service.user.name);
+                                service.val(purchased_service.service.title);
+                                count.val(purchased_service.service_count);
+                                status.val(purchased_service.status);
+                                date.val(purchased_service.created_at);
+                                link.val(purchased_service.service_link);
 
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
-                                'content')
-                        }
-                    });
+                                modal.modal('show');
+                                // set action of updating status
+                                // status.attr('data-action', response.update_route);
+                                updatePurchasedForm.attr('action', response.update_route);
 
-                    $.ajax({
-                        method: updatePurchasedForm.attr('method'),
-                        url: updatePurchasedForm.attr('action'),
-                        dataType: 'json',
-                        data: updatePurchasedForm.serialize(),
-                        success: function(response) {
+                            },
+                            error: function (data) {
+                                //console.log(data);
 
-                            modal.modal('hide');
-
-                            if (response.status === 'success') {
-                                toastr["success"](response.message);
-                            } else {
-                                toastr["error"](response.message);
+                                console.log('error');
+                                toastr['error']('مشکلی پیش آمده است');
                             }
 
-                            const statusTdToUpdate = $('tr#' + response.data.service_id + " .status-cell span");
+                        });
 
-                            console.log(response);
 
-                            statusTdToUpdate.html(response.data.status_text);
+                    });
 
-                        },
-                        error: function(data) {
-                            modal.modal('hide');
+                    $("#savePurchased").click(function (e) {
+                        e.preventDefault();
 
-                            //console.log(data);
-                            toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
-                        }
+                        const dropdown = $(this);
+                        const action = dropdown.attr('data-action');
+                        const selectedStatusId = $('#status').find(":selected").val();
+
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr(
+                                    'content')
+                            }
+                        });
+
+                        $.ajax({
+                            method: updatePurchasedForm.attr('method'),
+                            url: updatePurchasedForm.attr('action'),
+                            dataType: 'json',
+                            data: updatePurchasedForm.serialize(),
+                            success: function (response) {
+
+                                modal.modal('hide');
+
+                                if (response.status === 'success') {
+                                    toastr["success"](response.message);
+                                } else {
+                                    toastr["error"](response.message);
+                                }
+
+                                const statusTdToUpdate = $('tr#' + response.data.service_id + " .status-cell span");
+
+                                console.log(response);
+
+                                statusTdToUpdate.html(response.data.status_text);
+
+                            },
+                            error: function (data) {
+                                modal.modal('hide');
+
+                                //console.log(data);
+                                toastr["error"]('خطایی رخ داده است لطفا صفحه را رفرش کرده و دوباره امتحان کنید');
+                            }
+
+
+                        });
 
 
                     });
 
 
+                    const searchInput = $(".search-input");
+                    const searchColumnSelect = $(".search-column-select")
+                    const searchStatusSelect = $(".search-status-select")
+                    const searchLink = $(".search-link");
+                    const searchForm = $("#search-from");
+                    const searchAction = searchForm.attr('data-action');
+
+                    searchLink.click(function () {
+                        const data = {
+                            searchText: searchInput.val(),
+                            status: searchStatusSelect.find(":selected").val(),
+                            column: searchColumnSelect.find(":selected").val(),
+                        };
+                        let link = searchAction + '?sort=' + data.column + '&filter[' + data.column + ']=' + data.searchText + '&filter[status]=' + data.status;
+                        // console.log(link);
+                        window.location.replace(link);
+                    });
 
                 });
-
-
-
-
-
-            });
-        </script>
+            </script>
         @endcan
 
 
-        <!--begin::Page Scripts(used by this page)-->
+    <!--begin::Page Scripts(used by this page)-->
         <script src="{{ asset('assets/js/pages/crud/ktdatatable/base/data-local.js?v=7.0.6') }}"></script>
         <!--end::Page Scripts-->
     @endsection

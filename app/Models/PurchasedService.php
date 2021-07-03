@@ -18,13 +18,15 @@ class PurchasedService extends Model
         'transaction_id',
     ];
 
+    public const FILTER_ITEMS = [
+        'id' => 'آیدی',
+        'user_id' => 'آیدی کاربر',
+        'service_id' => 'آیدی سرویس',
+        'service_link' => 'لینک درخواستی'
+    ];
 
-    const STATUS_REJECTED = 0;
-    const STATUS_PENDING = 1;
-    const STATUS_PROGRESS = 2;
-    const STATUS_COMPLETED = 3;
 
-    const STATUS = [
+    public const STATUS = [
         'rejected' => 0,
         'pending' => 1,
         'progress' => 2,

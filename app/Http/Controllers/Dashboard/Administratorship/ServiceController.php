@@ -8,21 +8,21 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServiceRequest;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ServiceController extends Controller
 {
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
+
     public function index()
     {
         $this->authorize('manage', Service::class);
 
         $services = $this->getServicesPaginated();
-        return view('dashboard.services.index', compact('services'));
+        $filter_items = Service::FILTER_ITEMS;
+
+        return view('dashboard.services.index', compact('services', 'filter_items'));
     }
 
 
@@ -127,8 +127,10 @@ class ServiceController extends Controller
     private function getServicesPaginated()
     {
         $services = QueryBuilder::for(Service::class)
-            ->allowedFilters(['status', 'id'])
-            ->allowedSorts('id')
+            ->allowedFilters(array_merge(
+                array_keys(Service::FILTER_ITEMS), [AllowedFilter::exact('id')]
+            ))
+            ->allowedSorts(array_keys(Service::FILTER_ITEMS))
             ->paginate(10);
         return $services;
     }

@@ -18,7 +18,7 @@ class TransactionController extends Controller
         $this->authorize('manage', Transaction::class);
 
         $transactions = QueryBuilder::for(Transaction::class)
-            ->allowedFilters(['status', 'id'])
+            ->allowedFilters(array_keys(Transaction::FILTER_ITEMS))
             ->allowedSorts(array_keys(Transaction::FILTER_ITEMS))
             ->paginate(10);
 

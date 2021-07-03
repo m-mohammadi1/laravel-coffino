@@ -11,6 +11,12 @@ class Service extends Model
 
     protected $fillable = ['title', 'description', 'price', 'category_id'];
 
+    public const FILTER_ITEMS = [
+        'id' => 'آیدی',
+        'title' => 'عنوان',
+        'category_id' => 'آیدی دسته بندی'
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

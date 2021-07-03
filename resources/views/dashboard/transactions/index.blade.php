@@ -88,6 +88,9 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <form data-action="{{ route('dashboard.transactions.index') }}" action="" id="search-from"></form>
+
                             <!--end::جستجو Form-->
                             <!--end: جستجو Form-->
 

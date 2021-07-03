@@ -34,6 +34,7 @@ class Transaction extends Model
         'id' => 'آیدی',
         'paid' => 'مبلغ',
         'service_id' => 'آیدی سرویس',
+        'transaction_id' => 'آیدی تراکنش درگاه'
     ];
 
     public function service()

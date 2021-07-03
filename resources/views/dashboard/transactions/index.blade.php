@@ -31,13 +31,13 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-9 col-xl-8">
                                         <div class="row align-items-center">
-{{--                                            <div class="col-md-4 my-2 my-md-0">--}}
-{{--                                                <div class="input-icon">--}}
-{{--                                                    <input type="text" class="form-control search-input" placeholder="جستجو..."--}}
-{{--                                                           id="kt_datatable_search_query">--}}
-{{--                                                    <span><i class="flaticon2-search-1 text-muted"></i></span>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
+                                            <div class="col-md-4 my-2 my-md-0">
+                                                <div class="input-icon">
+                                                    <input type="text" class="form-control search-input" placeholder="جستجو..."
+                                                           id="kt_datatable_search_query">
+                                                    <span><i class="flaticon2-search-1 text-muted"></i></span>
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-4 my-2 my-md-0">
                                                 <div class="d-flex align-items-center">
@@ -463,7 +463,7 @@
                     });
 
 
-                    // const searchInput = $(".search-input");
+                    const searchInput = $(".search-input");
                     const searchColumnSelect = $(".search-column-select")
                     const searchStatusSelect = $(".search-status-select")
                     const searchLink = $(".search-link");
@@ -472,11 +472,12 @@
 
                     searchLink.click(function () {
                         const data = {
+                            searchText: searchInput.val(),
                             status: searchStatusSelect.find(":selected").val(),
                             column:  searchColumnSelect.find(":selected").val(),
                         };
                         // let link = searchAction + '?filter[status]=' + data.status;
-                        let link = searchAction + '?sort=' + data.column + '&filter[status]=' + data.status;
+                        let link = searchAction + '?sort=' + data.column + '&filter['+ data.column +']=' + data.searchText + '&filter[status]=' + data.status;
                         // console.log(link);
                         window.location.replace(link);
                     });

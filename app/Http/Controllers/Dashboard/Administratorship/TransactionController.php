@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Http\Controllers\Controller;
 use App\Models\PurchasedService;
+use App\Models\Service;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class TransactionController extends Controller
@@ -18,7 +20,9 @@ class TransactionController extends Controller
         $this->authorize('manage', Transaction::class);
 
         $transactions = QueryBuilder::for(Transaction::class)
-            ->allowedFilters(array_keys(Transaction::FILTER_ITEMS))
+            ->allowedFilters(array_merge(
+                array_keys(Transaction::FILTER_ITEMS), [AllowedFilter::exact('id'), AllowedFilter::exact('transaction_id'), 'status']
+            ))
             ->allowedSorts(array_keys(Transaction::FILTER_ITEMS))
             ->paginate(10);
 

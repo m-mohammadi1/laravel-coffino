@@ -52,7 +52,7 @@ class SingleOptionsTableSeeder extends Seeder
             ],
             [
                 'name' => 'landing_sup_header',
-                'title' => 'زیر عنوان لندینگ سایت',
+                'title' => 'ساپ عنوان لندینگ سایت',
                 'value' => 'دسترسی به سرویس های مختلف و با کیفیت',
             ],
             [
@@ -72,6 +72,9 @@ class SingleOptionsTableSeeder extends Seeder
             ]
         ];
 
+        foreach ($infoArray as $arr) {
+            SingleOption::factory()->create($arr);
+        }
 //        SingleOption::factory()->create([
 //            'name' => 'site_title',
 //            'title' => '',

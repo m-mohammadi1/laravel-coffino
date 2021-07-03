@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreServiceRequest;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ServiceController extends Controller
 {
@@ -125,7 +126,11 @@ class ServiceController extends Controller
 
     private function getServicesPaginated()
     {
-        return Service::with('category')->paginate(10);
+        $services = QueryBuilder::for(Service::class)
+            ->allowedFilters(['status', 'id'])
+            ->allowedSorts('id')
+            ->paginate(10);
+        return $services;
     }
 
     private function getCategories()

@@ -11,12 +11,12 @@ class SingleOptionPolicy
 
     public function manage()
     {
-        return auth()->user() && auth()->user()->can('manage single_option');
+        return auth()->user() && auth()->user()->can('manage single_options');
     }
 
     public function edit()
     {
-        return auth()->user() && auth()->user()->can('edit single_option');
+        return auth()->user() && auth()->user()->can('edit single_options');
     }
 
 }

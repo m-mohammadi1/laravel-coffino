@@ -23,14 +23,17 @@ class Transaction extends Model
         'transaction_result',
     ];
 
-    const STATUS_FAILED = 0;
-    const STATUS_PENDING = 1;
-    const STATUS_SUCCESS = 2;
 
-    const STATUS = [
+    public const STATUS = [
         'failed' => 0,
         'pending' => 1,
         'success' => 2,
+    ];
+
+    public const FILTER_ITEMS = [
+        'id' => 'آیدی',
+        'paid' => 'مبلغ',
+        'service_id' => 'آیدی سرویس',
     ];
 
     public function service()
@@ -63,7 +66,6 @@ class Transaction extends Model
         return ($this->attributes['transaction_result']);
     }
 
-
     public function getStatusText()
     {
         if ($this->attributes['status'] == $this::STATUS['success']) {
@@ -77,11 +79,23 @@ class Transaction extends Model
         return 'نامعلوم';
     }
 
+    public static function getStatusTextByCode($code)
+    {
+        if ($code == self::STATUS['success']) {
+            return "موفق";
+        } else if($code == self::STATUS['pending']) {
+            return 'در انتظار پرداخت';
+        } else if ($code == self::STATUS['failed']) {
+            return 'ناموفق';
+        }
+
+        return 'نامعلوم';
+    }
+
     public function purchasedService()
     {
         return $this->hasOne(PurchasedService::class);
     }
-
 
     public static function getWholeSaleAmount()
     {
@@ -99,8 +113,5 @@ class Transaction extends Model
         $date = Carbon::today();
         return self::where('created_at', '>=', $date)->where('status', self::STATUS['success'])->sum('paid');
     }
-
-
-
 
 }

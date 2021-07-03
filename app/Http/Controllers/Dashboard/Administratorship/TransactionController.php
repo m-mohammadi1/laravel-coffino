@@ -8,20 +8,24 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $this->authorize('manage', Transaction::class);
-        $transactions = Transaction::paginate(10);
 
-        return view('dashboard.transactions.index', compact('transactions'));
+        $transactions = QueryBuilder::for(Transaction::class)
+            ->allowedFilters(['status', 'id'])
+            ->allowedSorts(array_keys(Transaction::FILTER_ITEMS))
+            ->paginate(10);
+
+        $statuses = $this->getTransactionStatusArray();
+        $filter_items = $this->getTransactionFilterItemsArray();
+
+        return view('dashboard.transactions.index', compact('transactions', 'statuses', 'filter_items'));
     }
 
 
@@ -118,6 +122,24 @@ class TransactionController extends Controller
                 'status_text' => $transaction->getStatusText(),
             ]
         ]);
+    }
+
+    private function getTransactionStatusArray(): array
+    {
+        $statuses = [];
+        foreach (Transaction::STATUS as $text => $code) {
+            $statuses[$code] = Transaction::getStatusTextByCode($code);
+        }
+        return $statuses;
+    }
+
+    private function getTransactionFilterItemsArray()
+    {
+        $filter_items = [];
+        foreach (Transaction::FILTER_ITEMS as $column => $name) {
+            $filter_items[$column] = $name;
+        }
+        return $filter_items;
     }
 
 

@@ -16,14 +16,11 @@
                         <!-- mainmenu begin -->
                         <ul id="mainmenu" class=" d-lg-flex">
                             <li>
-                                <a href="index.html">خانه</a>
-                                <ul>
-                                    <li><a href="index.html">اصلی</a></li>
-                                    <li><a href="index-startup.html">استارتاپ</a></li>
-                                    <li><a href="index-coworking.html">فضای کار اشتراکی</a></li>
-                                    <li><a href="index-agency.html">آژانس</a></li>
-                                    <li><a href="index-apps.html">اپلیکیشن</a></li>
-                                </ul>
+                                <a href="{{ route('home') }}">خانه</a>
+{{--                                <ul>--}}
+{{--                                    <li><a href="index.html">اصلی</a></li>--}}
+{{--                                    <li><a href="index-startup.html">استارتاپ</a></li>--}}
+{{--                                </ul>--}}
                             </li>
                             <li>
                                 <a href="{{ route('faqs') }}">سوالات متداول</a>

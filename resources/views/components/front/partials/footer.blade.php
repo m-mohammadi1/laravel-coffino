@@ -10,25 +10,16 @@
             </div>
 
 
-
-
-
-            <div class="col-lg-4">
-                <div class="widget">
-                    <h5>خبرنامه</h5>
-                    <p>برای دریافت آخرین  ، به بی در خ
-                    </p>
-                    <form action="blank.php" class="row" id="form_subscribe" method="post" name="form_subscribe">
-                        <div class="col text-center">
-                            <a href="#" id="btn-submit"><i class="arrow_left"></i></a>
-                            <input class="form-control" id="name_1" name="name_1" placeholder="ایمیل را وارد کنید" type="text" />
-                            <div class="clearfix"></div>
-                        </div>
-                    </form>
-                    <div class="spacer-10"></div>
-                    <small>ایمیل شما در دسترس ما نیست. ما اسپم نمی کنیم</small>
+            <div class="col-lg-4" style="background-size: cover;">
+                <div class="widget" style="background-size: cover;">
+                    <h5>صفحات</h5>
+                    <ul>
+                        <li><a href="#" title="بزودی">درباره ما</a></li>
+                        <li><a href="{{ route('login') }}">ورود</a></li>
+                    </ul>
                 </div>
             </div>
+
         </div>
 
         <div class="row d-flex justify-content-between">

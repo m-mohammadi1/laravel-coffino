@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-5 wow fadeInRight" data-wow-delay=".5s">
-                <h4 class="id-color">ما متخصص سئو هستیم</h4>
+                <h4 class="id-color">{{ $site_options['landing_sup_header'] }}</h4>
                 <div class="spacer-10"></div>
                 <h1>
                     {{ $site_options['landing_header'] }}

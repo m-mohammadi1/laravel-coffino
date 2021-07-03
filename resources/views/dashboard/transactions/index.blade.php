@@ -31,13 +31,13 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-9 col-xl-8">
                                         <div class="row align-items-center">
-                                            <div class="col-md-4 my-2 my-md-0">
-                                                <div class="input-icon">
-                                                    <input type="text" class="form-control search-input" placeholder="جستجو..."
-                                                           id="kt_datatable_search_query">
-                                                    <span><i class="flaticon2-search-1 text-muted"></i></span>
-                                                </div>
-                                            </div>
+{{--                                            <div class="col-md-4 my-2 my-md-0">--}}
+{{--                                                <div class="input-icon">--}}
+{{--                                                    <input type="text" class="form-control search-input" placeholder="جستجو..."--}}
+{{--                                                           id="kt_datatable_search_query">--}}
+{{--                                                    <span><i class="flaticon2-search-1 text-muted"></i></span>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
 
                                             <div class="col-md-4 my-2 my-md-0">
                                                 <div class="d-flex align-items-center">
@@ -88,9 +88,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <form data-action="{{ route('dashboard.transactions.index') }}" action="" id="search-from"></form>
-
                             <!--end::جستجو Form-->
                             <!--end: جستجو Form-->
 
@@ -463,7 +460,7 @@
                     });
 
 
-                    const searchInput = $(".search-input");
+                    // const searchInput = $(".search-input");
                     const searchColumnSelect = $(".search-column-select")
                     const searchStatusSelect = $(".search-status-select")
                     const searchLink = $(".search-link");
@@ -472,7 +469,6 @@
 
                     searchLink.click(function () {
                         const data = {
-                            text: searchInput.val(),
                             status: searchStatusSelect.find(":selected").val(),
                             column:  searchColumnSelect.find(":selected").val(),
                         };

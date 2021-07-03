@@ -2,6 +2,10 @@
 
     @section('title', 'كافينو  | ویرایش سرویس')
 
+    @section('headers')
+        <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
+    @endsection
+
     @section('content')
 
         <div class="container">
@@ -10,9 +14,9 @@
 
                 <div class="col-md-8 offset-md-2">
 
-                    <x-dashboard.partials.messages.success />
-                    <x-dashboard.partials.messages.error />
-                    
+                    <x-dashboard.partials.messages.success/>
+                    <x-dashboard.partials.messages.error/>
+
 
                     <div class="card card-custom">
                         <div class="card-header">
@@ -27,18 +31,7 @@
 
                             <div class="card-body">
 
-                                <div class="form-group mb-8">
-                                    <div class="alert alert-custom alert-default" role="alert">
-                                        <div class="alert-icon"><i class="flaticon-warning text-primary"></i></div>
-                                        <div class="alert-text">
-                                            فرم مثال زیر عناصر فرم جی اس معمول را نشان می دهد که از کلاس های اضافی سبک های
-                                            به روز شده را از بوت استرپ دریافت می کنند.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <x-dashboard.partials.error />
-
+                                <x-dashboard.partials.error/>
 
 
                                 <div class="form-group">
@@ -49,7 +42,8 @@
 
                                 <div class="form-group mb-1">
                                     <label for="description">توضیحات سرویس</label>
-                                    <textarea class="form-control" rows="3" name="description">{{ $service->description }}</textarea>
+                                    <textarea class="form-control" rows="3"
+                                              name="description">{{ $service->description }}</textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -62,14 +56,32 @@
                                     <select class="form-control" name="category_id">
                                         @foreach ($categories as $category)
                                             @if ($service->category_id == $category->id)
-                                                <option value="{{ $category->id }}" selected>{{ $category->title }}</option>
+                                                <option value="{{ $category->id }}"
+                                                        selected>{{ $category->title }}</option>
                                             @else
                                                 <option value="{{ $category->id }}">{{ $category->title }}</option>
                                             @endif
                                         @endforeach
                                     </select>
                                 </div>
+
+
+                                <div class="form-group">
+                                    <label>تعداد قابل انتخاب</label>
+                                    <select class="select2-counts-select form-control" name="counts[]"
+                                            multiple="multiple">
+                                        @foreach ($counts as $count)
+                                            <option
+                                                @if($service->counts->contains($count))
+                                                selected="selected"
+                                                @endif
+                                                value="{{ $count->id }}">{{ 'تعداد ' . $count->service_count . ' + ' . $count->gift_count . ' هدیه'}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
+
+
                             <div class="card-footer d-flex justify-content-between">
                                 @can('edit service')
                                     <button type="submit" class="btn btn-big btn-primary mr-2">ویرایش</button>
@@ -82,17 +94,24 @@
                         <!--end::Form-->
                     </div>
 
-
                 </div>
 
             </div>
 
         </div>
 
-
-
     @endsection
 
 
+    @section('scripts')
+        <script>
+            $(document).ready(function () {
+                $('.select2-counts-select').select2();
+            });
+        </script>
+
+        <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+
+    @endsection
 
 </x-dashboard.layouts.main>

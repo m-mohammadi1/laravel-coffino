@@ -4,8 +4,7 @@
 
 
     @section('headers')
-        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
     @endsection
 
     @section('content')
@@ -53,7 +52,7 @@
 
                                 <div class="form-group">
                                     <label>تعداد قابل انتخاب</label>
-                                    <select class="js-example-basic-multiple  form-control" name="counts[]"
+                                    <select class="select2-counts-select form-control" name="counts[]"
                                             multiple="multiple">
                                         @foreach ($counts as $count)
                                             <option
@@ -99,11 +98,11 @@
     @section('scripts')
         <script>
             $(document).ready(function () {
-                $('.js-example-basic-multiple').select2();
+                $('.select2-counts-select').select2();
             });
         </script>
 
-        {{--                <script src="{{ asset('assets/js/pages/crud/forms/widgets/select2.js?v=7.0.6') }}"></script>--}}
+        <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 
     @endsection
 

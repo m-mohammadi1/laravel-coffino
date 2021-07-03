@@ -70,8 +70,10 @@ class ServiceController extends Controller
         $this->authorize('see', $service);
 
         $categories = $this->getCategories();
+        $counts = Count::all();
 
-        return view('dashboard.services.edit', compact('categories', 'service'));
+        $service->load('counts', 'category');
+        return view('dashboard.services.edit', compact('categories', 'service', 'counts'));
     }
 
     /**
@@ -93,6 +95,9 @@ class ServiceController extends Controller
         }
 
         $this->updateServiceAndSyncIt($service, $request, $category);
+        if ($service && $request->has('counts')) {
+            $service->counts()->sync(array_values($request->counts));
+        }
 
         return redirect()->route('dashboard.services.index')->with('successMessage', 'سرویس با موفقیت بروزرسانی شد');
     }

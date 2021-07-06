@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
-use App\Models\TicketMessages;
+use App\Models\TicketMessage;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -81,7 +81,7 @@ class TicketController extends Controller
             'user_id' => ['required']
         ]);
 
-        $for_user = $request->user_id == $ticket->asked_user_id ? TicketMessages::FOR_USER['asked'] : TicketMessages::FOR_USER['responded'];
+        $for_user = $request->user_id == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'];
 
         $ticket->messages()->create([
             'message' => $request->message,

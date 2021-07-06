@@ -1,12 +1,11 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Dashboard\Errors;
 
 use Illuminate\View\Component;
 
-class CostumErrorBag extends Component
+class ToastrErrorBag extends Component
 {
-
     public $errorBag;
 
     /**
@@ -26,6 +25,6 @@ class CostumErrorBag extends Component
      */
     public function render()
     {
-        return view('components.');
+        return view('components.dashboard.partials.messages.toastr-error-bag');
     }
 }

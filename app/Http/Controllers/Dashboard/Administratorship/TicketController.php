@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
+use App\Models\TicketMessages;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -46,9 +47,13 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $ticket)
     {
-        //
+        $ticket->load('asked_user', 'responded_user', 'messages');
+
+        $messages = $ticket->messages;
+
+        return view('dashboard.tickets.show', compact('ticket', 'messages'));
     }
 
     /**
@@ -69,9 +74,23 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ticket $ticket)
     {
-        //
+        $request->validateWithBag('toastrErrorBag', [
+            'message' => ['required'],
+            'user_id' => ['required']
+        ]);
+
+        $for_user = $request->user_id == $ticket->asked_user_id ? TicketMessages::FOR_USER['asked'] : TicketMessages::FOR_USER['responded'];
+
+        $ticket->messages()->create([
+            'message' => $request->message,
+            'for' => $for_user
+        ]);
+
+        $ticket->save();
+
+        return back()->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
     }
 
     /**

@@ -9,6 +9,7 @@ class Ticket extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'title', 'body', 'status', 'category', 'asked_user_id', 'responded_user_id'
     ];
@@ -27,5 +28,6 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketMessages::class);
     }
+
 
 }

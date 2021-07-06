@@ -16,7 +16,7 @@ class CreateTicketMessagesTable extends Migration
         Schema::create('ticket_messages', function (Blueprint $table) {
             $table->id();
             $table->text('message');
-            $table->unsignedTinyInteger('for');
+            $table->unsignedTinyInteger('for'); // 1 => asked , 2 => responded
             $table->foreignId('ticket_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

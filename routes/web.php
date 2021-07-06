@@ -15,6 +15,10 @@ Route::group([
     Route::resource('categories', \App\Http\Controllers\Dashboard\Administratorship\CategoryController::class);
     Route::resource('counts', \App\Http\Controllers\Dashboard\Administratorship\CountController::class);
 
+    // ticketing part routes
+    Route::resource('tickets', \App\Http\Controllers\Dashboard\Administratorship\TicketController::class);
+
+
 
     Route::group([
         'prefix' => 'customers',

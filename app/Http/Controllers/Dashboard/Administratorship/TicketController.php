@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Http\Controllers\Controller;
+use App\Mail\TicketResponseMail;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
 
 class TicketController extends Controller
 {
@@ -87,8 +91,21 @@ class TicketController extends Controller
             'message' => $request->message,
             'for' => $for_user
         ]);
-
         $ticket->save();
+
+        // send email just for asked user(costumer) when admin respond
+        if ($request->user_id == $ticket->responded_user_id || auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin')) {
+            $user = User::whereId($ticket->asked_user_id)->first(['name', 'email']);
+
+            $email_body = [
+                'name' => $user->name,
+                'ticket_title' => $ticket->title,
+                'ticket_id' => $ticket->id
+            ];
+
+            Mail::to($user->email)->send(new TicketResponseMail($email_body));
+        }
+
 
         return redirect()->route('dashboard.tickets.index')->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
     }

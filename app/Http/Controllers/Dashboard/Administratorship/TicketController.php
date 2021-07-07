@@ -90,7 +90,7 @@ class TicketController extends Controller
 
         $ticket->save();
 
-        return back()->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
+        return redirect()->route('dashboard.tickets.index')->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
     }
 
     /**

@@ -43,18 +43,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function transactions()
-    {
-        return $this->hasMany(Transaction::class, 'user_id');
-    }
-
-    public function purchasedServices()
-    {
-        return $this->hasMany(PurchasedService::class, 'user_id');
-    }
-
-
     public function getAvatarAttribute()
     {
         return !isset($this->attributes['avatar'])
@@ -68,9 +56,31 @@ class User extends Authenticatable
     }
 
 
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'user_id');
+    }
+
+    public function purchasedServices()
+    {
+        return $this->hasMany(PurchasedService::class, 'user_id');
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class, 'user_id');
     }
+
+    public function asked_tickets()
+    {
+        return $this->hasMany(Ticket::class, 'asked_user_id', 'id');
+    }
+
+    public function responding_tickets()
+    {
+        return $this->hasMany(Ticket::class, 'responded_user_id', 'id');
+    }
+
 }
 

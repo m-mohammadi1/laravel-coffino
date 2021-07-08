@@ -14,13 +14,21 @@ class Ticket extends Model
         'title', 'body', 'status', 'category', 'asked_user_id', 'responded_user_id'
     ];
 
-
+    public const STATUS = [
+        'closed' => 0,
+        'open' => 1,
+    ];
 
 
     public const CATEGORY = [
         'sale' => 0,
         'technical' => 1,
     ];
+
+    public function getStatusText()
+    {
+        return $this->getStatusTextByCode($this->attributes['status']);
+    }
 
     public function getCategoryText()
     {
@@ -62,6 +70,19 @@ class Ticket extends Model
             $text = 'بخش فنی';
         } else {
             $text = 'عمومی';
+        }
+        return $text;
+    }
+
+    public static function getStatusTextByCode($code): string
+    {
+        $text = '';
+        if ($code == STATUS['open']) {
+            $text = 'باز';
+        } elseif ($code == STATUS['closed']) {
+            $text = 'بسته';
+        } else {
+            $text = 'نامعلوم';
         }
         return $text;
     }

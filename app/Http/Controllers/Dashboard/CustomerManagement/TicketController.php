@@ -21,6 +21,7 @@ class TicketController extends Controller
      */
     public function index()
     {
+        $this->authorize('customer_manage', Ticket::class);
         $tickets = Auth::user()->asked_tickets()->paginate(10);
 
         return view('dashboard.customers.tickets.index', compact('tickets'));
@@ -32,6 +33,8 @@ class TicketController extends Controller
      */
     public function create()
     {
+        $this->authorize('customer_create', Ticket::class);
+
         $ticket_categories = Ticket::getCategoryTextAndCode();
         return view('dashboard.customers.tickets.create', compact('ticket_categories'));
     }
@@ -39,13 +42,15 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreTicketRequest $request)
     {
+        $this->authorize('customer_create', Ticket::class);
+
         $ticket = Ticket::create([
-           'title' => $request->title,
+            'title' => $request->title,
             'body' => $request->body,
             'category' => $request->category,
             'asked_user_id' => Auth::id(),
@@ -61,34 +66,27 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Ticket $ticket)
     {
-        return view('dashboard.customers.tickets.show', compact('ticket'));
-    }
+        $this->authorize('customer_see', $ticket);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('dashboard.customers.tickets.show', compact('ticket'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ticket $ticket)
     {
+        $this->authorize('customer_update', $ticket);
+
         $request->validateWithBag('toastrErrorBag', [
             'message' => ['required'],
             'user_id' => ['required']
@@ -105,14 +103,4 @@ class TicketController extends Controller
         return redirect()->route('dashboard.customers.tickets.index')->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

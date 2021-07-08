@@ -122,16 +122,27 @@
                     </a>
                 </li>
 
-                    <li class="menu-item " aria-haspopup="true">
-                        <a href="{{ route('dashboard.comments.index') }}" class="menu-link ">
+                <li class="menu-item " aria-haspopup="true">
+                    <a href="{{ route('dashboard.comments.index') }}" class="menu-link ">
                     <span class="svg-icon menu-icon">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
                         <i class="far fa-comments text-dark text-hover-danger"></i>
                         <!--end::Svg Icon-->
                     </span>
-                            <span class="menu-text">نظرات ثبت شده</span>
-                        </a>
-                    </li>
+                        <span class="menu-text">نظرات ثبت شده</span>
+                    </a>
+                </li>
+
+                <li class="menu-item " aria-haspopup="true">
+                    <a href="{{ route('dashboard.tickets.index') }}" class="menu-link ">
+                    <span class="svg-icon menu-icon">
+                        <!--begin::Svg Icon | path:assets/media/svg/icons/home/کتابخانه.svg-->
+                        <i class="flaticon-support text-dark text-hover-danger"></i>
+                        <!--end::Svg Icon-->
+                    </span>
+                        <span class="menu-text">تیکت های ثبت شده</span>
+                    </a>
+                </li>
 
 
             </ul>
@@ -250,6 +261,9 @@
         <a
             href="javascript:;" class="menu-link menu-toggle">
             <span class="menu-text">پشتیبانی</span>
+            <span class="menu-desc">
+                ثبت پیام پشتیبانی
+            </span>
             <i class="menu-arrow"></i>
         </a>
         <div class="menu-submenu menu-submenu-classic menu-submenu-left">

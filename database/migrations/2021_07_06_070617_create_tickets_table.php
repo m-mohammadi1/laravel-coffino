@@ -17,7 +17,7 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('title', 512);
             $table->text('body');
-            $table->unsignedTinyInteger('status')->default(0);
+            $table->unsignedTinyInteger('status')->default(1); // open : 1, close : 0
             $table->unsignedTinyInteger('category');
             $table->unsignedBigInteger('asked_user_id');
             $table->unsignedBigInteger('responded_user_id')->nullable();

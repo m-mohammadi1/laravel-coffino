@@ -16,6 +16,7 @@ Route::group([
     Route::resource('counts', \App\Http\Controllers\Dashboard\Administratorship\CountController::class);
 
     // ticketing part routes
+    Route::post('tickets/{ticket}/toggle-status', [\App\Http\Controllers\Dashboard\Administratorship\TicketController::class, 'toggleTicketStatus'])->name('tickets.toggle_status');
     Route::resource('tickets', \App\Http\Controllers\Dashboard\Administratorship\TicketController::class);
 
 

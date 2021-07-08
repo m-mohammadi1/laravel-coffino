@@ -37,7 +37,7 @@ class TicketController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -48,7 +48,7 @@ class TicketController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Ticket $ticket)
@@ -63,7 +63,7 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -74,8 +74,8 @@ class TicketController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Ticket $ticket)
@@ -85,7 +85,7 @@ class TicketController extends Controller
             'user_id' => ['required']
         ]);
 
-        $for_user = $request->user_id == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'];
+        $for_user = $this->getMessageForUserEntityValue($request, $ticket);
 
         $ticket->messages()->create([
             'message' => $request->message,
@@ -96,6 +96,33 @@ class TicketController extends Controller
         }
         $ticket->save();
 
+        $this->sendEmailWhenAdminResponds($request, $ticket);
+
+        return redirect()->route('dashboard.tickets.index')->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    public function toggleTicketStatus(Ticket $ticket)
+    {
+        // toggle status : maybe change in future for more options
+        $ticket->status = 1 - $ticket->status;
+        $ticket->save();
+
+        return back()->with('toastr_success', 'تراکنش با موفقیت بسته شد');
+    }
+
+    public function sendEmailWhenAdminResponds(Request $request, Ticket $ticket): void
+    {
         // send email just for asked user(costumer) when admin respond
         if ($request->user_id == $ticket->responded_user_id || auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin')) {
             $user = User::whereId($ticket->asked_user_id)->first(['name', 'email']);
@@ -108,19 +135,11 @@ class TicketController extends Controller
 
             Mail::to($user->email)->send(new TicketResponseMail($email_body));
         }
-
-
-        return redirect()->route('dashboard.tickets.index')->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function getMessageForUserEntityValue(Request $request, Ticket $ticket): int
     {
-        //
+        $for_user = $request->user_id == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'];
+        return $for_user;
     }
 }

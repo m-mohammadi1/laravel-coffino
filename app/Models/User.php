@@ -43,6 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    protected $appends = ['avatar'];
+
+
     public function getAvatarAttribute()
     {
         return !isset($this->attributes['avatar'])
@@ -81,6 +85,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ticket::class, 'responded_user_id', 'id');
     }
+
+    public function messages()
+    {
+        return $this->hasMany(TicketMessage::class, 'user_id');
+    }
+
 
 }
 

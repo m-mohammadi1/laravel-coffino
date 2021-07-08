@@ -149,7 +149,7 @@
 
                 <script>
                     const chatDiv = document.getElementById("chatDiv");
-                    chatDiv.scrollTop = chatDiv.scrollHeight;
+                    // chatDiv.scrollTop = chatDiv.scrollHeight;
                 </script>
 
 

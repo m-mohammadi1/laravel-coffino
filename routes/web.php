@@ -1,7 +1,10 @@
 <?php
 
 
+use App\Models\Ticket;
+use App\Models\TicketMessage;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 
 Route::group([
@@ -73,14 +76,44 @@ Route::group([
 
 
 });
-
-
-
 // front routes
-
 Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index'])->name('faqs');
 Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->name('home');
 
-Route::get('test', function () {
 
+
+// chat test
+Route::get('/chats', function () {
+    return view('realtime.chat');
+});
+
+Route::get('/messages', function () {
+
+    $ticket = Ticket::find(1);
+    $ticket->load('asked_user');
+    $messages = $ticket->messages;
+});
+
+Route::get('/messages', function () {
+    $ticket = Ticket::find(1);
+    $messages = $ticket->messages;
+    $messages->load('user');
+
+    return response()->json([
+        'messages' => $messages,
+        'ticket' => $ticket,
+        'user' => auth()->user()
+    ]);
+});
+
+Route::post('/messages', function (Request $request) {
+    $ticket = Ticket::find($request->ticket_id);
+    $message = $ticket->messages()->create([
+        'message' => $request->message,
+        'for' =>  auth()->id() == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'],
+        'user_id' => auth()->id(),
+    ]);
+
+    $message->load('user');
+    return ['status' => 'success', 'message' => $message];
 });

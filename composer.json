@@ -7,12 +7,15 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-soap": "*",
+        "beyondcode/laravel-websockets": "^1.12",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "^3.3",
+        "pusher/pusher-php-server": "~3.0",
         "shetabit/payment": "^4.0",
         "spatie/laravel-permission": "^4.1",
         "spatie/laravel-query-builder": "^3.4"

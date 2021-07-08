@@ -50,17 +50,15 @@
                                             بخش پرسش و پاسخ
                                         </div>
                                         <div>
-                                            <span class="label label-sm label-dot label-success"></span>
-                                            <span class="font-weight-bold text-muted font-size-sm">فعال</span>
+                                            <span class="label label-sm label-dot label-{{ $ticket->status == $ticket::STATUS['open'] ? 'success' : 'danger' }}"></span>
+                                            <span class="font-weight-bold text-muted font-size-sm">{{ $ticket->getStatusText() }}</span>
                                         </div>
                                     </div>
                                     <div class="text-right flex-grow-1">
 
                                     </div>
                                 </div>
-                            {{--                        {{ dd($messages) }}--}}
-
-                            <!--end::Header-->
+                                <!--end::Header-->
                                 <!--begin::Body-->
                                 <div class="card-body">
                                     <!--begin::Scroll-->
@@ -85,7 +83,8 @@
                                                                class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">
                                                                 {{ $message->isMessageForAskedUser() ? $ticket->asked_user->name : 'ادمین : ' . $ticket->responded_user->name }}
                                                             </a>
-                                                            <span class="text-muted font-size-sm">{{ $message->created_at->diffForHumans() }}</span>
+                                                            <span
+                                                                class="text-muted font-size-sm">{{ $message->created_at->diffForHumans() }}</span>
                                                         </div>
                                                     </div>
                                                     <div
@@ -110,7 +109,8 @@
                                 <!--begin::Footer-->
                                 <div class="card-footer align-items-center">
                                     <!--begin::Compose-->
-                                    <form action="{{ route('dashboard.customers.tickets.update', $ticket) }}" method="post">
+                                    <form action="{{ route('dashboard.customers.tickets.update', $ticket) }}"
+                                          method="post">
                                         @csrf
                                         @method('PUT')
 
@@ -123,10 +123,17 @@
 
                                             </div>
                                             <div>
-                                                <button type="submit"
-                                                        class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">
-                                                    ارسال
-                                                </button>
+                                                @if($ticket->status == $ticket::STATUS['open'])
+                                                    <button type="submit"
+                                                            class="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">
+                                                        ارسال
+                                                    </button>
+                                                @elseif($ticket->status == $ticket::STATUS['closed'])
+                                                    <button type="button"
+                                                            class="btn btn-light btn-md text-uppercase font-weight-bold chat-send py-2 px-6" style="cursor: not-allowed;">
+                                                        ارسال
+                                                    </button>
+                                                @endif
                                             </div>
                                         </div>
                                     </form>

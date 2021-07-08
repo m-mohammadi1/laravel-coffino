@@ -77,9 +77,9 @@ class Ticket extends Model
     public static function getStatusTextByCode($code): string
     {
         $text = '';
-        if ($code == STATUS['open']) {
+        if ($code == self::STATUS['open']) {
             $text = 'باز';
-        } elseif ($code == STATUS['closed']) {
+        } elseif ($code == self::STATUS['closed']) {
             $text = 'بسته';
         } else {
             $text = 'نامعلوم';

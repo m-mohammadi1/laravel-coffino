@@ -11,8 +11,8 @@
 
                 <div class="col-md-12">
 
-                    <x-dashboard.partials.messages.success />
-                    <x-dashboard.partials.messages.error />
+                    <x-dashboard.partials.messages.success/>
+                    <x-dashboard.partials.messages.error/>
 
 
                     <div class="card card-custom">
@@ -32,10 +32,11 @@
                                 </div>
                             </div>
 
-                        <!--begin: جدو داده ها-->
-                            <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded"
-                                 id="kt_datatable" style="">
-                                <table class="datatable-table" style="display: block;">
+                            <!--begin: جدو داده ها-->
+                            <div
+                                class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded"
+                                id="kt_datatable" style="">
+                                <table class="datatable-table" style="display: block;overflow: auto;">
                                     <thead class="datatable-head">
                                     <tr class="datatable-row" style="left: 0px;">
 
@@ -52,9 +53,7 @@
                                         </th>
 
                                         <th data-field="Actions" data-autohide-disabled="false"
-                                            class="datatable-cell datatable-cell-sort"><span
-                                                style="width: 125px;">عملیات</span>
-                                        </th>
+
                                     </tr>
                                     </thead>
                                     <tbody class="datatable-body" style="">
@@ -69,46 +68,19 @@
                                             </td>
 
                                             <td data-field="Title" aria-label="Philippines" class="datatable-cell">
-                                                        <span style="width: 137px;">
-                                                            <a href="{{ route('dashboard.customers.tickets.show', $ticket->id) }}" class="btn btn-primary">مشاهده</a>
-                                                        </span>
+                                                    <span style="width: 137px;">
+                                                        @if($ticket->status == $ticket::STATUS['open'])
+                                                        <a href="{{ route('dashboard.customers.tickets.show', $ticket->id) }}"
+                                                           class="btn btn-primary">مشاهده</a>
+                                                        @elseif (1)
+                                                            <a href="{{ route('dashboard.customers.tickets.show', $ticket->id) }}"
+                                                               class="btn btn-danger">بسته</a>
+                                                        @endif
+                                                    </span>
                                             </td>
 
-                                            <td data-field="Actions" data-autohide-disabled="false" aria-label="null"
-                                                class="datatable-cell">
-                                                        <span style="overflow: visible; position: relative; width: 125px;">
-
-                                                                <a href="javascript:;" class="btn btn-sm btn-clean btn-icon entityDeleteButton"
-                                                                   title="حذف" data-id="{{ $ticket->id }}">
-                                                                    <span class="svg-icon svg-icon-md">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
-                                                                             height="24px" viewBox="0 0 24 24" version="1.1">
-                                                                            <g stroke="none" stroke-width="1" fill="none"
-                                                                               fill-rule="evenodd">
-                                                                                <rect x="0" y="0" width="24" height="24"></rect>
-                                                                                <path
-                                                                                    d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z"
-                                                                                    fill="#000000" fill-rule="nonzero"></path>
-                                                                                <path
-                                                                                    d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z"
-                                                                                    fill="#000000" opacity="0.3"></path>
-                                                                            </g>
-                                                                        </svg>
-                                                                    </span>
-                                                                </a>
-
-                                                        </span>
-                                            </td>
                                         </tr>
 
-                                        <form class="deleteEntityForm" id="ID-{{ $ticket->id }}"
-                                              action="{{ route('dashboard.tickets.destroy', $ticket) }}"
-                                              method="post">
-
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
 
                                     @endforeach
 
@@ -149,9 +121,11 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-light-primary font-weight-bold"
-                                data-dismiss="modal">لغو</button>
+                                data-dismiss="modal">لغو
+                        </button>
                         <button type="button" id="confirmDeleteEntity"
-                                class="btn btn-danger font-weight-bold">حذف</button>
+                                class="btn btn-danger font-weight-bold">حذف
+                        </button>
                     </div>
                 </div>
             </div>
@@ -167,7 +141,7 @@
 
 
     @section('scripts')
-        <!--begin::Page Scripts(used by this page)-->
+    <!--begin::Page Scripts(used by this page)-->
         <script src="{{ asset('assets/js/pages/crud/ktdatatable/base/data-local.js?v=7.0.6') }}"></script>
         <!--end::Page Scripts-->
     @endsection

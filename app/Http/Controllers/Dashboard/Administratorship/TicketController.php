@@ -112,13 +112,12 @@ class TicketController extends Controller
                 'ticket_id' => $ticket->id
             ];
 
-//            Mail::to($user->email)->send(new TicketResponseMail($email_body));
+            Mail::to($user->email)->send(new TicketResponseMail($email_body));
         }
     }
 
     public function getMessageForUserEntityValue(Request $request, Ticket $ticket): int
     {
-        $for_user = $request->user_id == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'];
-        return $for_user;
+        return $request->user_id == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'];
     }
 }

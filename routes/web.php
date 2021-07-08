@@ -2,6 +2,7 @@
 
 
 use App\Models\Transaction;
+use Spatie\Permission\Models\Permission;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -86,5 +87,5 @@ Route::get('test', function () {
 //    $val = Transaction::getTodaySaleAmount();
 //    $val = \App\Models\Service::getServiceAmountAverage();
 //    dd($val);
-    auth()->user()->givePermissionTo('manage single_options');
+
 });

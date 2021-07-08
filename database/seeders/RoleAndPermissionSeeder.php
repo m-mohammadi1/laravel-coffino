@@ -71,13 +71,19 @@ class RoleAndPermissionSeeder extends Seeder
         $see_comment = Permission::create(['name' => 'see comment']);
         $manage_comment = Permission::create(['name' => 'manage comment']);
 
+        // tickets
+        $create_ticket = Permission::create(['name' => 'create ticket']);
+        $edit_ticket = Permission::create(['name' => 'edit ticket']);
+        $delete_ticket = Permission::create(['name' => 'delete ticket']);
+        $see_ticket = Permission::create(['name' => 'see ticket']);
+        $manage_ticket = Permission::create(['name' => 'manage ticket']);
+
         // signle optiopns
         $create_single_options = Permission::create(['name' => 'create single_options']);
         $edit_single_options = Permission::create(['name' => 'edit single_options']);
         $delete_single_options = Permission::create(['name' => 'delete single_options']);
         $see_single_options = Permission::create(['name' => 'see single_options']);
         $manage_single_options = Permission::create(['name' => 'manage single_options']);
-
 
 
         // assign permissions to roles
@@ -92,6 +98,7 @@ class RoleAndPermissionSeeder extends Seeder
             $create_purchased_service, $edit_purchased_service, $see_purchased_service, $manage_purchased_service,
             $create_faq,  $edit_faq, $see_faq, $manage_faq,
             $create_comment,  $edit_comment, $see_comment, $manage_comment,
+            $create_ticket, $edit_ticket, $see_ticket, $manage_ticket,
             $edit_single_options,  $manage_single_options
         ]);
     }

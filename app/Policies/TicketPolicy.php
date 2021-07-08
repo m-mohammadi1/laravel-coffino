@@ -17,15 +17,21 @@ class TicketPolicy
         return auth()->user() && auth()->user()->can('manage ticket');
     }
 
-    public function create()
+    public function edit(User $user, Ticket $ticket)
     {
-        return auth()->user() && auth()->user()->can('create ticket');
-    }
+        $user_can_responded_to_ticket = false;
+        if (!isset($ticket->responded_user_id)) {
+            $user_can_responded_to_ticket = true;
+        }
 
+        if ($ticket->responded_user_id == auth()->id()) {
+            $user_can_responded_to_ticket = true;
+        }
 
-    public function edit()
-    {
-        return auth()->user() && auth()->user()->can('edit ticket');
+        return
+            auth()->user() &&
+            auth()->user()->can('edit ticket') &&
+            $user_can_responded_to_ticket;
     }
 
     public function see()

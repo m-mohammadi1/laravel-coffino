@@ -20,30 +20,11 @@ class TicketController extends Controller
      */
     public function index()
     {
+        $this->authorize('manage', Ticket::class);
         $tickets = Ticket::paginate(10);
         return view('dashboard.tickets.index', compact('tickets'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -53,6 +34,8 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
+        $this->authorize('edit', $ticket);
+
         $ticket->load('asked_user', 'responded_user', 'messages');
 
         $messages = $ticket->messages;
@@ -80,6 +63,8 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
+        $this->authorize('edit', $ticket);
+
         $request->validateWithBag('toastrErrorBag', [
             'message' => ['required'],
             'user_id' => ['required']
@@ -114,6 +99,8 @@ class TicketController extends Controller
 
     public function toggleTicketStatus(Ticket $ticket)
     {
+        $this->authorize('edit', $ticket);
+
         // toggle status : maybe change in future for more options
         $ticket->status = 1 - $ticket->status;
         $ticket->save();
@@ -133,7 +120,7 @@ class TicketController extends Controller
                 'ticket_id' => $ticket->id
             ];
 
-            Mail::to($user->email)->send(new TicketResponseMail($email_body));
+//            Mail::to($user->email)->send(new TicketResponseMail($email_body));
         }
     }
 

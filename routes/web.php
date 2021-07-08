@@ -72,7 +72,6 @@ Route::group([
     Route::resource('single-options', \App\Http\Controllers\Dashboard\Administratorship\SingleOptionController::class);
 
 
-
 });
 
 
@@ -83,9 +82,5 @@ Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index'])-
 Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->name('home');
 
 Route::get('test', function () {
-
-//    $val = Transaction::getTodaySaleAmount();
-//    $val = \App\Models\Service::getServiceAmountAverage();
-//    dd($val);
 
 });

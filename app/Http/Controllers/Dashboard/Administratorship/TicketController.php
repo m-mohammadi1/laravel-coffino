@@ -112,7 +112,7 @@ class TicketController extends Controller
                 'ticket_id' => $ticket->id
             ];
 
-            Mail::to($user->email)->send(new TicketResponseMail($email_body));
+//            Mail::to($user->email)->send(new TicketResponseMail($email_body));
         }
     }
 

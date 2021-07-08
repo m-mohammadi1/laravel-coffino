@@ -21,7 +21,9 @@ class TicketController extends Controller
     public function index()
     {
         $this->authorize('manage', Ticket::class);
-        $tickets = Ticket::paginate(10);
+        // get just none responded tickets or user's responded tickets
+        $tickets = Ticket::whereNull('responded_user_id')->orWhere('responded_user_id', auth()->id())->paginate(10);
+
         return view('dashboard.tickets.index', compact('tickets'));
     }
 
@@ -34,24 +36,14 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        $this->authorize('edit', $ticket);
+        $this->authorize('see', $ticket);
+
 
         $ticket->load('asked_user', 'responded_user', 'messages');
 
         $messages = $ticket->messages;
 
         return view('dashboard.tickets.show', compact('ticket', 'messages'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

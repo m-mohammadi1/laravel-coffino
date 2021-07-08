@@ -100,9 +100,6 @@
                                     <tbody class="datatable-body" style="">
                                     @foreach ($tickets as $ticket)
 
-                                        @if ($ticket->responded_user_id != auth()->id() && !is_null($ticket->responded_user_id))
-                                            @continue
-                                        @endif
 
                                         <tr data-row="{{ $loop->index }}" class="datatable-row" style="left: 0px;">
                                             <td data-field="ID" aria-label="0363-0198" class="datatable-cell">

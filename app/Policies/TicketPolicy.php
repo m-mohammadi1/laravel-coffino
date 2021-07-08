@@ -34,9 +34,22 @@ class TicketPolicy
             $user_can_responded_to_ticket;
     }
 
-    public function see()
+    public function see(User $user, Ticket $ticket)
     {
-        return auth()->user() && auth()->user()->can('see ticket');
+        $user_can_responded_to_ticket = false;
+        $is_ticket_closed = $ticket->status == $ticket::STATUS['closed'];
+
+        if (!isset($ticket->responded_user_id)) {
+            $user_can_responded_to_ticket = true;
+        }
+        if ($ticket->responded_user_id == auth()->id()) {
+            $user_can_responded_to_ticket = true;
+        }
+
+        return
+            auth()->user()->can('see ticket') &&
+            $user_can_responded_to_ticket &&
+            !$is_ticket_closed;
     }
 
     public function delete()
@@ -72,9 +85,12 @@ class TicketPolicy
 
     public function customer_update(User $user, Ticket $ticket)
     {
+        $is_ticket_closed = $ticket->status == $ticket::STATUS['closed'];
+
         return
             auth()->id() === $user->id
-            && $user->asked_tickets()->find($ticket->id);
+            && $user->asked_tickets()->find($ticket->id) &&
+            !$is_ticket_closed;
     }
 
 

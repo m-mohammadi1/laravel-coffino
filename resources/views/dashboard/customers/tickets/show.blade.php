@@ -78,7 +78,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <div class="symbol symbol-circle symbol-40 mr-3">
                                                             <img alt="Pic"
-                                                                 src="{{ $message->isMessageForAskedUser() ? $ticket->asked_user->avatar : $ticket->responded_user->avatar }}">
+                                                                 src="{{ $message->isMessageForAskedUser() ? asset($ticket->asked_user->avatar) : asset($ticket->responded_user->avatar) }}">
                                                         </div>
                                                         <div>
                                                             <a href="javascript:;"

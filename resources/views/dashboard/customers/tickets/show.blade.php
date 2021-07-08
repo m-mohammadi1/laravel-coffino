@@ -71,7 +71,7 @@
                                         id="chatDiv">
                                         <!--begin::پیامs-->
                                         <div class="messages">
-                                        @foreach ($messages as $message)
+                                        @foreach ($ticket->messages as $message)
                                             <!--begin::پیام In-->
                                                 <div
                                                     class="d-flex flex-column mb-5 align-items-{{ $message->isMessageForAskedUser() ? 'start' : 'end' }}">
@@ -94,7 +94,7 @@
                                                     </div>
                                                 </div>
                                                 <!--end::پیام In-->
-                                        @endforeach
+                                            @endforeach
                                         </div>
                                         <!--end::پیامs-->
                                         <div class="ps__rail-x" style="left: 0px; bottom: 0px;">

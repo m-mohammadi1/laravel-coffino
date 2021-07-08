@@ -34,6 +34,11 @@ Route::group([
         Route::get('transactions', [\App\Http\Controllers\Dashboard\CustomerManagement\TransactionController::class, 'index'])->name('transactions');
         Route::get('purchased', [\App\Http\Controllers\Dashboard\CustomerManagement\PurhchasedServicesCntroller::class, 'index'])->name('purchased_services');
 
+        // tickets part for normal users
+        Route::get('tickets', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'index'])->name('tickets.index');
+        Route::get('tickets/create', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'create'])->name('tickets.create');
+        Route::post('tickets/store', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'store'])->name('tickets.store');
+
         // comments section routes
         Route::get('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'create'])->name('create_comment');
         Route::post('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'store'])->name('store_comment');

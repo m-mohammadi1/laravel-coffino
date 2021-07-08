@@ -91,6 +91,9 @@ class TicketController extends Controller
             'message' => $request->message,
             'for' => $for_user
         ]);
+        if (!isset($ticket->responded_user_id)) {
+            $ticket->responded_user_id = auth()->id();
+        }
         $ticket->save();
 
         // send email just for asked user(costumer) when admin respond

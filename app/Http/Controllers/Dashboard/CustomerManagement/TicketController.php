@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Dashboard\CustomerManagement;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTicketRequest;
+use App\Mail\TicketResponseMail;
 use App\Models\Ticket;
+use App\Models\TicketMessage;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class TicketController extends Controller
 {
@@ -17,9 +21,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::all();
+        $tickets = Auth::user()->asked_tickets()->paginate(10);
 
-        return view('');
+        return view('dashboard.customers.tickets.index', compact('tickets'));
     }
 
 
@@ -60,9 +64,9 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Ticket $ticket)
     {
-        //
+        return view('dashboard.customers.tickets.show', compact('ticket'));
     }
 
     /**
@@ -83,9 +87,22 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Ticket $ticket)
     {
-        //
+        $request->validateWithBag('toastrErrorBag', [
+            'message' => ['required'],
+            'user_id' => ['required']
+        ]);
+
+        $for_user = $request->user_id == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'];
+
+        $ticket->messages()->create([
+            'message' => $request->message,
+            'for' => $for_user
+        ]);
+        $ticket->save();
+
+        return redirect()->route('dashboard.customers.tickets.index')->with('toastr_success', 'پیام شما با موفقیت ثبت شد');
     }
 
     /**

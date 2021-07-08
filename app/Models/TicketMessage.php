@@ -27,4 +27,5 @@ class TicketMessage extends Model
     {
         return $this->attributes['for'] == self::FOR_USER['asked'] ? true : false;
     }
+
 }

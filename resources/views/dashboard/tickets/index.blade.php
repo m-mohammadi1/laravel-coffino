@@ -109,7 +109,7 @@
 
                                                     <td data-field="Title" aria-label="Philippines" class="datatable-cell">
                                                         <span style="width: 137px;">
-                                                            <a href="#" class="btn btn-primary">مشاهده</a>
+                                                            <a href="{{ route('dashboard.tickets.show', $ticket->id) }}" class="btn btn-primary">مشاهده</a>
                                                         </span>
                                                     </td>
 

@@ -81,11 +81,11 @@
                                                                  src="{{ $message->isMessageForAskedUser() ? $ticket->asked_user->avatar : $ticket->responded_user->avatar }}">
                                                         </div>
                                                         <div>
-                                                            <a href="#"
+                                                            <a href="javascript:;"
                                                                class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">
-                                                                {{ $message->isMessageForAskedUser() ? $ticket->asked_user->name : $ticket->responded_user->name }}
+                                                                {{ $message->isMessageForAskedUser() ? $ticket->asked_user->name : 'ادمین : ' . $ticket->responded_user->name }}
                                                             </a>
-                                                            <span class="text-muted font-size-sm">{{ $message->created_at->diffForHumans() }} ساعت</span>
+                                                            <span class="text-muted font-size-sm">{{ $message->created_at->diffForHumans() }}</span>
                                                         </div>
                                                     </div>
                                                     <div
@@ -110,7 +110,7 @@
                                 <!--begin::Footer-->
                                 <div class="card-footer align-items-center">
                                     <!--begin::Compose-->
-                                    <form action="{{ route('dashboard.tickets.update', $ticket) }}" method="post">
+                                    <form action="{{ route('dashboard.customers.tickets.update', $ticket) }}" method="post">
                                         @csrf
                                         @method('PUT')
 

@@ -58,8 +58,6 @@
 
                                     </div>
                                 </div>
-                            {{--                        {{ dd($messages) }}--}}
-
                             <!--end::Header-->
                                 <!--begin::Body-->
                                 <div class="card-body">
@@ -74,7 +72,7 @@
                                         @foreach ($messages as $message)
                                             <!--begin::پیام In-->
                                                 <div
-                                                    class="d-flex flex-column mb-5 align-items-{{ $message->isMessageForAskedUser() ? 'start' : 'end' }}">
+                                                    class="d-flex flex-column mb-5 align-items-{{ $message->isMessageForAskedUser()  ? 'start' : 'end' }}">
                                                     <div class="d-flex align-items-center">
                                                         <div class="symbol symbol-circle symbol-40 mr-3">
                                                             <img alt="Pic"
@@ -83,9 +81,9 @@
                                                         <div>
                                                             <a href="#"
                                                                class="text-dark-75 text-hover-primary font-weight-bold font-size-h6">
-                                                                {{ $message->isMessageForAskedUser() ? $ticket->asked_user->name : $ticket->responded_user->name }}
+                                                                {{ $message->isMessageForAskedUser() ? 'کاربر : ' . $ticket->asked_user->name : $ticket->responded_user->name }}
                                                             </a>
-                                                            <span class="text-muted font-size-sm">{{ $message->created_at->diffForHumans() }} ساعت</span>
+                                                            <span class="text-muted font-size-sm">{{ $message->created_at->diffForHumans() }}</span>
                                                         </div>
                                                     </div>
                                                     <div

@@ -38,6 +38,8 @@ Route::group([
         Route::get('tickets', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'index'])->name('tickets.index');
         Route::get('tickets/create', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'create'])->name('tickets.create');
         Route::post('tickets/store', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'store'])->name('tickets.store');
+        Route::get('tickets/{ticket}', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'show'])->name('tickets.show');
+        Route::put('tickets/{ticket}/update', [\App\Http\Controllers\Dashboard\CustomerManagement\TicketController::class, 'update'])->name('tickets.update');
 
         // comments section routes
         Route::get('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'create'])->name('create_comment');

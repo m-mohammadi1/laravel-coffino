@@ -115,8 +115,14 @@
 
                                                             @if($ticket->status == $ticket::STATUS['open'])
 
-                                                                <a href="{{ route('dashboard.tickets.show', $ticket->id) }}"
+                                                                <a href="javascript:;"
+                                                                   onClick="document.getElementById('goToChatPage-{{ $ticket->id }}').submit();"
                                                                    class="btn btn-info">باز / مشاهده</a>
+
+                                                                <form method="post" action="{{ route('chat_page') }}" id="goToChatPage-{{ $ticket->id }}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
+                                                                </form>
 
                                                                 <a
                                                                     href="javascript:;"

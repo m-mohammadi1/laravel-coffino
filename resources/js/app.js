@@ -1,14 +1,15 @@
-// require('./front/js/jquery.min.js');
-// require('./front/js/bootstrap.min');
-// require('./front/js/wow.min');
-// require('./front/js/jquery.isotope.min');
-// require('./front/js/easing');
-// require('./front/js/owl.carousel');
-// require('./front/js/validation');
-// require('./front/js/jquery.magnific-popup.min');
-// require('./front/js/enquire.min');
-// require('./front/js/jquery.stellar.min');
-// require('./front/js/jquery.plugin');
-// require('./front/js/typed');
-// require('./front/js/jquery.countTo');
-// require('./front/js/jquery.countdown');
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes React and other helpers. It's a great starting point while
+ * building robust, powerful web applications using React + Laravel.
+ */
+
+require('./bootstrap');
+
+/**
+ * Next, we will create a fresh React component instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+
+require('./components/Chat');

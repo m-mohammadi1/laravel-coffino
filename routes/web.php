@@ -1,9 +1,5 @@
 <?php
 
-
-use App\Models\Transaction;
-use Spatie\Permission\Models\Permission;
-
 Route::group([
     'prefix' => 'dashboard',
     'middleware' => 'auth',
@@ -19,7 +15,6 @@ Route::group([
     // ticketing part routes
     Route::post('tickets/{ticket}/toggle-status', [\App\Http\Controllers\Dashboard\Administratorship\TicketController::class, 'toggleTicketStatus'])->name('tickets.toggle_status');
     Route::resource('tickets', \App\Http\Controllers\Dashboard\Administratorship\TicketController::class);
-
 
 
     Route::group([
@@ -74,13 +69,25 @@ Route::group([
 
 });
 
+// chat system groups
+Route::group([
+    'middleware' => 'auth',
+], function () {
+    Route::post('chats', [App\Http\Controllers\Dashboard\Realtime\ChatController::class, 'chats'])->name('chat_page');
+    Route::get('ticket/{id}/messages', [App\Http\Controllers\Dashboard\Realtime\ChatController::class, 'getTicketMessages'])->name('chat.ticket.messages');
+    Route::post('ticket/{id}/messages', [App\Http\Controllers\Dashboard\Realtime\ChatController::class, 'sendTicketMessage'])->name('chat.ticket.messages');
+});
 
 
 // front routes
-
 Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index'])->name('faqs');
 Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->name('home');
 
-Route::get('test', function () {
 
-});
+
+
+
+
+
+
+

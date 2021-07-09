@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Events\MessageSentEvent;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
 use App\Models\Transaction;
@@ -94,6 +95,7 @@ Route::get('/messages', function () {
     $messages = $ticket->messages;
 });
 
+
 Route::get('/messages', function () {
     $ticket = Ticket::find(1);
     $messages = $ticket->messages;
@@ -115,5 +117,7 @@ Route::post('/messages', function (Request $request) {
     ]);
 
     $message->load('user');
+    broadcast(new MessageSentEvent($message))->toOthers();
+
     return ['status' => 'success', 'message' => $message];
 });

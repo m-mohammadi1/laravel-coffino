@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Echo from 'laravel-echo';
 
 const Chat = props => {
 
@@ -20,7 +21,6 @@ const Chat = props => {
             }
         )
             .then(response => {
-                console.log(response);
                 setMessages(response.data.messages);
                 setTicket(response.data.ticket);
                 setUser(response.data.user);
@@ -31,15 +31,20 @@ const Chat = props => {
             });
     }, []);
 
+
+    useEffect(() => {
+        window.Echo.join('chat')
+            .listen('MessageSentEvent', (message) => {
+            setMessages((prevState) => [...prevState, message.message]);
+        });
+    }, []);
+
     const handleNewMessage = event => {
         setNewMessage(event.target.value);
     }
 
     const handleSubmitNewMessage = event => {
         event.preventDefault();
-
-        console.log(newMessage);
-
         axios.post(
             'messages',
             {
@@ -54,8 +59,7 @@ const Chat = props => {
             }
         )
             .then(response => {
-                console.log(response);
-                setMessages([...messages,response.data.message]);
+                setMessages([...messages, response.data.message]);
                 setNewMessage('');
             })
             .catch(ex => {
@@ -64,6 +68,16 @@ const Chat = props => {
             });
     }
 
+
+    const divRref = useRef(null);
+
+    const scrollToBottom = () => {
+        divRref.current.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [messages]);
 
     return (
         <div className="card card-custom">
@@ -124,9 +138,12 @@ const Chat = props => {
                             </div>
                         )}
 
+                        <div ref={divRref} />
 
                     </div>
-                    <div className="ps__rail-x" style={{left: '0px', bottom: '0px'}}>
+
+
+                    <div id="" className="ps__rail-x" style={{left: '0px', bottom: '0px'}}>
                         <div className="ps__thumb-x" tabIndex="0" style={{left: '0px', width: '0px'}}></div>
                     </div>
                     <div className="ps__rail-y" style={{top: '0px', height: '235px', left: '816px'}}>

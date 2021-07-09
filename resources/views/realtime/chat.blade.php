@@ -61,8 +61,8 @@
         <script src="js/app.js"></script>
 
         <script>
-            const chatDiv = document.getElementById("chatDiv");
-            chatDiv.scrollTop = chatDiv.scrollHeight;
+            // const chatDiv = document.getElementById("chatDiv");
+            // chatDiv.scrollTop = chatDiv.scrollHeight;
         </script>
 
         <x-dashboard.partials.messages.toastr-error-bag :errorBag="'toastrErrorBag'"/>

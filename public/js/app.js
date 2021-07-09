@@ -1952,8 +1952,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Chat = function Chat(props) {
-  var host = 'http://127.0.0.1:8000';
-
+  // const host = 'http://127.0.0.1:8000';
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
       ticket = _useState2[0],
@@ -1975,7 +1974,7 @@ var Chat = function Chat(props) {
       setNewMessage = _useState8[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat(host, "/ticket/").concat(props.ticketId, "/messages"), {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("ticket/".concat(props.ticketId, "/messages"), {
       "headers": {
         'Content-Type': 'application/json'
       }
@@ -2002,7 +2001,7 @@ var Chat = function Chat(props) {
 
   var handleSubmitNewMessage = function handleSubmitNewMessage(event) {
     event.preventDefault();
-    axios__WEBPACK_IMPORTED_MODULE_2___default().post("".concat(host, "/ticket/").concat(props.ticketId, "/messages"), {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post("/ticket/".concat(props.ticketId, "/messages"), {
       message: newMessage,
       ticket_id: ticket.id,
       user_id: user.id

@@ -4,7 +4,7 @@ import axios from 'axios';
 import Echo from 'laravel-echo';
 
 const Chat = props => {
-    const host = 'http://127.0.0.1:8000';
+    // const host = 'http://127.0.0.1:8000';
 
     const [ticket, setTicket] = useState({});
     const [user, setUser] = useState({});
@@ -14,7 +14,7 @@ const Chat = props => {
 
     useEffect(() => {
         axios.get(
-            `${host}/ticket/${props.ticketId}/messages`,
+            `ticket/${props.ticketId}/messages`,
             {
                 "headers": {
                     'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const Chat = props => {
     const handleSubmitNewMessage = event => {
         event.preventDefault();
         axios.post(
-            `${host}/ticket/${props.ticketId}/messages`,
+            `/ticket/${props.ticketId}/messages`,
             {
                 message: newMessage,
                 ticket_id: ticket.id,

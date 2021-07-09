@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+Broadcast::channel('chat.{ticketId}', function ($user, $ticketId) {
+    $ticket = \App\Models\Ticket::find($ticketId);
+    return $user->id == $ticket->asked_user_id || $user->id == $ticket->responded_user_id;
+});

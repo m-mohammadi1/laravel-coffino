@@ -4,6 +4,7 @@ import axios from 'axios';
 import Echo from 'laravel-echo';
 
 const Chat = props => {
+    const host = 'http://127.0.0.1:8000';
 
     const [ticket, setTicket] = useState({});
     const [user, setUser] = useState({});
@@ -13,7 +14,7 @@ const Chat = props => {
 
     useEffect(() => {
         axios.get(
-            'messages',
+            `${host}/ticket/${props.ticketId}/messages`,
             {
                 "headers": {
                     'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ const Chat = props => {
 
 
     useEffect(() => {
-        window.Echo.join('chat')
+        window.Echo.join(`chat.${props.ticketId}`)
             .listen('MessageSentEvent', (message) => {
             setMessages((prevState) => [...prevState, message.message]);
         });
@@ -46,7 +47,7 @@ const Chat = props => {
     const handleSubmitNewMessage = event => {
         event.preventDefault();
         axios.post(
-            'messages',
+            `${host}/ticket/${props.ticketId}/messages`,
             {
                 message: newMessage,
                 ticket_id: ticket.id,
@@ -67,7 +68,6 @@ const Chat = props => {
                 setNewMessage('');
             });
     }
-
 
     const divRref = useRef(null);
 
@@ -182,6 +182,8 @@ const Chat = props => {
 
 export default Chat;
 
+
 if (document.getElementById('chat')) {
-    ReactDOM.render(<Chat/>, document.getElementById('chat'));
+    const ticket_id = document.getElementById('ticketId').value;
+    ReactDOM.render(<Chat ticketId={ticket_id}/>, document.getElementById('chat'));
 }

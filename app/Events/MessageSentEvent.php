@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Ticket;
 use App\Models\TicketMessage;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -17,15 +18,17 @@ class MessageSentEvent implements ShouldBroadcast
 
 
     public $message;
+    public $ticket;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(TicketMEssage $message)
+    public function __construct(TicketMEssage $message, Ticket $ticket)
     {
         $this->message = $message;
+        $this->ticket = $ticket;
     }
 
     /**
@@ -35,7 +38,7 @@ class MessageSentEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('chat');
+        return new PresenceChannel('chat.' . $this->ticket->id);
     }
 
     public function toBroadcast()

@@ -1952,6 +1952,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var Chat = function Chat(props) {
+  var host = 'http://127.0.0.1:8000';
+
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
       ticket = _useState2[0],
@@ -1973,7 +1975,7 @@ var Chat = function Chat(props) {
       setNewMessage = _useState8[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    axios__WEBPACK_IMPORTED_MODULE_2___default().get('messages', {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat(host, "/ticket/").concat(props.ticketId, "/messages"), {
       "headers": {
         'Content-Type': 'application/json'
       }
@@ -1987,7 +1989,7 @@ var Chat = function Chat(props) {
     });
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    window.Echo.join('chat').listen('MessageSentEvent', function (message) {
+    window.Echo.join("chat.".concat(props.ticketId)).listen('MessageSentEvent', function (message) {
       setMessages(function (prevState) {
         return [].concat(_toConsumableArray(prevState), [message.message]);
       });
@@ -2000,7 +2002,7 @@ var Chat = function Chat(props) {
 
   var handleSubmitNewMessage = function handleSubmitNewMessage(event) {
     event.preventDefault();
-    axios__WEBPACK_IMPORTED_MODULE_2___default().post('messages', {
+    axios__WEBPACK_IMPORTED_MODULE_2___default().post("".concat(host, "/ticket/").concat(props.ticketId, "/messages"), {
       message: newMessage,
       ticket_id: ticket.id,
       user_id: user.id
@@ -2161,7 +2163,10 @@ var Chat = function Chat(props) {
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Chat);
 
 if (document.getElementById('chat')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Chat, {}), document.getElementById('chat'));
+  var ticket_id = document.getElementById('ticketId').value;
+  react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(Chat, {
+    ticketId: ticket_id
+  }), document.getElementById('chat'));
 }
 
 /***/ }),

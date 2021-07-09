@@ -25,7 +25,6 @@ Route::group([
     Route::resource('tickets', \App\Http\Controllers\Dashboard\Administratorship\TicketController::class);
 
 
-
     Route::group([
         'prefix' => 'customers',
         'as' => 'customers.',
@@ -77,47 +76,68 @@ Route::group([
 
 
 });
+
+Route::group([
+    'middleware' => 'auth',
+], function () {
+
+    // chat test
+    Route::post('chats', function (Request $request) {
+        $ticket = Ticket::find($request->ticket_id);
+
+        if (isset($ticket->responded_user_id) && auth()->user()->hasAnyRole('admin|super-admin')) {
+            if ($ticket->responded_user_id != auth()->id()) {
+                abort(403);
+            }
+        }
+
+        return view('realtime.chat', compact('ticket'));
+    })->name('chat_page');
+
+
+//    Route::get('/messages', function () {
+//        $ticket = Ticket::find(1);
+//        $ticket->load('asked_user');
+//        $messages = $ticket->messages;
+//    });
+
+    Route::get('ticket/{id}/messages', function ($id) {
+        $ticket = Ticket::find($id);
+        $messages = $ticket->messages;
+        $messages->load('user');
+
+        return response()->json([
+            'messages' => $messages,
+            'ticket' => $ticket,
+            'user' => auth()->user()
+        ]);
+    });
+
+    Route::post('ticket/{id}/messages', function (Request $request) {
+        $ticket = Ticket::find($request->ticket_id);
+        $message = $ticket->messages()->create([
+            'message' => $request->message,
+            'for' => auth()->id() == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'],
+            'user_id' => auth()->id(),
+        ]);
+
+        $message->load('user');
+        broadcast(new MessageSentEvent($message, $ticket));
+        return ['status' => 'success', 'message' => $message];
+    });
+
+});
+
+
 // front routes
 Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index'])->name('faqs');
 Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->name('home');
 
 
 
-// chat test
-Route::get('/chats', function () {
-    return view('realtime.chat');
-});
-
-Route::get('/messages', function () {
-
-    $ticket = Ticket::find(1);
-    $ticket->load('asked_user');
-    $messages = $ticket->messages;
-});
 
 
-Route::get('/messages', function () {
-    $ticket = Ticket::find(1);
-    $messages = $ticket->messages;
-    $messages->load('user');
 
-    return response()->json([
-        'messages' => $messages,
-        'ticket' => $ticket,
-        'user' => auth()->user()
-    ]);
-});
 
-Route::post('/messages', function (Request $request) {
-    $ticket = Ticket::find($request->ticket_id);
-    $message = $ticket->messages()->create([
-        'message' => $request->message,
-        'for' =>  auth()->id() == $ticket->asked_user_id ? TicketMessage::FOR_USER['asked'] : TicketMessage::FOR_USER['responded'],
-        'user_id' => auth()->id(),
-    ]);
 
-    $message->load('user');
-    broadcast(new MessageSentEvent($message))->toOthers();
 
-    return ['status' => 'success', 'message' => $message];
-});

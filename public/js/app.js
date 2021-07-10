@@ -2146,9 +2146,17 @@ var Chat = function Chat(props) {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
             className: "mr-3"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+            children: +ticket.status === 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
               type: "submit",
               onClick: handleSubmitNewMessage,
+              className: "btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6",
+              children: "\u0627\u0631\u0633\u0627\u0644"
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+              type: "button",
+              style: {
+                cursor: 'not-allowed'
+              },
+              title: "\u062A\u06CC\u06A9\u062A \u0628\u0633\u062A\u0647 \u0634\u062F\u0647 \u0627\u0633\u062A",
               className: "btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6",
               children: "\u0627\u0631\u0633\u0627\u0644"
             })

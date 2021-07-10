@@ -69,19 +69,22 @@
 
                                             <td data-field="Title" aria-label="Philippines" class="datatable-cell">
                                                     <span style="width: 137px;">
-                                                        @if($ticket->status == $ticket::STATUS['open'])
+                                                        <a href="javascript:;"
+                                                           class="btn btn-{{ $ticket->status == $ticket::STATUS['open'] ? 'primary' : 'danger' }}">
+                                                            {{  $ticket->getStatusText() }}
+                                                        </a>
+
                                                             <a href="javascript:;"
                                                                onClick="document.getElementById('goToChatPage-{{ $ticket->id }}').submit();"
-                                                               class="btn btn-primary"> مشاهده</a>
+                                                               class="btn btn-info"> مشاهده</a>
 
-                                                            <form method="post" action="{{ route('chat_page') }}" id="goToChatPage-{{ $ticket->id }}">
+                                                            <form method="post" action="{{ route('chat_page') }}"
+                                                                  id="goToChatPage-{{ $ticket->id }}">
                                                                     @csrf
-                                                                    <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
+                                                                    <input type="hidden" name="ticket_id"
+                                                                           value="{{ $ticket->id }}">
                                                             </form>
-                                                        @elseif (1)
-                                                            <a href="{{ route('dashboard.customers.tickets.show', $ticket->id) }}"
-                                                               class="btn btn-danger">بسته</a>
-                                                        @endif
+
                                                     </span>
                                             </td>
 

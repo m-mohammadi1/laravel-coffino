@@ -111,18 +111,19 @@
                                             </td>
 
                                             <td data-field="Title" aria-label="Philippines" class="datatable-cell">
-                                                        <span style="width: 157px;">
+                                                        <span style="width: 157px;" class="d-flex justify-content-around">
+                                                            <a href="javascript:;"
+                                                               onClick="document.getElementById('goToChatPage-{{ $ticket->id }}').submit();"
+                                                               class="btn btn-info">مشاهده</a>
+
+                                                                <form method="post" action="{{ route('chat_page') }}"
+                                                                      id="goToChatPage-{{ $ticket->id }}">
+                                                                    @csrf
+                                                                    <input type="hidden" name="ticket_id"
+                                                                           value="{{ $ticket->id }}">
+                                                                </form>
 
                                                             @if($ticket->status == $ticket::STATUS['open'])
-
-                                                                <a href="javascript:;"
-                                                                   onClick="document.getElementById('goToChatPage-{{ $ticket->id }}').submit();"
-                                                                   class="btn btn-info">باز / مشاهده</a>
-
-                                                                <form method="post" action="{{ route('chat_page') }}" id="goToChatPage-{{ $ticket->id }}">
-                                                                    @csrf
-                                                                    <input type="hidden" name="ticket_id" value="{{ $ticket->id }}">
-                                                                </form>
 
                                                                 <a
                                                                     href="javascript:;"
@@ -133,9 +134,6 @@
                                                                 </a>
 
                                                             @elseif($ticket->status == $ticket::STATUS['closed'])
-                                                                <a href="javascript:;"
-                                                                   class="btn btn-light" disabled>بسته</a>
-
                                                                 <a
                                                                     href="javascript:;"
                                                                     class="btn btn-success"

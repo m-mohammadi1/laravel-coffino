@@ -36,8 +36,8 @@ const Chat = props => {
     useEffect(() => {
         window.Echo.join(`chat.${props.ticketId}`)
             .listen('MessageSentEvent', (message) => {
-            setMessages((prevState) => [...prevState, message.message]);
-        });
+                setMessages((prevState) => [...prevState, message.message]);
+            });
     }, []);
 
     const handleNewMessage = event => {
@@ -72,7 +72,7 @@ const Chat = props => {
     const divRref = useRef(null);
 
     const scrollToBottom = () => {
-        divRref.current.scrollIntoView({ behavior: "smooth" })
+        divRref.current.scrollIntoView({behavior: "smooth"})
     }
 
     useEffect(() => {
@@ -115,7 +115,7 @@ const Chat = props => {
                         {messages.map(message =>
                             <div
                                 className={`d-flex flex-column mb-5 align-items-${message.user_id == user.id ? 'start' : 'end'}`}
-                                 key={message.id}
+                                key={message.id}
                             >
                                 <div className="d-flex align-items-center">
                                     <div className="symbol symbol-circle symbol-40 mr-3">
@@ -138,7 +138,7 @@ const Chat = props => {
                             </div>
                         )}
 
-                        <div ref={divRref} />
+                        <div ref={divRref}/>
 
                     </div>
 
@@ -168,10 +168,21 @@ const Chat = props => {
 
                         </div>
                         <div>
-                            <button type="submit" onClick={handleSubmitNewMessage}
+                            {+ticket.status === 1 ?
+                                <button
+                                    type="submit"
+                                    onClick={handleSubmitNewMessage}
                                     className="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">
-                                ارسال
-                            </button>
+                                    ارسال
+                                </button> :
+                                <button type="button"
+                                        style={{cursor: 'not-allowed'}}
+                                        title="تیکت بسته شده است"
+                                        className="btn btn-primary btn-md text-uppercase font-weight-bold chat-send py-2 px-6">
+                                    ارسال
+                                </button>
+                            }
+
                         </div>
                     </div>
                 </form>

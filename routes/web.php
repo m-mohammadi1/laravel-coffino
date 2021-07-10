@@ -75,7 +75,7 @@ Route::group([
 ], function () {
     Route::post('chats', [App\Http\Controllers\Dashboard\Realtime\ChatController::class, 'chats'])->name('chat_page');
     Route::get('ticket/{id}/messages', [App\Http\Controllers\Dashboard\Realtime\ChatController::class, 'getTicketMessages'])->name('chat.ticket.messages');
-    Route::post('ticket/{id}/messages', [App\Http\Controllers\Dashboard\Realtime\ChatController::class, 'sendTicketMessage'])->name('chat.ticket.messages');
+    Route::post('ticket/{id}/messages', [App\Http\Controllers\Dashboard\Realtime\ChatController::class, 'sendTicketMessage'])->name('chat.ticket.send_message');
 
     // to fix refresh method error in chat page
     Route::get('chats', fn() => redirect()->route('dashboard.index'));

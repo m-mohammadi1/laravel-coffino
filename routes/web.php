@@ -42,6 +42,10 @@ Route::group([
         Route::get('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'create'])->name('create_comment');
         Route::post('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'store'])->name('store_comment');
 
+        // notifications section routes
+        Route::get('notifications', [\App\Http\Controllers\Dashboard\CustomerManagement\NotificationController::class, 'index'])->name('notifications.index');
+
+
 
     });
 
@@ -89,7 +93,9 @@ Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->na
 
 
 
-
+Route::get('test', function () {
+   return view('dashboard.customers.notifications.index');
+});
 
 
 

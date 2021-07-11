@@ -60,10 +60,12 @@ var KTWidgets = function() {
             return;
         }
 
+        const percentBase = 1000;
+
         var options = {
             series: [{
                 name: 'سود خالص',
-                data: [30, 45, 32, 70, 40]
+                data: [30 / percentBase, 45 / percentBase, 32 / percentBase, 70 / percentBase, 40 /percentBase]
             }],
             chart: {
                 type: 'area',
@@ -3143,6 +3145,10 @@ var KTWidgets = function() {
 
         const dataFromIndex = $("#kt_mixed_widget_17_chart").attr('data-json');
         const dataToShowInChart = JSON.parse(dataFromIndex).data;
+
+        for (let index = 0; index < dataToShowInChart.length; index++) {
+            dataToShowInChart[index] /= 5;
+        }
 
         console.log(dataToShowInChart);
         var options = {

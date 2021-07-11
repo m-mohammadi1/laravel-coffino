@@ -98,13 +98,15 @@
                             <div class="card-body table-responsive px-0">
                                 <!--begin::Items-->
                                 <div class="list list-hover min-w-500px">
+
+                                    @foreach($notifications as $not)
                                     <!--begin::Item-->
                                     <div class="d-flex align-items-start list-item card-spacer-x py-3">
                                         <!--begin::اطلاعات-->
                                         <div class="flex-grow-1 mt-2 mr-2" data-toggle="view">
                                             <div>
-                                                <span class="font-weight-bolder font-size-lg mr-2">تأیید دیجیتال PPV مشتری - </span>
-                                                <span class="text-muted">با تشکر از شما برای سفارش</span>
+                                                <span class="font-weight-bolder font-size-lg mr-2">{{ $not->title }}</span>
+                                                <span class="text-muted">{{ $not->message }}</span>
                                             </div>
                                             <div class="mt-2">
                             <span
@@ -114,12 +116,13 @@
                                         </div>
                                         <!--end::اطلاعات-->
                                         <!--begin::تاریخtime-->
-                                        <div class="mt-2 mr-3 font-weight-bolder w-50px text-right" data-toggle="view">
-                                            8:30 PM
+                                        <div class="mt-2 mr-3 font-weight-bolder w-100px text-right" data-toggle="view">
+                                            {{ $not->created_at->diffForHumans() }}
                                         </div>
                                         <!--end::تاریخtime-->
                                     </div>
                                     <!--end::Item-->
+                                    @endforeach
                                 </div>
                                 <!--end::Items-->
                             </div>

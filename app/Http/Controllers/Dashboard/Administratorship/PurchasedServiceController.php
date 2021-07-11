@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\Administratorship;
 
 use App\Http\Controllers\Controller;
 use App\Models\PurchasedService;
+use App\Providers\ShouldMessage;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -73,14 +74,16 @@ class PurchasedServiceController extends Controller
         }
 
         if ($purchase->update($request->only('status'))) {
-            return response()->json([
-                'message' => 'تراکنش با موفقیت بروزرسانی شد',
-                'status' => 'success',
-                'data' => [
-                    'service_id' => $purchase->id,
-                    'status_text' => $purchase->getStatusText(),
-                ]
-            ]);
+            $message = [
+                'title' => 'تغییر وضعیت سرویس درخواستی' ,
+                'message' => 'وضغیت سرویس شما تفییر کرذ',
+                'user_id' => $purchase->user_id
+            ];
+
+            event(new ShouldMessage($message));
+
+
+            return $this->getResponseOnStatusUpdate($purchase);
         }
 
         return response()->json([
@@ -98,6 +101,18 @@ class PurchasedServiceController extends Controller
             ->allowedSorts(array_keys(PurchasedService::FILTER_ITEMS))
             ->paginate(10)
             ->appends(request()->query());
+    }
+
+    public function getResponseOnStatusUpdate(PurchasedService $purchase): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            'message' => 'تراکنش با موفقیت بروزرسانی شد',
+            'status' => 'success',
+            'data' => [
+                'service_id' => $purchase->id,
+                'status_text' => $purchase->getStatusText(),
+            ]
+        ]);
     }
 
 

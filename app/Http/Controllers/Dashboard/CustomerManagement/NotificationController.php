@@ -10,7 +10,8 @@ class NotificationController extends Controller
 
     public function index()
     {
-        return view('dashboard.customers.notifications.index');
+        $notifications = auth()->user()->notifications;
+        return view('dashboard.customers.notifications.index', compact('notifications'));
     }
 
 }

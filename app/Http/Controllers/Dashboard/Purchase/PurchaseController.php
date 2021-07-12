@@ -71,7 +71,6 @@ class PurchaseController extends Controller
     public function result(Request $request, $service_id)
     {
         $error = '';
-
         if (!$service = Service::find($service_id)) {
             $error = 'آیدی سرویس نامعتبر می باشد';
         }
@@ -101,6 +100,12 @@ class PurchaseController extends Controller
                 $transaction->save();
                 $this->createPurchasedServiceWithTransactionId($transaction, $service);
             });
+
+            notify(
+                'ثبت سفارش',
+                'سفارش شما به آیدی پرداخت ' . $transaction->payment_id . ' با وضعیت ' . $transaction->getStatusText() . ' ثبت شد و پس از بررسی رسیدگی خواهد شد و به اطلاعتان خواهد رسید',
+                $transaction->user_id
+            );
 
             $success = 'سفارش شما با موفقیت ثبت شد و در حال بررسی است';
             return view('dashboard.purchases.verify', compact('success'));

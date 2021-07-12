@@ -1,6 +1,6 @@
 <x-dashboard.layouts.main>
 
-    @section('title', 'كافينو  | مديريت سرویس ها')
+    @section('title', 'كافينو  | مديريت تعداد ها')
 
 
     @section('content')

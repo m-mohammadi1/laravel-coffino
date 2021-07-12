@@ -1,6 +1,6 @@
 <x-dashboard.layouts.main>
 
-    @section('title', 'كافينو | درخواست های کاربر')
+    @section('title', 'پیام های کاربر')
 
 
     @section('content')

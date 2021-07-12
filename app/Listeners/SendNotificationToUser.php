@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Providers;
+namespace App\Listeners;
 
+use App\Events\ShouldMessage;
 use App\Models\Notification;
-use App\Providers\ShouldMessage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -18,8 +18,11 @@ class SendNotificationToUser
     public function handle(ShouldMessage $event)
     {
         $message = $event->message;
-        $notification = Notification::create($message);
-
+        if ($message instanceof Notification) {
+            $notification = $message->save();
+        } else {
+            throw new \InvalidArgumentException('message must be instance of Notification class');
+        }
         return $notification;
     }
 }

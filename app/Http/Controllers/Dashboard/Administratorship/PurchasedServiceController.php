@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard\Administratorship;
 
+use App\Events\ShouldMessage;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\PurchasedService;
-use App\Providers\ShouldMessage;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -74,13 +75,12 @@ class PurchasedServiceController extends Controller
         }
 
         if ($purchase->update($request->only('status'))) {
-            $message = [
+            $notification = new Notification([
                 'title' => 'تغییر وضعیت سرویس درخواستی' ,
-                'message' => 'وضغیت سرویس شما تفییر کرذ',
+                'message' => 'کاربر گرامی وضعیت سرویس پرداختی شما به ' . $purchase->getStatusText() . ' تغییر کرد',
                 'user_id' => $purchase->user_id
-            ];
-
-            event(new ShouldMessage($message));
+            ]);
+            event(new ShouldMessage($notification));
 
 
             return $this->getResponseOnStatusUpdate($purchase);

@@ -16,6 +16,10 @@ Route::group([
     Route::post('tickets/{ticket}/toggle-status', [\App\Http\Controllers\Dashboard\Administratorship\TicketController::class, 'toggleTicketStatus'])->name('tickets.toggle_status');
     Route::resource('tickets', \App\Http\Controllers\Dashboard\Administratorship\TicketController::class);
 
+    // notifications part routes
+    Route::post('notifications', [\App\Http\Controllers\Dashboard\Administratorship\NotificationController::class, 'store'])->name('notifications.store');
+    Route::get('notifications/create', [\App\Http\Controllers\Dashboard\Administratorship\NotificationController::class, 'create'])->name('notifications.create');
+
 
     Route::group([
         'prefix' => 'customers',
@@ -41,6 +45,10 @@ Route::group([
         // comments section routes
         Route::get('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'create'])->name('create_comment');
         Route::post('create-comment', [\App\Http\Controllers\Dashboard\CustomerManagement\CommentController::class, 'store'])->name('store_comment');
+
+        // notifications section routes
+        Route::get('notifications', [\App\Http\Controllers\Dashboard\CustomerManagement\NotificationController::class, 'index'])->name('notifications.index');
+
 
 
     });
@@ -85,11 +93,6 @@ Route::group([
 // front routes
 Route::get('faqs', [\App\Http\Controllers\Front\FaqController::class, 'index'])->name('faqs');
 Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->name('home');
-
-
-
-
-
 
 
 

@@ -1,6 +1,6 @@
 <x-dashboard.layouts.main>
 
-    @section('title', 'كافينو  | ویرایش سرویس')
+    @section('title', 'ویرایش تعداد')
 
     @section('content')
 
@@ -12,7 +12,7 @@
 
                     <x-dashboard.partials.messages.success />
                     <x-dashboard.partials.messages.error />
-                    
+
 
                     <div class="card card-custom">
                         <div class="card-header">
@@ -43,7 +43,7 @@
                                 </div>
 
 
-                                
+
                             </div>
                             <div class="card-footer d-flex justify-content-between">
                                 @can('edit count')
@@ -125,9 +125,9 @@
 
 
                                                     <td data-field="Actions"  style="width: 137px;">to do..</td>
-                                                   
 
-                                                    
+
+
                                                 </tr>
                                                 @php($i++)
                                             @empty
@@ -135,7 +135,7 @@
 
                                                 <td colspan="4">
 
-                                                    
+
                                                     <div class="text-center">
                                                         چیزی ثبت نشده است
                                                     </div>
@@ -148,19 +148,19 @@
                                             </tbody>
                                         </table>
 
-                                        
+
                                     </div>
                                     <!--end: جدول داده ها-->
-                           
+
 
                         </div>
 
                         <div class="card-footer d-flex justify-content-between">
 
-                        
+
                                 {{ $services->links() }}
-                               
-                            
+
+
 
                         </div>
 

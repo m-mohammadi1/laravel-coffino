@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard\Administratorship;
 
+use App\Events\ShouldMessage;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\PurchasedService;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -33,11 +35,10 @@ class PurchasedServiceController extends Controller
     }
 
 
-
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(PurchasedService $purchase)
@@ -53,12 +54,11 @@ class PurchasedServiceController extends Controller
     }
 
 
-
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, PurchasedService $purchase): \Illuminate\Http\JsonResponse
@@ -73,14 +73,15 @@ class PurchasedServiceController extends Controller
         }
 
         if ($purchase->update($request->only('status'))) {
-            return response()->json([
-                'message' => 'تراکنش با موفقیت بروزرسانی شد',
-                'status' => 'success',
-                'data' => [
-                    'service_id' => $purchase->id,
-                    'status_text' => $purchase->getStatusText(),
-                ]
-            ]);
+
+            notify(
+                'تغییر وضعیت سرویس درخواستی',
+                'کاربر گرامی وضعیت سرویس پرداختی شما با شماره پرداخت '. $purchase->transaction->payment_id .' به ' . $purchase->getStatusText() . ' تغییر کرد',
+                $purchase->user_id
+            );
+
+
+            return $this->getResponseOnStatusUpdate($purchase);
         }
 
         return response()->json([
@@ -98,6 +99,18 @@ class PurchasedServiceController extends Controller
             ->allowedSorts(array_keys(PurchasedService::FILTER_ITEMS))
             ->paginate(10)
             ->appends(request()->query());
+    }
+
+    public function getResponseOnStatusUpdate(PurchasedService $purchase): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            'message' => 'تراکنش با موفقیت بروزرسانی شد',
+            'status' => 'success',
+            'data' => [
+                'service_id' => $purchase->id,
+                'status_text' => $purchase->getStatusText(),
+            ]
+        ]);
     }
 
 

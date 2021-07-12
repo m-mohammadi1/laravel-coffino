@@ -14,6 +14,8 @@ class NotificationController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Notification::class);
+
         return view('dashboard.notifications.create');
     }
 
@@ -23,6 +25,8 @@ class NotificationController extends Controller
      */
     public function store(StoreNotificationRequest $request): \Illuminate\Http\RedirectResponse
     {
+        $this->authorize('create', Notification::class);
+
         Notification::create($request->validated());
 
         return back()->with('toastr_success', 'پیام شما با موفقیت برای کاربران ارسال شد');

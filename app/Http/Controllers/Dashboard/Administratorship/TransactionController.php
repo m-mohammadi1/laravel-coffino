@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard\Administratorship;
 
+use App\Events\ShouldMessage;
 use App\Http\Controllers\Controller;
 use App\Models\PurchasedService;
 use App\Models\Service;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -19,27 +21,13 @@ class TransactionController extends Controller
     {
         $this->authorize('manage', Transaction::class);
 
-        $transactions = QueryBuilder::for(Transaction::class)
-            ->allowedFilters(array_merge(
-                array_keys(Transaction::FILTER_ITEMS), [AllowedFilter::exact('id'), AllowedFilter::exact('transaction_id'), 'status']
-            ))
-            ->allowedSorts(array_keys(Transaction::FILTER_ITEMS))
-            ->paginate(10)
-            ->appends(request()->query());
-
+        $transactions = $this->getTransactionsFiltered();
         $statuses = $this->getTransactionStatusArray();
         $filter_items = $this->getTransactionFilterItemsArray();
 
         return view('dashboard.transactions.index', compact('transactions', 'statuses', 'filter_items'));
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function show(Transaction $transaction)
     {
         $this->authorize('see', $transaction);
@@ -52,14 +40,6 @@ class TransactionController extends Controller
         ]);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function update(Request $request, Transaction $transaction): \Illuminate\Http\JsonResponse
     {
         $this->authorize('edit', $transaction);
@@ -74,8 +54,13 @@ class TransactionController extends Controller
 
         if ($transaction->update($request->only('status'))) {
 
-            $this->changePurchasedServiceBasedOnTransactionStatus($transaction);
+            notify(
+                'تغییر وضعیت سرویس درخواستی',
+                '',
+                1
+            );
 
+            $this->changePurchasedServiceBasedOnTransactionStatus($transaction);
             return $this->updateTransactionSuccessResponse($transaction);
         }
 
@@ -145,6 +130,18 @@ class TransactionController extends Controller
             $filter_items[$column] = $name;
         }
         return $filter_items;
+    }
+
+    public function getTransactionsFiltered(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        $transactions = QueryBuilder::for(Transaction::class)
+            ->allowedFilters(array_merge(
+                array_keys(Transaction::FILTER_ITEMS), [AllowedFilter::exact('id'), AllowedFilter::exact('transaction_id'), 'status']
+            ))
+            ->allowedSorts(array_keys(Transaction::FILTER_ITEMS))
+            ->paginate(10)
+            ->appends(request()->query());
+        return $transactions;
     }
 
 

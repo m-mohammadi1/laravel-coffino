@@ -35,11 +35,10 @@ class PurchasedServiceController extends Controller
     }
 
 
-
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(PurchasedService $purchase)
@@ -55,12 +54,11 @@ class PurchasedServiceController extends Controller
     }
 
 
-
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, PurchasedService $purchase): \Illuminate\Http\JsonResponse
@@ -75,12 +73,12 @@ class PurchasedServiceController extends Controller
         }
 
         if ($purchase->update($request->only('status'))) {
-            $notification = new Notification([
-                'title' => 'تغییر وضعیت سرویس درخواستی' ,
-                'message' => 'کاربر گرامی وضعیت سرویس پرداختی شما به ' . $purchase->getStatusText() . ' تغییر کرد',
-                'user_id' => $purchase->user_id
-            ]);
-            event(new ShouldMessage($notification));
+
+            notify(
+                'تغییر وضعیت سرویس درخواستی',
+                'کاربر گرامی وضعیت سرویس پرداختی شما به ' . $purchase->getStatusText() . ' تغییر کرد',
+                $purchase->user_id
+            );
 
 
             return $this->getResponseOnStatusUpdate($purchase);

@@ -93,10 +93,3 @@ Route::get('/', [\App\Http\Controllers\Front\PageController::class, 'home'])->na
 
 
 
-Route::get('test', function () {
-   return view('dashboard.customers.notifications.index');
-});
-
-
-
-

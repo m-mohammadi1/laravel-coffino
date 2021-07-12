@@ -10,7 +10,7 @@ class NotificationController extends Controller
 
     public function index()
     {
-        $notifications = auth()->user()->notifications;
+        $notifications = auth()->user()->notifications()->orderBy('id', 'desc')->paginate(5);
         return view('dashboard.customers.notifications.index', compact('notifications'));
     }
 

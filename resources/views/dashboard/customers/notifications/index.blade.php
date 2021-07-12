@@ -52,41 +52,9 @@
 
                                     <!--end::Per Page دراپ دان-->
                                     <!--begin::Arrow دکمه ها-->
-                                    <span class="btn btn-default btn-icon btn-sm mr-2" data-toggle="tooltip" title=""
-                                          data-original-title="صفحه قبل">
-                <i class="ki ki-bold-arrow-back icon-sm"></i>
-                </span>
-                                    <span class="btn btn-default btn-icon btn-sm mr-2" data-toggle="tooltip" title=""
-                                          data-original-title="صفحه بعد">
-                <i class="ki ki-bold-arrow-next icon-sm"></i>
-                </span>
+                                    {{ $notifications->links() }}
                                     <!--end::Arrow دکمه ها-->
                                     <!--begin::مرتب سازی دراپ دان-->
-                                    <div class="dropdown mr-2" data-toggle="tooltip" title=""
-                                         data-original-title="مرتب سازی">
-                    <span class="btn btn-default btn-icon btn-sm" data-toggle="dropdown">
-                    <i class="flaticon2-console icon-1x"></i>
-                    </span>
-                                        <div class="dropdown-menu dropdown-menu-right p-0 m-0 dropdown-menu-sm">
-                                            <ul class="navi py-3">
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link active">
-                                                        <span class="navi-text">جدید</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-                                                        <span class="navi-text">قدیمی ها</span>
-                                                    </a>
-                                                </li>
-                                                <li class="navi-item">
-                                                    <a href="#" class="navi-link">
-                                                        <span class="navi-text">خوانده نشده</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
                                     <!--end::مرتب سازی دراپ دان-->
                                 </div>
                                 <!--end::صفحه بندی-->

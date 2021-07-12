@@ -55,9 +55,9 @@ class TransactionController extends Controller
         if ($transaction->update($request->only('status'))) {
 
             notify(
-                'تغییر وضعیت سرویس درخواستی',
-                '',
-                1
+                'تغییر وضعیت تراکنش شما',
+                'وضعیت تراکنش '. $transaction->payment_id .' به حالت ' . $transaction->getStatusText() . ' تغییر پیدا کرد',
+                $transaction->user_id
             );
 
             $this->changePurchasedServiceBasedOnTransactionStatus($transaction);

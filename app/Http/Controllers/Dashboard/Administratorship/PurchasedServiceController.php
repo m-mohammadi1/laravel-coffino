@@ -76,7 +76,7 @@ class PurchasedServiceController extends Controller
 
             notify(
                 'تغییر وضعیت سرویس درخواستی',
-                'کاربر گرامی وضعیت سرویس پرداختی شما به ' . $purchase->getStatusText() . ' تغییر کرد',
+                'کاربر گرامی وضعیت سرویس پرداختی شما با شماره پرداخت '. $purchase->transaction->payment_id .' به ' . $purchase->getStatusText() . ' تغییر کرد',
                 $purchase->user_id
             );
 

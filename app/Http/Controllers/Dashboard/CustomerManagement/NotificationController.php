@@ -12,7 +12,7 @@ class NotificationController extends Controller
 
     public function index()
     {
-        $notifications = Notification::where('user_id', Auth::id())->orWhereNull('user_id')->paginate(10);
+        $notifications = Notification::where('user_id', Auth::id())->orWhereNull('user_id')->orderByDesc('created_at')->paginate(10);
         return view('dashboard.customers.notifications.index', compact('notifications'));
     }
 

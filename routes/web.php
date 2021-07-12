@@ -16,6 +16,10 @@ Route::group([
     Route::post('tickets/{ticket}/toggle-status', [\App\Http\Controllers\Dashboard\Administratorship\TicketController::class, 'toggleTicketStatus'])->name('tickets.toggle_status');
     Route::resource('tickets', \App\Http\Controllers\Dashboard\Administratorship\TicketController::class);
 
+    // notifications part routes
+    Route::post('notifications', [\App\Http\Controllers\Dashboard\Administratorship\NotificationController::class, 'store'])->name('notifications.store');
+    Route::get('notifications/create', [\App\Http\Controllers\Dashboard\Administratorship\NotificationController::class, 'create'])->name('notifications.create');
+
 
     Route::group([
         'prefix' => 'customers',

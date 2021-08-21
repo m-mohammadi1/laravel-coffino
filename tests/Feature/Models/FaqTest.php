@@ -2,15 +2,16 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\User;
+use App\Models\Faq;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+class FaqTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations;
+
     /**
      * A basic feature test example.
      *
@@ -18,12 +19,11 @@ class UserTest extends TestCase
      */
     public function test_insert_data()
     {
-        $user_data= User::factory()->make()->toArray();
-        $user_data['password'] = bcrypt('12345678');
+        $data = Faq::factory()->make()->toArray();
 
-        User::create($user_data);
+        Faq::create($data);
 
-        $this->assertDatabaseHas('users', $user_data);
+        $this->assertDatabaseHas('faqs', $data);
     }
 
 }

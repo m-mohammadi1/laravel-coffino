@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+class CommentTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations;
     /**
@@ -18,12 +18,10 @@ class UserTest extends TestCase
      */
     public function test_insert_data()
     {
-        $user_data= User::factory()->make()->toArray();
-        $user_data['password'] = bcrypt('12345678');
+        $data = Comment::factory()->make()->toArray();
 
-        User::create($user_data);
+        Comment::create($data);
 
-        $this->assertDatabaseHas('users', $user_data);
+        $this->assertDatabaseHas('comments', $data);
     }
-
 }

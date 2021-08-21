@@ -2,28 +2,27 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\User;
+use App\Models\Count;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class UserTest extends TestCase
+class CountTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations;
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_insert_data()
+    public function test_insert_data(): void
     {
-        $user_data= User::factory()->make()->toArray();
-        $user_data['password'] = bcrypt('12345678');
+        $data = Count::factory()->make()->toArray();
 
-        User::create($user_data);
+        Count::create($data);
 
-        $this->assertDatabaseHas('users', $user_data);
+        $this->assertDatabaseHas('counts', $data);
     }
-
 }

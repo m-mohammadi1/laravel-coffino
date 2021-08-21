@@ -193,7 +193,6 @@ const Chat = props => {
 
 export default Chat;
 
-
 if (document.getElementById('chat')) {
     const ticket_id = document.getElementById('ticketId').value;
     ReactDOM.render(<Chat ticketId={ticket_id}/>, document.getElementById('chat'));

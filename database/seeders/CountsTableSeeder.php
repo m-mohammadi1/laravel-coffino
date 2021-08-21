@@ -20,6 +20,6 @@ class CountsTableSeeder extends Seeder
             ->has(
                 Service::factory()
                     ->has(Count::factory()->count(1))->count(20)
-            )->count(2)->create();
+            )->count(1000)->create();
     }
 }

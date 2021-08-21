@@ -26,7 +26,7 @@ class AddTransactionIdToPurchasedServicesTable extends Migration
     public function down()
     {
         Schema::table('purchased_services', function (Blueprint $table) {
-            $table->dropForeignKey('transaction_id');
+            $table->dropConstrainedForeignId('transaction_id');
         });
     }
 }

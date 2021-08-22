@@ -2,19 +2,20 @@
 
 namespace Tests\Feature\Models;
 
-use App\Models\Count;
+use App\Models\SingleOption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CountTest extends TestCase
+class SingleOptionTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations, ModelHelperTesting;
 
+
     protected function model(): Model
     {
-        return new Count();
+        return new SingleOption();
     }
 }

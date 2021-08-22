@@ -3,6 +3,8 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Comment;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,18 +12,21 @@ use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
-    use RefreshDatabase, DatabaseMigrations;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_insert_data()
+    use RefreshDatabase, DatabaseMigrations, ModelHelperTesting;
+
+
+    public function test_comment_relationship_with_user()
     {
-        $data = Comment::factory()->make()->toArray();
+        $comment = Comment::factory()
+            ->for(User::factory())
+            ->create();
 
-        Comment::create($data);
+        $this->assertTrue(isset($comment->user->id));
+        $this->assertTrue($comment->user instanceof User);
+    }
 
-        $this->assertDatabaseHas('comments', $data);
+    protected function model(): Model
+    {
+        return new Comment();
     }
 }

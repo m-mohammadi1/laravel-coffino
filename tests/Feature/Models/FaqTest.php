@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Faq;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,20 +11,11 @@ use Tests\TestCase;
 
 class FaqTest extends TestCase
 {
-    use RefreshDatabase, DatabaseMigrations;
+    use RefreshDatabase, DatabaseMigrations, ModelHelperTesting;
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_insert_data()
+
+    protected function model(): Model
     {
-        $data = Faq::factory()->make()->toArray();
-
-        Faq::create($data);
-
-        $this->assertDatabaseHas('faqs', $data);
+        return new Faq();
     }
-
 }

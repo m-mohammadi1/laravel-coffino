@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Service;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,6 +27,7 @@ class ServiceFactory extends Factory
             'title' => $this->faker->realText(70),
             'description' => $this->faker->realText(800),
             'price' => $this->faker->numberBetween(1000, 12000),
+            'category_id' => Category::factory(),
         ];
     }
 }

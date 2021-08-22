@@ -30,7 +30,6 @@ class TransactionFactory extends Factory
             'service_count' => $this->faker->numberBetween(1, 1000),
             'service_link' => $this->faker->url,
             'paid' => $this->faker->numberBetween(1000, 100000),
-
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Tests\Feature\Models;
 
 use App\Models\Count;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,19 +11,10 @@ use Tests\TestCase;
 
 class CountTest extends TestCase
 {
-    use RefreshDatabase, DatabaseMigrations;
+    use RefreshDatabase, DatabaseMigrations, ModelHelperTesting;
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_insert_data(): void
+    protected function model(): Model
     {
-        $data = Count::factory()->make()->toArray();
-
-        Count::create($data);
-
-        $this->assertDatabaseHas('counts', $data);
+        return new Count();
     }
 }

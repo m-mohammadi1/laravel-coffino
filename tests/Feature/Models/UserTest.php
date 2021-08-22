@@ -97,7 +97,7 @@ class UserTest extends TestCase
     {
         $count = rand(1, 10);
         $user = User::factory()
-            ->has(PurchasedService::factory(), 'purchasedServices')
+            ->has(PurchasedService::factory()->count($count), 'purchasedServices')
             ->create();
 
         $this->assertCount($count, $user->purchasedServices);

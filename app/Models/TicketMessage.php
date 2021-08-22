@@ -18,7 +18,7 @@ class TicketMessage extends Model
     protected $appends = ['time'];
 
     protected $fillable = [
-        'message', 'for', 'ticket_id', 'user_id'
+        'message', 'for', 'ticket_id', 'created_at', 'updated_at'
     ];
 
     public function ticket()

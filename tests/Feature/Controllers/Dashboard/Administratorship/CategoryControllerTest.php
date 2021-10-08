@@ -10,50 +10,14 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Artisan;
+use Tests\Feature\Controllers\DatabaseHandler;
 use Tests\TestCase;
 
 class CategoryControllerTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations;
 
-    use DatabaseMigrations, RefreshDatabase;
-
-    /**
-     * @var User
-     */
-    private $super_admin;
-    /**
-     * @var User
-     */
-    private $customer;
-    /**
-     * @var User
-     */
-    private $admin;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Artisan::call('migrate');
-        Artisan::call('db:seed');
-
-        $super_admin = User::factory()->create();
-        $super_admin->assignRole('super-admin');
-
-        $this->super_admin = $super_admin;
-
-        $admin = User::factory()->create();
-        $admin->assignRole('admin');
-
-        $this->admin = $admin;
-
-        $customer = User::factory()->create();
-        $customer->assignRole('customer');
-
-        $this->customer = $customer;
-
-
-    }
+    use DatabaseHandler;
 
     /**
      * A basic feature test example.
@@ -122,5 +86,96 @@ class CategoryControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
+    public function test_store_method_when_user_is_admin()
+    {
+        $this->actingAs($this->admin);
+        $data = Category::factory()->create()->toArray();
+
+        $this
+            ->post(
+                route('dashboard.categories.store'),
+                $data
+            )
+            ->assertRedirect()
+            ->assertSessionHas('successMessage');
+    }
+
+    public function test_store_method_when_user_is_customer()
+    {
+        $this->actingAs($this->customer);
+        $data = Category::factory()->create()->toArray();
+
+        $response = $this
+            ->post(
+                route('dashboard.categories.store'),
+                $data
+            );
+
+        $response
+            ->assertStatus(403);
+    }
+
+    public function test_store_method_validation_rules()
+    {
+        $category = Category::factory()->create();
+
+        $this->actingAs($this->admin);
+
+        $this
+            ->post(route('dashboard.categories.store', $category->id), [])
+            ->assertRedirect()
+            ->assertSessionHasErrors([
+                'title', 'description'
+            ]);
+    }
+
+    public function test_update_method_when_user_is_admin()
+    {
+        $category = Category::factory()->create();
+        $data = Category::factory()->make()->toArray();
+
+        $this->actingAs($this->admin);
+
+        $response = $this
+            ->put(
+                route('dashboard.categories.update', $category->id),
+                $data
+            );
+
+        $response
+            ->assertRedirect()
+            ->assertSessionHas('successMessage');
+    }
+
+    public function test_update_method_when_user_is_customer()
+    {
+        $category = Category::factory()->create();
+        $data = Category::factory()->make()->toArray();
+
+        $this->actingAs($this->customer);
+
+        $response = $this
+            ->put(
+                route('dashboard.categories.update', $category->id),
+                $data
+            );
+
+        $response
+            ->assertStatus(403);
+    }
+
+    public function test_update_method_validation_rules()
+    {
+        $category = Category::factory()->create();
+
+        $this->actingAs($this->admin);
+
+        $this
+            ->put(route('dashboard.categories.update', $category->id), [])
+            ->assertRedirect()
+            ->assertSessionHasErrors([
+                'title', 'description'
+            ]);
+    }
 
 }

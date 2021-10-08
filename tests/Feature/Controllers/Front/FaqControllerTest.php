@@ -7,17 +7,13 @@ use Database\Seeders\General\FaqsTableSeeder;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Feature\Controllers\DatabaseHandler;
 use Tests\TestCase;
 
 class FaqControllerTest extends TestCase
 {
-    use DatabaseMigrations, RefreshDatabase;
+    use DatabaseMigrations, RefreshDatabase, DatabaseHandler;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->seed(DatabaseSeeder::class);
-    }
 
     /**
      * A basic feature test example.

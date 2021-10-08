@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\SingleOption;
 use App\Models\Transaction;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
+            DB::statement(DB::raw('PRAGMA foreign_keys=1'));
+        }
+
         Paginator::useBootstrap();
 
         view()->composer('*', function () {

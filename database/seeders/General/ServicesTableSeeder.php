@@ -16,8 +16,8 @@ class ServicesTableSeeder extends Seeder
     public function run()
     {
         Category::factory()
-            ->has(Service::factory()->count(10))
-            ->count(10)
+            ->has(Service::factory()->count(5))
+            ->count(2)
             ->create();
     }
 }

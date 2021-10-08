@@ -18,7 +18,7 @@ class CommentsTableSeeder extends Seeder
 
         $user = User::factory()->create();
 
-        $comments = Comment::factory()->count(100)->create([
+        $comments = Comment::factory()->count(10)->create([
             'user_id' => $user->id
         ]);
 

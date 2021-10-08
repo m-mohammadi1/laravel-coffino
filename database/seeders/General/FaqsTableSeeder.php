@@ -14,6 +14,6 @@ class FaqsTableSeeder extends Seeder
      */
     public function run()
     {
-        Faq::factory()->count(20)->create();
+        Faq::factory()->count(5)->create();
     }
 }

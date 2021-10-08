@@ -13,8 +13,23 @@ class AddTransactionIdToPurchasedServicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('purchased_services', function (Blueprint $table) {
-            $table->foreignId('transaction_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->after('user_id');
+        $driver = Schema::connection($this->getConnection())->getConnection()->getDriverName();
+
+        Schema::table('purchased_services', function (Blueprint $table) use ($driver) {
+            $column = $table->unsignedBigInteger('transaction_id');
+
+            // should not be nullable in production
+            if ($driver == 'sqlite') {
+                $column->nullable();
+            }
+
+            $table->foreign('transaction_id')
+                ->references('id')
+                ->on('transactions')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+
+
         });
     }
 
@@ -26,7 +41,8 @@ class AddTransactionIdToPurchasedServicesTable extends Migration
     public function down()
     {
         Schema::table('purchased_services', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('transaction_id');
+            $table->dropColumn('transaction_id');
         });
     }
+
 }

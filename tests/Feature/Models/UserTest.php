@@ -11,6 +11,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -20,6 +21,20 @@ class UserTest extends TestCase
 {
     use RefreshDatabase, DatabaseMigrations, ModelHelperTesting;
 
+    public function test_insert_data()
+    {
+        $model = $this->model();
+        $data = $model::factory()->make()->toArray();
+
+        $data['password'] = 12345678;
+
+        $user = $model::create($data);
+
+
+        $this->assertDatabaseHas($model->getTable(), [
+            'id' => $user->id
+        ]);
+    }
 
 
     public function test_user_relationship_with_comment()
@@ -67,7 +82,7 @@ class UserTest extends TestCase
                         'asked_user_id' => $user->id
                     ];
                 })
-            , 'asked_tickets')
+                , 'asked_tickets')
             ->create();
 
         $this->assertCount($count, $user->asked_tickets);
@@ -103,10 +118,6 @@ class UserTest extends TestCase
         $this->assertCount($count, $user->purchasedServices);
         $this->assertTrue($user->purchasedServices->first() instanceof PurchasedService);
     }
-
-
-
-
 
 
     protected function model(): Model

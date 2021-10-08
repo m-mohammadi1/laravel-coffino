@@ -91,6 +91,14 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'sqlite_testing' => [
+            'driver'   => 'sqlite',
+            'database' => ':memory:',
+            'prefix'   => '',
+            'exec'     => 'PRAGMA foreign_keys = ON;',
+        ],
+
+
     ],
 
     /*

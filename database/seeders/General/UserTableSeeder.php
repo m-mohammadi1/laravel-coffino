@@ -22,6 +22,7 @@ class UserTableSeeder extends Seeder
                 'email_verified_at' => now(),
             ]
         );
+
         $super_admin->assignRole('super-admin');
 
         $admin = User::firstOrCreate(

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\General;
 
 use App\Models\SingleOption;
 use Illuminate\Database\Seeder;
@@ -75,15 +75,6 @@ class SingleOptionsTableSeeder extends Seeder
         foreach ($infoArray as $arr) {
             SingleOption::factory()->create($arr);
         }
-//        SingleOption::factory()->create([
-//            'name' => 'site_title',
-//            'title' => '',
-//            'value' => '',
-//        ]);
-
-
-
-
 
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\General;
 
 use App\Models\Comment;
 use App\Models\User;

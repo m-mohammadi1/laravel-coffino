@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Auth\AuthMainSeeder;
+use Database\Seeders\General\GeneralsMainSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,13 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        // $this->call(ServicesTableSeeder::class);
-        $this->call(RoleAndPermissionSeeder::class);
-        $this->call(UserTableSeeder::class);
-        $this->call(CountsTableSeeder::class);
-        $this->call(FaqsTableSeeder::class);
-        $this->call(CommentsTableSeeder::class);
-        $this->call(SingleOptionsTableSeeder::class);
+        $this->call(AuthMainSeeder::class);
+        $this->call(GeneralsMainSeeder::class);
     }
 }

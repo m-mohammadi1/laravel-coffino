@@ -1,10 +1,11 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\General;
 
+use App\Models\Faq;
 use Illuminate\Database\Seeder;
 
-class RoleSeeder extends Seeder
+class FaqsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,6 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Faq::factory()->count(20)->create();
     }
 }
